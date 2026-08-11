@@ -1,0 +1,17 @@
+<div style="background: #f8f9fa; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 35px 0;">
+      <div class="page-width" style="max-width: 1400px; margin: 0 auto; padding: 0 15px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px;">
+          
+          <div *ngFor="let item of features" style="display: flex; align-items: center; gap: 18px;">
+            <div style="width: 55px; height: 55px; border-radius: 50%; background: #ffffff; border: 2px solid #e9611e; color: #e9611e; display: flex; justify-content: center; align-items: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+              <i [class]="item.icon"></i>
+            </div>
+            <div>
+              <h4 style="font-size: 16px; font-weight: 700; color: #232f3e; margin: 0 0 4px 0;">{{ item.title }}</h4>
+              <p style="font-size: 13px; color: #64748b; margin: 0;">{{ item.desc }}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>

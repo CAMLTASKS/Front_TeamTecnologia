@@ -1,0 +1,11 @@
+<div *ngIf="visible()" class="notification-toast-card">
+  <img [src]="currentNotification().image" alt="Product" style="width: 40px; height: 40px; object-fit: contain; background: #f8f9fa; border-radius: 3px; padding: 2px;">
+  
+  <div style="flex: 1;">
+    <div style="color: #64748b; font-size: 10px;">Someone Purchased</div>
+    <div style="font-weight: 700; color: #232f3e; margin: 2px 0;">{{ currentNotification().title }}</div>
+    <div style="color: #94a3b8; font-size: 9px;">({{ currentNotification().location }}) • {{ currentNotification().timeAgo }}</div>
+  </div>
+
+  <button (click)="visible.set(false)" style="background: none; border: none; font-size: 14px; color: #94a3b8; cursor: pointer; padding: 0;">&times;</button>
+</div>

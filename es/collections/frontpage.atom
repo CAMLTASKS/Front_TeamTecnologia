@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="es" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://toolgard-codezeel.myshopify.com/es/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://toolgard-codezeel.myshopify.com/es/collections/frontpage.atom"/>
+  <title>Toolgard (Password: demo)</title>
+  <updated>2023-04-18T06:40:14-04:00</updated>
+  <author>
+    <name>Toolgard (Password: demo)</name>
+  </author>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/es/products/8219874459937</id>
+    <published>2023-04-18T06:40:14-04:00</published>
+    <updated>2023-04-18T06:40:14-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/es/products/et-harum-quidem"/>
+    <title>Dotcom Screw Driver Motorcycle Tool Set</title>
+    <s:type>Tools</s:type>
+    <s:vendor>Robert Bosch</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/11_b0df4009-a419-4030-a64c-2a09e465326b.jpg?v=1682059330"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Proveedor: </strong>Robert Bosch<br>
+        <strong>Tipo: </strong>Tools<br>
+        <strong>Precio: </strong>
+            250.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span class="MuiBox-root jss8118 innerWrapText">Elegant and comfy, this embroidered A-line dress which has a round neck, and three-quarter sleeves is all you need to ensure your wardrobe is up to date. B</span><span>rowse through the latest collection of various ethnic dresses with cap sleeve sleeve designs to give a flawless desi look. Stay up to date with the great selection of attractive traditional ethnic dresses made with the perfect blend and modern style.</span></p>
+<h4><strong>Sample Unordered List</strong></h4>
+<ul>
+<li>Comodous in tempor ullamcorper miaculis</li>
+<li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
+<li>Divamus sit amet purus justo.</li>
+<li>Proin molestie egestas orci ac suscipit risus posuere loremou.</li>
+</ul>
+<h4><strong>Sample Ordered Lista</strong></h4>
+<ol>
+<li>Comodous in tempor ullamcorper miaculis</li>
+<li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
+<li>Divamus sit amet purus justo.</li>
+<li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
+</ol>
+<h4><strong>Sample Paragraph Text</strong></h4>
+<blockquote>
+<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summe!</p>
+</blockquote></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Cotton</s:tag>
+    <s:tag>Fashion</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/es/products/8219874459937</id>
+      <title>Default Title</title>
+      <s:price currency="USD">250.00</s:price>
+      <s:sku>NHFL5-22</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

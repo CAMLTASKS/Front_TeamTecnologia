@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://toolgard-codezeel.myshopify.com/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://toolgard-codezeel.myshopify.com/collections/special.atom"/>
+  <title>Toolgard (Password: demo)</title>
+  <updated>2023-04-21T03:26:59-04:00</updated>
+  <author>
+    <name>Toolgard (Password: demo)</name>
+  </author>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/products/8224352764193</id>
+    <published>2023-04-21T03:26:59-04:00</published>
+    <updated>2023-04-21T03:26:59-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/products/kobalt-24v-max-1-2-inch-brushless-compact-wrench"/>
+    <title>Kobalt 24V Max 1/2 inch Brushless Compact Wrench</title>
+    <s:type>Tools</s:type>
+    <s:vendor>Williams</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/20_3e0708b4-66e7-4858-be5b-1817cbe070c2.jpg?v=1682062022"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Williams<br>
+        <strong>Type: </strong>Tools<br>
+        <strong>Price: </strong>
+            25.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span class="MuiBox-root jss8118 innerWrapText">Elegant and comfy, this embroidered A-line dress which has a round neck, and three-quarter sleeves is all you need to ensure your wardrobe is up to date. B</span>rowse through the latest collection of various ethnic dresses with cap sleeve sleeve designs to give a flawless desi look. Stay up to date with the great selection of attractive traditional ethnic dresses made with the perfect blend and modern style.</p>
+<ul class="jss8114">
+<li>Type : A-Line Dresses</li>
+<li>Design : Embroidered</li>
+<li>Neckline : Round Neck</li>
+<li>Style : Casual</li>
+<li>Length : Calf-Length</li>
+<li>Sleeve Length : 3/4th Sleeves</li>
+<li>Fabric : Cotton</li>
+<li>Fit : Regular Fit</li>
+<li>Care Instructions : Machine Wash</li>
+<li>Model Wears : Size S,has Height 5'7",Chest 33",and Waist 28"</li>
+<li>Return Policy : This product is returnable within 30 days of delivery</li>
+<li>Product : Dress</li>
+<li>Country of Origin : India</li>
+</ul>
+<ul class="jss5998"></ul>
+<ul></ul>
+<ul class="jss3131"></ul></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Accessories</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Time_2025/8/28 10:12:00</s:tag>
+    <s:tag>Time_2025/9/28 10:15:00</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8224352764193</id>
+      <title>Default Title</title>
+      <s:price currency="USD">25.00</s:price>
+      <s:sku>NHFL5-26</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+    <published>2023-04-18T06:42:34-04:00</published>
+    <updated>2023-04-18T06:42:34-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/products/copy-of-laura-bambrough-viverra-del"/>
+    <title>Bosch professional Angle Grinder for Metal</title>
+    <s:type>Blouse</s:type>
+    <s:vendor>Dremal Edwards</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/3_9f1dcbfa-94a9-4eed-a0cb-9759c45b95fd.jpg?v=1682058146"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dremal Edwards<br>
+        <strong>Type: </strong>Blouse<br>
+        <strong>Price: </strong>
+            240.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euismod tellus. Nam mattis eros nec mi sagittis sagittis. Vestibulum suscipit cursus bibendum. Integer at justo eget sem auctor auctor eget vitae arcu. Nam tempor malesuada porttitor. Nulla quis dignissim ipsum. Aliquam pulvinar iaculis justo, sit amet interdum sem hendrerit vitae. Vivamus vel erat tortor. Nulla facilisi. In nulla quam, lacinia eu aliquam ac, aliquam in nisl.<br></p>
+<h5><strong>Unordered list</strong></h5>
+<ul>
+<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+<li>Maecenas ullamcorper est et massa mattis condimentum.</li>
+<li>Vestibulum sed massa vel ipsum imperdiet malesuada id tempus nisl.</li>
+<li>Etiam nec massa et lectus faucibus ornare congue in nunc.</li>
+<li>Mauris eget diam magna, in blandit turpis.</li>
+</ul>
+<h5><strong>Ordered list</strong></h5>
+<ol>
+<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+<li>Maecenas ullamcorper est et massa mattis condimentum.</li>
+<li>Vestibulum sed massa vel ipsum imperdiet malesuada id tempus nisl.</li>
+<li>Etiam nec massa et lectus faucibus ornare congue in nunc.</li>
+<li>Mauris eget diam magna, in blandit turpis.</li>
+</ol>
+<p>In cursus faucibus tortor eu vestibulum. Ut eget turpis ac justo porta varius. Donec vel felis ante, ac vehicula ipsum. Quisque sed diam metus. Quisque eget leo sit amet erat varius rutrum vitae dapibus lectus. Vivamus et sapien ante. Suspendisse potenti. Fusce in tellus est, ac consequat lacus. Nulla risus massa, commodo in imperdiet ut, ornare in leo. Duis pellentesque sagittis lorem, sed mollis lorem venenatis id.</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Clothes</s:tag>
+    <s:tag>Cotton</s:tag>
+    <s:tag>Fashion</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Time_2025/11/14 10:12:00</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+      <title>S / Yellow</title>
+      <s:price currency="USD">240.00</s:price>
+      <s:sku>NHFL5</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+      <title>S / Red</title>
+      <s:price currency="USD">240.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+      <title>M / Yellow</title>
+      <s:price currency="USD">240.00</s:price>
+      <s:sku>NHFL6</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+      <title>M / Red</title>
+      <s:price currency="USD">240.00</s:price>
+      <s:sku>NHFL4</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+      <title>L / Yellow</title>
+      <s:price currency="USD">240.00</s:price>
+      <s:sku>NHFL7</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219883143457</id>
+      <title>L / Red</title>
+      <s:price currency="USD">240.00</s:price>
+      <s:sku>NHFL9</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/products/8219881242913</id>
+    <published>2023-04-18T06:42:03-04:00</published>
+    <updated>2023-04-18T06:42:03-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/products/copy-of-duis-sit-amet-massa-1"/>
+    <title>Shrih T-handle 28 Piece Standard Screwdriver Set</title>
+    <s:type>Hat</s:type>
+    <s:vendor>Rotazip</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/14.jpg?v=1682060197"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Rotazip<br>
+        <strong>Type: </strong>Hat<br>
+        <strong>Price: </strong>
+            250.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><span class="MuiBox-root jss6351 innerWrapText">Enhance your style with this printed top, which is designed with three-quarter sleeves and a round neckline. Adding to the style quotient, this top is detailed with a schiffli detailed structure<span class="MuiBox-root jss8118 innerWrapText" data-mce-fragment="1"> B</span><span data-mce-fragment="1">rowse through the latest collection of various ethnic dresses with cap sleeve sleeve designs to give a flawless desi look. Stay up to date with the great selection of attractive traditional ethnic dresses made with the perfect blend and modern style.</span></span>
+<ul class="jss6347">
+<li>Type : Casual Tops</li>
+<li>Design : Printed</li>
+<li>Neckline : Round Neck</li>
+<li>Style : Casual</li>
+<li>Sleeve Length : 3/4th Sleeves</li>
+<li>Fabric : Cotton Blend</li>
+<li>Care Instructions : Machine Wash</li>
+<li>Model Wears : Size S,has Height 5'7" and Chest 33"</li>
+<li>Return Policy : This product is returnable within 30 days of delivery</li>
+<li>Product : Top</li>
+<li>Country of Origin : Germany</li>
+<li>Net Quantity : 350</li>
+</ul></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Caps</s:tag>
+    <s:tag>Cotton</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Time_2025/7/18 12:30:00</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219881242913</id>
+      <title>Pink / Fabrics</title>
+      <s:price currency="USD">250.00</s:price>
+      <s:sku>NHFL5-14</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219881242913</id>
+      <title>Brown / Fabrics</title>
+      <s:price currency="USD">250.00</s:price>
+      <s:sku>NHFL5-15</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+    <published>2023-04-18T06:41:47-04:00</published>
+    <updated>2023-04-18T06:41:47-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/products/copy-of-aliquam-vitaeaugueamet-3"/>
+    <title>Stripper with Cutting Edge Yellow Wire Cutter</title>
+    <s:type>Bags</s:type>
+    <s:vendor>Hammerhead</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/15_b2e32ce3-90ad-408a-94c4-c795b81c573d.jpg?v=1682060327"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Hammerhead<br>
+        <strong>Type: </strong>Bags<br>
+        <strong>Price: </strong>
+            340.00 - 350.00
+            <a href="https://toolgard-codezeel.myshopify.com/products/copy-of-aliquam-vitaeaugueamet-3">(6 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span class="MuiBox-root jss8118 innerWrapText">Elegant and comfy, this embroidered A-line dress which has a round neck, and three-quarter sleeves is all you need to ensure your wardrobe is up to date. B</span><span>rowse through the latest collection of various ethnic dresses with cap sleeve sleeve designs to give a flawless desi look. Stay up to date with the great selection of attractive traditional ethnic dresses made with the perfect blend and modern style.</span></p>
+<h4><strong>Sample Unordered List</strong></h4>
+<ul>
+<li>Comodous in tempor ullamcorper miaculis</li>
+<li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
+<li>Divamus sit amet purus justo.</li>
+<li>Proin molestie egestas orci ac suscipit risus posuere loremou.</li>
+</ul>
+<h4><strong>Sample Ordered Lista</strong></h4>
+<ol>
+<li>Comodous in tempor ullamcorper miaculis</li>
+<li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
+<li>Divamus sit amet purus justo.</li>
+<li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
+</ol>
+<h4><strong>Sample Paragraph Text</strong></h4>
+<blockquote>
+<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summe!</p>
+</blockquote></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Accessories</s:tag>
+    <s:tag>Cotton</s:tag>
+    <s:tag>Fashion</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Time_2025/05/20 10:18:00</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+      <title>S / Yellow</title>
+      <s:price currency="USD">350.00</s:price>
+      <s:sku>NHFL5</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+      <title>S / Black</title>
+      <s:price currency="USD">340.00</s:price>
+      <s:sku>NHFL6</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+      <title>M / Yellow</title>
+      <s:price currency="USD">350.00</s:price>
+      <s:sku>NHFL7</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+      <title>M / Black</title>
+      <s:price currency="USD">340.00</s:price>
+      <s:sku>NHFL8</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+      <title>L / Yellow</title>
+      <s:price currency="USD">350.00</s:price>
+      <s:sku>NHFL9</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219880292641</id>
+      <title>L / Black</title>
+      <s:price currency="USD">340.00</s:price>
+      <s:sku>NHFL10</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/products/8219879244065</id>
+    <published>2023-04-18T06:41:30-04:00</published>
+    <updated>2023-04-18T06:41:30-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/products/copy-of-adipiscing-sem-2"/>
+    <title>Professional Tools and Hardware Angle Grinder</title>
+    <s:type>Machine</s:type>
+    <s:vendor>Williams</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/7_3be8d190-5c64-4da7-b46c-c4930857d0b8.jpg?v=1682059044"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Williams<br>
+        <strong>Type: </strong>Machine<br>
+        <strong>Price: </strong>
+            90.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Stylish and comfortable this printed chemise is designed with short sleeves and a round neckline. <span class="MuiBox-root jss8118 innerWrapText" data-mce-fragment="1">Elegant and comfy, this embroidered A-line dress which has a round neck, and three-quarter sleeves is all you need to ensure your wardrobe is up to date. B</span><span data-mce-fragment="1">rowse through the latest collection of various ethnic dresses with cap sleeve sleeve designs to give a flawless desi look. Stay up to date with the great selection of attractive traditional ethnic dresses made with the perfect blend and modern style.</span><br></p>
+<ul class="jss11620">
+<li>Design : Printed</li>
+<li>Length : Knee-Length</li>
+<li>Sleeve Length : Half Sleeves</li>
+<li>Fabric : Cotton</li>
+<li>Care Instructions : Machine Wash</li>
+<li>Model Wears : Size S,has Height 5'7",Chest 33",and Waist 28"</li>
+<li>Return Policy : This product is returnable within 30 days of delivery</li>
+<li>Product : Chemise</li>
+<li>Country of Origin :USA</li>
+</ul>
+<p><span>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores.</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Clothing</s:tag>
+    <s:tag>Cotton</s:tag>
+    <s:tag>Fashion</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Time_2025/08/24 11:11:00</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219879244065</id>
+      <title>Default Title</title>
+      <s:price currency="USD">90.00</s:price>
+      <s:sku>NHFL5-28</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://toolgard-codezeel.myshopify.com/products/8219876131105</id>
+    <published>2023-04-18T06:40:40-04:00</published>
+    <updated>2023-04-18T06:40:40-04:00</updated>
+    <link rel="alternate" type="text/html" href="https://toolgard-codezeel.myshopify.com/products/at-solmen-va-esser"/>
+    <title>Segmented Diamond Blade for Tile Cutting</title>
+    <s:type>camera</s:type>
+    <s:vendor>Stanley</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0746/2338/5889/products/6_cb0407f4-8593-4fa2-9d44-6e4fb71575b1.jpg?v=1682058890"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Stanley<br>
+        <strong>Type: </strong>camera<br>
+        <strong>Price: </strong>
+            200.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
+<h4><strong>Sample Unordered List</strong></h4>
+<ul>
+<li>Comodous in tempor ullamcorper miaculis</li>
+<li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
+<li>Divamus sit amet purus justo.</li>
+<li>Proin molestie egestas orci ac suscipit risus posuere loremou.</li>
+</ul>
+<h4><strong>Sample Ordered Lista</strong></h4>
+<ol>
+<li>Comodous in tempor ullamcorper miaculis</li>
+<li>Pellentesque vitae neque mollis urna mattis laoreet.</li>
+<li>Divamus sit amet purus justo.</li>
+<li>Proin molestie egestas orci ac suscipit risus posuere loremous</li>
+</ol>
+<h4><strong>Sample Paragraph Text</strong></h4>
+<blockquote>
+<p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summe!</p>
+</blockquote></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Cotton</s:tag>
+    <s:tag>Shoes</s:tag>
+    <s:tag>Summer</s:tag>
+    <s:tag>Time_2025/12/24 10:12:00</s:tag>
+    <s:tag>Vintage</s:tag>
+    <s:variant>
+      <id>https://toolgard-codezeel.myshopify.com/products/8219876131105</id>
+      <title>Default Title</title>
+      <s:price currency="USD">200.00</s:price>
+      <s:sku>NHFL5-30</s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

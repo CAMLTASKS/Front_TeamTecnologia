@@ -1,0 +1,43 @@
+.cat-card {
+  border: 1px solid var(--color-border, #e5e5e5);
+  border-radius: 4px;
+  padding: 22px 10px;
+  background: var(--color-card-bg, #ffffff);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cat-card:hover {
+  border-color: var(--color-primary, #e9611e);
+  box-shadow: var(--shadow-md, 0 8px 20px rgba(0,0,0,0.06));
+  transform: translateY(-4px);
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 15px;
+  text-align: center;
+}
+
+/* Touch swiping for tablet & mobile viewports */
+@media (max-width: 992px) {
+  .cat-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 15px;
+    gap: 12px;
+  }
+  .cat-card {
+    min-width: 120px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 16px 8px;
+  }
+}

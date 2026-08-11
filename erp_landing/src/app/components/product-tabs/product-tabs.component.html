@@ -1,0 +1,65 @@
+<section class="products-section">
+  <div class="products-container">
+    
+    <!-- Section Title & Tabs -->
+    <div class="products-header">
+      <h2 class="section-heading">Trending Products</h2>
+      
+      <div class="products-tabs-row">
+        <span *ngFor="let tab of tabs" 
+              (click)="activeTab.set(tab)"
+              [class.active]="activeTab() === tab"
+              class="tab-item">
+          {{ tab }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Product Cards Grid -->
+    <div class="prod-grid">
+      
+      <div *ngFor="let p of productService.products()" class="p-card">
+        
+        <!-- Red Discount Badge -->
+        <span *ngIf="p.badge" class="badge-discount">
+          {{ p.badge }}
+        </span>
+
+        <!-- Product Image Container -->
+        <div (click)="quickViewService.openQuickView(p)" class="p-img-box">
+          <img [src]="p.image" [alt]="p.title" class="p-img">
+        </div>
+
+        <!-- Product Details -->
+        <div class="p-content">
+          <div class="p-vendor">{{ p.vendor }}</div>
+          
+          <h3 (click)="quickViewService.openQuickView(p)" class="p-title">
+            {{ p.title }}
+          </h3>
+
+          <!-- 5 Gold Stars -->
+          <div class="p-stars">
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+          </div>
+
+          <!-- Price & Floating Action Button -->
+          <div class="p-bottom-row">
+            <div class="p-price-wrap">
+              <span class="p-price">\${{ p.price.toFixed(2) }}</span>
+              <span *ngIf="p.originalPrice" class="p-orig-price">\${{ p.originalPrice.toFixed(2) }}</span>
+            </div>
+
+            <button (click)="cartService.addToCart(p)" title="Add to Cart" class="p-add-btn">
+              <i class="fa fa-shopping-bag"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
