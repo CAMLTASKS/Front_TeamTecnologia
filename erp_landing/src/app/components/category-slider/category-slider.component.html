@@ -1,17 +1,28 @@
 <div style="background: #ffffff; padding: 40px 0 20px 0;">
-      <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
-        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; text-align: center;" class="cat-grid">
-          
-          <div *ngFor="let cat of categories" class="cat-card" 
-               style="border: 1px solid #e5e5e5; border-radius: 4px; padding: 25px 10px; background: #ffffff; transition: all 0.3s ease; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div style="height: 65px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
-              <img [src]="cat.icon" [alt]="cat.name" style="max-height: 100%; max-width: 60px; object-fit: contain;">
-            </div>
-            <div style="font-size: 13px; font-weight: 700; color: #232f3e;">
-              {{ cat.name }}
-            </div>
-          </div>
+  <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2 style="font-size: 20px; font-weight: 700; color: #232f3e; margin: 0;">Categorías ERP</h2>
+      <span *ngIf="categoryService.loading()" style="font-size: 12px; color: #e9611e; font-weight: 600;">
+        <i class="fa fa-spinner fa-spin"></i> Cargando de SuiteCRM...
+      </span>
+    </div>
 
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; text-align: center;" class="cat-grid">
+      
+      <div *ngFor="let cat of categoryService.categories()" class="cat-card">
+        <div style="height: 65px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px;">
+          <img [src]="cat.icon" [alt]="cat.name" style="max-height: 100%; max-width: 60px; object-fit: contain;">
+        </div>
+        <div style="font-size: 13px; font-weight: 700; color: #232f3e;">
+          {{ cat.name }}
+        </div>
+        <div *ngIf="cat.subcategories && cat.subcategories.length > 0" style="font-size: 10px; color: #64748b; margin-top: 4px;">
+          ({{ cat.subcategories.length }} Subcategorías)
         </div>
       </div>
+
     </div>
+
+  </div>
+</div>

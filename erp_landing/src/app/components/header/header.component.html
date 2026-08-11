@@ -115,13 +115,15 @@
 
       <div *ngIf="showCategory()" class="cat-dropdown-menu">
         <ul>
-          <li>Jackhammer</li>
-          <li>Wrench Tool</li>
-          <li>Circle Saw</li>
-          <li>Power Saw</li>
-          <li>Decker Tool</li>
-          <li>Hammer Tool</li>
-          <li>Drill Tool</li>
+          <ng-container *ngFor="let cat of categoryService.categories()">
+            <li class="parent-cat-header">
+              <i class="fa fa-folder-open" style="color: #e9611e; margin-right: 6px;"></i>
+              <strong>{{ cat.name }}</strong>
+            </li>
+            <li *ngFor="let sub of cat.subcategories" class="sub-cat-item">
+              <span style="color: #94a3b8; margin-right: 6px;">↳</span> {{ sub.name }}
+            </li>
+          </ng-container>
         </ul>
       </div>
     </div>
