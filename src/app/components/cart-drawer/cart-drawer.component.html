@@ -1,0 +1,61 @@
+<!-- Backdrop overlay -->
+<div class="cart-drawer-backdrop" [class.active]="cartService.isCartOpen()" (click)="cartService.closeCart()"></div>
+
+<!-- Drawer Panel (Desktop Slide-over / Mobile Bottom Sheet) -->
+<div class="cart-drawer" [class.open]="cartService.isCartOpen()">
+  
+  <!-- Mobile Drag Handle -->
+  <div class="drag-handle-pill"></div>
+
+  <!-- Drawer Header -->
+  <div class="cart-drawer-header">
+    <h3>Shopping Cart ({{ cartService.totalCount() }})</h3>
+    <button class="cart-drawer-close" (click)="cartService.closeCart()">&times;</button>
+  </div>
+
+  <!-- Drawer Body -->
+  <div class="cart-drawer-body">
+    
+    <!-- Empty State -->
+    <div *ngIf="cartService.cartItems().length === 0" class="empty-cart-state">
+      <i class="fa fa-shopping-bag"></i>
+      <p class="empty-title">Your cart is empty</p>
+      <p class="empty-desc">Add some power tools or equipment to get started.</p>
+    </div>
+
+    <!-- Items List -->
+    <div *ngFor="let item of cartService.cartItems()" class="cart-item-row">
+      
+      <img [src]="item.product.image" [alt]="item.product.title" class="cart-item-img">
+      
+      <div class="cart-item-details">
+        <h4 class="cart-item-title">{{ item.product.title }}</h4>
+        <div class="cart-item-price">\${{ item.product.price.toFixed(2) }}</div>
+
+        <!-- Qty Controls -->
+        <div class="qty-controls">
+          <button (click)="cartService.updateQuantity(item.product.id, item.quantity - 1)" class="qty-btn">-</button>
+          <span class="qty-val">{{ item.quantity }}</span>
+          <button (click)="cartService.updateQuantity(item.product.id, item.quantity + 1)" class="qty-btn">+</button>
+        </div>
+      </div>
+
+      <button (click)="cartService.removeFromCart(item.product.id)" title="Remove" class="remove-item-btn">
+        <i class="fa fa-trash-o"></i>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Drawer Footer -->
+  <div *ngIf="cartService.cartItems().length > 0" class="cart-drawer-footer">
+    <div class="cart-drawer-total">
+      <span>Subtotal:</span>
+      <span>\${{ cartService.subtotal().toFixed(2) }}</span>
+    </div>
+    <p class="tax-note">Shipping & taxes calculated at checkout.</p>
+    <button class="btn-checkout">Proceed to Checkout</button>
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+.ttloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      z-index: 999999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .ttloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .rotating {
+      width: 120px;
+      height: 120px;
+      background-image: url('/cdn/shop/files/loading.gif');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: block;
+    }

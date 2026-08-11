@@ -1,0 +1,53 @@
+/* ==========================================================================
+   Toolgard ERP Design System - Centralized Color Variables & Tokens
+   ========================================================================== */
+
+:root {
+  /* Brand Primary Colors */
+  --color-primary: #e9611e;
+  --color-primary-hover: #d85210;
+  --color-primary-rgb: 233, 97, 30;
+
+  /* Brand Secondary / Dark Header Colors */
+  --color-secondary: #232f3e;
+  --color-secondary-hover: #19222d;
+  --color-secondary-rgb: 35, 47, 62;
+
+  /* Surface & Background Colors */
+  --color-dark-bg: #1b2430;
+  --color-dark-surface: #0f172a;
+  --color-light-bg: #f8f9fa;
+  --color-card-bg: #ffffff;
+  --color-body-bg: #ffffff;
+
+  /* Glassmorphism Tokens */
+  --glass-bg: rgba(35, 47, 62, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-blur: blur(16px);
+
+  /* Typography Text Colors */
+  --color-text-dark: #232f3e;
+  --color-text-main: #333333;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+  --color-text-white: #ffffff;
+
+  /* Border & Divider Colors */
+  --color-border: #e5e5e5;
+  --color-border-light: #f1f5f9;
+  --color-border-dark: #334155;
+
+  /* Status & Badge Colors */
+  --color-badge-sale: #ff4d4f;
+  --color-badge-new: #10b981;
+  --color-badge-hot: #e9611e;
+  --color-star-rating: #f59e0b;
+  --color-success: #10b981;
+  --color-error: #ef4444;
+
+  /* Shadow & Elevation Tokens */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --shadow-dock: 0 12px 35px rgba(0, 0, 0, 0.3);
+}

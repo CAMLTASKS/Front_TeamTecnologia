@@ -1,0 +1,74 @@
+<footer style="background: #1b2430; color: #94a3b8; padding-top: 50px; font-size: 13px;">
+      <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px 40px 20px;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 35px;">
+          
+          <!-- Column 1: Need Help -->
+          <div>
+            <h4 style="color: #ffffff; font-size: 15px; font-weight: 700; margin: 0 0 18px 0;">Need Help?</h4>
+            <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+              <li>60-29th Street San Francisco, 94110. 507 - Union Trade Center, USA</li>
+              <li><a href="mailto:toolgard@exampledemo.com" style="color: #e9611e; text-decoration: none;">toolgard&#64;exampledemo.com</a></li>
+              <li style="color: #ffffff; font-weight: 700;">(1800)-88-66-991</li>
+            </ul>
+          </div>
+
+          <!-- Column 2: About Us -->
+          <div>
+            <h4 style="color: #ffffff; font-size: 15px; font-weight: 700; margin: 0 0 18px 0;">About Us</h4>
+            <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2;">
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Policy for Buyers</a></li>
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Shipping Policy</a></li>
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Terms & Conditions</a></li>
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">About Toolgard ERP</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Information -->
+          <div>
+            <h4 style="color: #ffffff; font-size: 15px; font-weight: 700; margin: 0 0 18px 0;">Information</h4>
+            <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2;">
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Power Tools Catalog</a></li>
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Deals & Discounts</a></li>
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Contact Support</a></li>
+              <li><a href="javascript:void(0)" style="color: inherit; text-decoration: none;">Returns Policy</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter -->
+          <div>
+            <h4 style="color: #ffffff; font-size: 15px; font-weight: 700; margin: 0 0 18px 0;">Join Newsletter</h4>
+            <p style="line-height: 1.5; margin-bottom: 15px;">
+              Subscribe to our latest newsletter to get news about special discounts.
+            </p>
+            <form (submit)="onSubscribe($event)" style="display: flex; gap: 8px;">
+              <input type="email" placeholder="Your email address" required
+                     style="flex: 1; padding: 10px 12px; border-radius: 2px; border: 1px solid #334155; background: #0f172a; color: #fff; outline: none; font-size: 12px;">
+              <button type="submit" style="background: #e9611e; color: #fff; border: none; padding: 0 18px; border-radius: 2px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 11px;">
+                SUBSCRIBE
+              </button>
+            </form>
+            <div *ngIf="subscribed()" style="color: #10b981; font-size: 12px; margin-top: 8px; font-weight: 600;">
+              Thank you for subscribing!
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright Row -->
+      <div style="background: #0f172a; padding: 18px 0; border-top: 1px solid #1e293b; color: #64748b;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+          <div>
+            © 2026 <strong>Toolgard</strong>. All rights reserved.
+          </div>
+          <div style="display: flex; gap: 12px; font-size: 20px; color: #94a3b8;">
+            <i class="fa fa-cc-visa"></i>
+            <i class="fa fa-cc-mastercard"></i>
+            <i class="fa fa-cc-paypal"></i>
+            <i class="fa fa-cc-amex"></i>
+          </div>
+        </div>
+      </div>
+    </footer>

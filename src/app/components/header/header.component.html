@@ -1,0 +1,111 @@
+<!-- Top Dark Navy Header Bar -->
+<div class="header-dark-bar">
+  <div class="header-dark-inner">
+    
+    <!-- Mobile Hamburger & Logo Group -->
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="mobile-hamburger-btn" (click)="mobileNavService.toggleDrawer()">
+        <i class="fa fa-bars"></i>
+      </button>
+
+      <!-- Toolgard Logo -->
+      <a href="/" style="display: flex; align-items: center; text-decoration: none; flex-shrink: 0;">
+        <img src="/cdn/shop/files/logo_200x.png" alt="Toolgard" style="height: 38px; object-fit: contain;">
+      </a>
+    </div>
+
+    <!-- Search Bar with SEARCH button -->
+    <div class="header-search-container">
+      <input type="text" placeholder="Search Product Here..." class="header-search-input">
+      <button type="button" class="header-search-btn">
+        SEARCH
+      </button>
+    </div>
+
+    <!-- Right Side Icons & Actions -->
+    <div class="header-icons-row">
+      
+      <!-- Need Help -->
+      <div class="desktop-only-info" style="display: flex; flex-direction: column; line-height: 1.3;">
+        <span style="font-size: 11px; color: #94a3b8;">Necesita ayuda?</span>
+        <span style="font-weight: 700; color: #ffffff; font-size: 13px;">(+91) 0123-456-789</span>
+      </div>
+
+      <!-- My Account -->
+      <div class="desktop-only-info" style="display: flex; flex-direction: column; line-height: 1.3; cursor: pointer;">
+        <span style="font-size: 11px; color: #94a3b8;">My Account</span>
+        <span style="font-weight: 600; color: #ffffff; font-size: 13px;">Log in / Register</span>
+      </div>
+
+      <!-- Compare Icon Bubble -->
+      <a href="javascript:void(0)" title="Compare" class="icon-bubble desktop-only-icon">
+        <div class="icon-circle">
+          <i class="fa fa-sliders"></i>
+        </div>
+        <span class="icon-badge">0</span>
+      </a>
+
+      <!-- Wishlist Icon Bubble -->
+      <a href="javascript:void(0)" title="Wishlist" class="icon-bubble desktop-only-icon">
+        <div class="icon-circle">
+          <i class="fa fa-heart-o"></i>
+        </div>
+        <span class="icon-badge">0</span>
+      </a>
+
+      <!-- Cart Icon Bubble -->
+      <a href="javascript:void(0)" (click)="cartService.toggleCart()" title="Cart" class="icon-bubble">
+        <div class="icon-circle">
+          <i class="fa fa-shopping-bag"></i>
+        </div>
+        <span class="icon-badge">{{ cartService.totalCount() }}</span>
+      </a>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- White Navigation & Category Bar -->
+<div class="header-bottom-bar">
+  <div class="header-bottom-inner">
+    
+    <!-- Browse All Category Dropdown -->
+    <div style="position: relative;">
+      <button (click)="toggleCategory()" class="browse-cat-btn">
+        <i class="fa fa-bars" style="color: var(--color-primary, #e9611e); font-size: 15px;"></i>
+        <span>Browse All Category</span>
+        <i class="fa fa-chevron-down" style="font-size: 10px; color: #64748b;"></i>
+      </button>
+
+      <div *ngIf="showCategory()" class="cat-dropdown-menu">
+        <ul>
+          <li>Jackhammer</li>
+          <li>Wrench Tool</li>
+          <li>Circle Saw</li>
+          <li>Power Saw</li>
+          <li>Decker Tool</li>
+          <li>Hammer Tool</li>
+          <li>Drill Tool</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Inline Navigation Links -->
+    <nav class="desktop-nav-links">
+      <a href="javascript:void(0)" class="active">Home</a>
+      <a href="javascript:void(0)">Catalog</a>
+      <a href="javascript:void(0)">Tools</a>
+      <a href="javascript:void(0)">About Us</a>
+      <a href="javascript:void(0)">Blog</a>
+      <a href="javascript:void(0)">Contact</a>
+    </nav>
+
+    <!-- Currency & Language Dropdowns -->
+    <div class="desktop-currency-lang">
+      <span>USD $ <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
+      <span>English <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
+    </div>
+
+  </div>
+</div>

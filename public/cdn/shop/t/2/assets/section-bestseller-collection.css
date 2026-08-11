@@ -1,0 +1,13 @@
+.bestseller-products.spaced-section{
+  margin-top: 0;
+}
+.bestseller_grid .flip-countdown.simple-countdown{
+  display: none;
+}
+.bestseller_grid .card-information {
+	margin-bottom: 20px;
+}
+.bestseller_grid li::marker{
+  line-height: 0;
+  font-size: 0;
+}

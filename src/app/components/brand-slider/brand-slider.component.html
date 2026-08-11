@@ -1,0 +1,10 @@
+<div style="padding: 40px 0; background: #f8f9fa; border-top: 1px solid #e5e5e5;">
+      <div class="page-width" style="max-width: 1400px; margin: 0 auto; padding: 0 15px;">
+        <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 30px; opacity: 0.7;">
+          <div *ngFor="let brand of brands" style="font-size: 22px; font-weight: 900; color: #475569; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 8px;">
+            <i [class]="brand.icon" style="color: #e9611e;"></i>
+            <span>{{ brand.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>

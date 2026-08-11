@@ -1,0 +1,72 @@
+<!-- Backdrop -->
+<div class="mobile-drawer-backdrop" 
+     [class.active]="mobileNavService.isDrawerOpen()" 
+     (click)="mobileNavService.closeDrawer()">
+</div>
+
+<!-- Drawer Panel -->
+<div class="mobile-drawer-panel" [class.open]="mobileNavService.isDrawerOpen()">
+  
+  <!-- Header -->
+  <div class="drawer-header">
+    <img src="/cdn/shop/files/logo_200x.png" alt="Toolgard" class="drawer-logo">
+    <button class="drawer-close-btn" (click)="mobileNavService.closeDrawer()">&times;</button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="drawer-search">
+    <input type="text" placeholder="Search Product Here..." class="drawer-search-input">
+    <button class="drawer-search-btn">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+
+  <!-- Content Body -->
+  <div class="drawer-body">
+    
+    <!-- User Account Card -->
+    <div class="drawer-user-card">
+      <i class="fa fa-user-circle"></i>
+      <div>
+        <div class="user-title">My Account</div>
+        <div class="user-sub">Log in / Register</div>
+      </div>
+    </div>
+
+    <!-- Category Header -->
+    <div class="section-title">
+      <i class="fa fa-th-large"></i> Tool Categories
+    </div>
+
+    <!-- Category List -->
+    <div class="drawer-cat-list">
+      <div *ngFor="let cat of categories" class="drawer-cat-item" (click)="mobileNavService.closeDrawer()">
+        <img [src]="cat.icon" [alt]="cat.name" class="cat-icon">
+        <span>{{ cat.name }}</span>
+        <i class="fa fa-angle-right arrow"></i>
+      </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <div class="section-title">
+      <i class="fa fa-compass"></i> Navigation
+    </div>
+
+    <ul class="drawer-menu-list">
+      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Home</a></li>
+      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Catalog</a></li>
+      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Tools</a></li>
+      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">About Us</a></li>
+      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Blog</a></li>
+      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Contact</a></li>
+    </ul>
+
+    <!-- Currency & Language -->
+    <div class="drawer-footer-options">
+      <div><strong>Currency:</strong> USD ($)</div>
+      <div><strong>Language:</strong> English</div>
+    </div>
+
+  </div>
+
+</div>

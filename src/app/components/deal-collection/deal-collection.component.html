@@ -1,0 +1,82 @@
+<section style="padding: 60px 0; background: linear-gradient(135deg, #1b2430 0%, #232f3e 100%); color: #fff;">
+      <div class="page-width" style="max-width: 1400px; margin: 0 auto; padding: 0 15px;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center;">
+          
+          <!-- Image & Discount Badge -->
+          <div style="position: relative; text-align: center;">
+            <div style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 30px; border: 1px solid rgba(255,255,255,0.1);">
+              <img [src]="deal.image" [alt]="deal.title" style="max-width: 100%; max-height: 350px; object-fit: contain;">
+            </div>
+            <div style="position: absolute; top: 20px; right: 20px; background: #e9611e; color: #fff; width: 70px; height: 70px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: 800; font-size: 18px; box-shadow: 0 5px 15px rgba(233,97,30,0.4);">
+              <span>-30%</span>
+              <span style="font-size: 10px; text-transform: uppercase;">OFF</span>
+            </div>
+          </div>
+
+          <!-- Deal Details & Countdown Timer -->
+          <div>
+            <span style="background: rgba(233, 97, 30, 0.2); color: #e9611e; border: 1px solid #e9611e; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+              Limited Time Offer
+            </span>
+
+            <h2 style="font-size: 36px; font-weight: 800; margin: 15px 0 10px 0; color: #ffffff;">
+              {{ deal.title }}
+            </h2>
+
+            <p style="color: #94a3b8; font-size: 15px; margin-bottom: 25px; line-height: 1.6;">
+              {{ deal.description }}
+            </p>
+
+            <!-- Price -->
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+              <span style="font-size: 36px; font-weight: 900; color: #e9611e;">\${{ deal.price.toFixed(2) }}</span>
+              <span style="font-size: 20px; color: #64748b; text-decoration: line-through;">\${{ deal.originalPrice?.toFixed(2) }}</span>
+            </div>
+
+            <!-- Countdown Box -->
+            <div style="margin-bottom: 30px;">
+              <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; color: #cbd5e1; margin-bottom: 10px; letter-spacing: 1px;">
+                Hurry Up! Offer Ends In:
+              </div>
+              <div style="display: flex; gap: 15px;">
+                <div class="timer-box">
+                  <span class="timer-val">{{ days() }}</span>
+                  <span class="timer-lbl">Days</span>
+                </div>
+                <div class="timer-box">
+                  <span class="timer-val">{{ hours() }}</span>
+                  <span class="timer-lbl">Hours</span>
+                </div>
+                <div class="timer-box">
+                  <span class="timer-val">{{ minutes() }}</span>
+                  <span class="timer-lbl">Mins</span>
+                </div>
+                <div class="timer-box">
+                  <span class="timer-val">{{ seconds() }}</span>
+                  <span class="timer-lbl">Secs</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stock progress -->
+            <div style="margin-bottom: 25px;">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #cbd5e1;">
+                <span>Available: <strong>12 items</strong></span>
+                <span>Already Claimed: <strong>88%</strong></span>
+              </div>
+              <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                <div style="width: 88%; height: 100%; background: #e9611e; border-radius: 4px;"></div>
+              </div>
+            </div>
+
+            <button (click)="cartService.addToCart(deal)" style="background: #e9611e; color: #fff; border: none; padding: 14px 36px; font-size: 16px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; gap: 10px; transition: background 0.2s;">
+              <i class="fa fa-shopping-bag"></i> Claim Deal Now
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>

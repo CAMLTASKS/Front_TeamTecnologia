@@ -1,0 +1,19 @@
+.timer-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 10px 16px;
+      text-align: center;
+      min-width: 65px;
+    }
+    .timer-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      display: block;
+    }
+    .timer-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
