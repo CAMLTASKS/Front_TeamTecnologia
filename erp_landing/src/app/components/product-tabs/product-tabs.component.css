@@ -29,22 +29,28 @@
 
 .products-tabs-row {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   font-size: 13px;
   font-weight: 600;
+  flex-wrap: wrap;
 }
 
 .tab-item {
   cursor: pointer;
   color: var(--color-text-muted, #475569);
   transition: color 0.2s ease;
+  padding-bottom: 4px;
+}
+
+.tab-item.sub-tab {
+  font-size: 11px;
+  opacity: 0.85;
 }
 
 .tab-item.active,
 .tab-item:hover {
   color: var(--color-primary, #e9611e);
   border-bottom: 2px solid var(--color-primary, #e9611e);
-  padding-bottom: 4px;
 }
 
 /* Grid & Cards */
@@ -75,13 +81,14 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background: var(--color-badge-sale, #ff4d4f);
+  background: var(--color-badge-sale, #e9611e);
   color: #ffffff;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
-  padding: 4px 8px;
-  border-radius: 12px;
+  padding: 3px 7px;
+  border-radius: 10px;
   z-index: 2;
+  letter-spacing: 0.5px;
 }
 
 .p-img-box {

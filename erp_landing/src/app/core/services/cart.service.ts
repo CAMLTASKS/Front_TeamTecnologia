@@ -30,11 +30,11 @@ export class CartService {
     this.openCart();
   }
 
-  removeFromCart(productId: number) {
+  removeFromCart(productId: number | string) {
     this.cartItems.set(this.cartItems().filter(item => item.product.id !== productId));
   }
 
-  updateQuantity(productId: number, quantity: number) {
+  updateQuantity(productId: number | string, quantity: number) {
     if (quantity <= 0) {
       this.removeFromCart(productId);
       return;

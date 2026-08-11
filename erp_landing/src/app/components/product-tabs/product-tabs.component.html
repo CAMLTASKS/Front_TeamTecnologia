@@ -1,46 +1,74 @@
 <section class="products-section">
   <div class="products-container">
     
-    <!-- Section Title & Tabs -->
+    <!-- Section Title & Dynamic Category Tabs from SuiteCRM -->
     <div class="products-header">
-      <h2 class="section-heading">Trending Products</h2>
+      <div>
+        <h2 class="section-heading">Productos ERP SuiteCRM</h2>
+        <span *ngIf="productService.loading()" style="font-size: 12px; color: #e9611e; font-weight: 600; margin-top: 4px; display: inline-block;">
+          <i class="fa fa-spinner fa-spin"></i> Filtrando de SuiteCRM...
+        </span>
+      </div>
       
       <div class="products-tabs-row">
-        <span *ngFor="let tab of tabs" 
-              (click)="activeTab.set(tab)"
-              [class.active]="activeTab() === tab"
+        <!-- All Products Tab -->
+        <span (click)="selectCategory('')"
+              [class.active]="productService.selectedCategoryId() === ''"
               class="tab-item">
-          {{ tab }}
+          Todos los Productos
         </span>
+
+        <!-- Dynamic Parent Categories Tabs -->
+        <ng-container *ngFor="let cat of categoryService.categories()">
+          <span (click)="selectCategory(cat.id)"
+                [class.active]="productService.selectedCategoryId() === cat.id"
+                class="tab-item">
+            {{ cat.name }}
+          </span>
+          <!-- Dynamic Subcategories Tabs -->
+          <span *ngFor="let sub of cat.subcategories"
+                (click)="selectCategory(sub.id)"
+                [class.active]="productService.selectedCategoryId() === sub.id"
+                class="tab-item sub-tab">
+            ↳ {{ sub.name }}
+          </span>
+        </ng-container>
       </div>
     </div>
 
     <!-- Product Cards Grid -->
     <div class="prod-grid">
       
+      <!-- Empty State -->
+      <div *ngIf="!productService.loading() && productService.products().length === 0" style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #64748b;">
+        <i class="fa fa-box-open" style="font-size: 36px; margin-bottom: 12px; color: #cbd5e1; display: block;"></i>
+        No se encontraron productos en esta categoría en SuiteCRM.
+      </div>
+
       <div *ngFor="let p of productService.products()" class="p-card">
         
-        <!-- Red Discount Badge -->
+        <!-- Part Number Badge -->
         <span *ngIf="p.badge" class="badge-discount">
           {{ p.badge }}
         </span>
 
         <!-- Product Image Container -->
-        <div (click)="quickViewService.openQuickView(p)" class="p-img-box">
+        <div (click)="openQuickView(p)" class="p-img-box">
           <img [src]="p.image" [alt]="p.title" class="p-img">
         </div>
 
         <!-- Product Details -->
         <div class="p-content">
-          <div class="p-vendor">{{ p.vendor }}</div>
+          <div class="p-vendor">{{ p.vendor || 'SKU ERP' }}</div>
           
-          <h3 (click)="quickViewService.openQuickView(p)" class="p-title">
+          <h3 (click)="openQuickView(p)" class="p-title">
             {{ p.title }}
           </h3>
 
           <!-- 5 Gold Stars -->
           <div class="p-stars">
             <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+            <span style="font-size: 11px; color: #64748b; margin-left: 4px;">({{ p.reviewsCount || 15 }})</span>
           </div>
 
           <!-- Price & Floating Action Button -->
@@ -50,7 +78,7 @@
               <span *ngIf="p.originalPrice" class="p-orig-price">\${{ p.originalPrice.toFixed(2) }}</span>
             </div>
 
-            <button (click)="cartService.addToCart(p)" title="Add to Cart" class="p-add-btn">
+            <button (click)="addToCart(p)" title="Añadir al Carrito" class="p-add-btn">
               <i class="fa fa-shopping-bag"></i>
             </button>
           </div>

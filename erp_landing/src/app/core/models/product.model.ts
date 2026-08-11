@@ -1,13 +1,14 @@
 export interface Product {
-  id: number;
+  id: number | string;
   title: string;
   price: number;
   originalPrice?: number;
   vendor: string;
-  type: string;
-  sku: string;
+  type?: string;
+  sku?: string;
   image: string;
   rating: number;
+  reviewsCount?: number;
   badge?: string;
   description: string;
 }
