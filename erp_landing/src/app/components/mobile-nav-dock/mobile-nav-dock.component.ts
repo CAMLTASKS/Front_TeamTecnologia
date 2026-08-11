@@ -14,6 +14,12 @@ export class MobileNavDockComponent {
   cartService = inject(CartService);
   mobileNavService = inject(MobileNavService);
 
+  activeTab: string = 'home';
+
+  selectTab(tab: string) {
+    this.activeTab = tab;
+  }
+
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

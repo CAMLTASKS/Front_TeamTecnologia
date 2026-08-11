@@ -14,11 +14,11 @@
       </a>
     </div>
 
-    <!-- Desktop Search Bar -->
-    <div class="header-search-container desktop-only-search">
-      <input type="text" placeholder="Search Product Here..." class="header-search-input">
+    <!-- Desktop Search Bar (Triggers Interactive Search Modal) -->
+    <div class="header-search-container desktop-only-search" (click)="openSearchModal()">
+      <input type="text" placeholder="Search tools, equipment, brands..." class="header-search-input" readonly>
       <button type="button" class="header-search-btn">
-        SEARCH
+        <i class="fa fa-search" style="margin-right: 6px;"></i> SEARCH
       </button>
     </div>
 
@@ -71,30 +71,32 @@
   </div>
 </div>
 
-<!-- Interactive Top Search Modal Overlay -->
+<!-- Interactive Top Search Modal Overlay (Desktop & Mobile) -->
 <div class="search-modal-backdrop" [class.active]="showSearchModal()" (click)="closeSearchModal()"></div>
 <div class="search-modal-panel" [class.open]="showSearchModal()">
-  <div class="search-modal-header">
-    <div class="search-input-wrap">
-      <i class="fa fa-search search-icon"></i>
-      <input type="text" 
-             [value]="searchQuery()" 
-             (input)="searchQuery.set($any($event.target).value)" 
-             placeholder="Search tools, equipment, brands..." 
-             class="modal-search-input"
-             #searchInput>
-      <button *ngIf="searchQuery()" (click)="clearSearch()" class="clear-btn">&times;</button>
+  <div class="search-modal-inner">
+    <div class="search-modal-header">
+      <div class="search-input-wrap">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" 
+               [value]="searchQuery()" 
+               (input)="searchQuery.set($any($event.target).value)" 
+               placeholder="Search tools, equipment, brands..." 
+               class="modal-search-input"
+               #searchInput>
+        <button *ngIf="searchQuery()" (click)="clearSearch()" class="clear-btn">&times;</button>
+      </div>
+      <button class="search-close-btn" (click)="closeSearchModal()">&times;</button>
     </div>
-    <button class="search-close-btn" (click)="closeSearchModal()">&times;</button>
-  </div>
 
-  <!-- Quick Suggestions -->
-  <div class="search-modal-body">
-    <div class="quick-title">Popular Searches</div>
-    <div class="quick-tags">
-      <span *ngFor="let tag of quickTags" (click)="selectTag(tag)" class="tag-chip">
-        <i class="fa fa-fire"></i> {{ tag }}
-      </span>
+    <!-- Quick Suggestions -->
+    <div class="search-modal-body">
+      <div class="quick-title">Popular Searches</div>
+      <div class="quick-tags">
+        <span *ngFor="let tag of quickTags" (click)="selectTag(tag)" class="tag-chip">
+          <i class="fa fa-fire"></i> {{ tag }}
+        </span>
+      </div>
     </div>
   </div>
 </div>
