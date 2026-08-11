@@ -1,0 +1,711 @@
+{
+  "info": {
+    "_postman_id": "57376667-6684-4d75-bc4f-1559d83f643b",
+    "name": "SuiteCRM V8 API - Team Tecnologia (ERP Productos & Categorías)",
+    "description": "Colección completa de la API V8 de SuiteCRM para el sistema ERP de Team Tecnología. Incluye módulos de Autenticación OAuth2, Productos (AOS_Products), Categorías y Subcategorías (AOS_Product_Categories) y Clientes (Accounts y Contacts).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. OAuth2 Autenticación",
+      "item": [
+        {
+          "name": "Obtener Access Token (OAuth2)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData && jsonData.access_token) {",
+                  "    pm.collectionVariables.set(\"suitecrm_token\", jsonData.access_token);",
+                  "    console.log(\"¡Token de SuiteCRM V8 guardado exitosamente en la variable suitecrm_token!\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "password",
+                  "type": "text"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{client_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{client_secret}}",
+                  "type": "text"
+                },
+                {
+                  "key": "username",
+                  "value": "{{username}}",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{suitecrm_url}}/access_token",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "access_token"
+              ]
+            },
+            "description": "Genera el token de acceso OAuth2 usando el grant_type password. El token se almacena automáticamente en 'suitecrm_token'."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Categorías y Subcategorías (AOS_Product_Categories)",
+      "item": [
+        {
+          "name": "Listar Todas las Categorías y Subcategorías",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Product_Categories",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Product_Categories"
+              ]
+            },
+            "description": "Obtiene la lista completa de categorías y subcategorías creadas en SuiteCRM."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Categorías Principales (Padres)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Product_Categories?filter[is_parent][eq]=1",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Product_Categories"
+              ],
+              "query": [
+                {
+                  "key": "filter[is_parent][eq]",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Filtra únicamente las categorías raices o principales (donde is_parent = 1)."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Subcategorías por ID de Categoría Padre",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Product_Categories?filter[parent_category_id][eq]={{parent_category_id}}",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Product_Categories"
+              ],
+              "query": [
+                {
+                  "key": "filter[parent_category_id][eq]",
+                  "value": "{{parent_category_id}}"
+                }
+              ]
+            },
+            "description": "Obtiene las subcategorías que pertenecen a una categoría padre específica."
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Detalle de una Categoría",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Product_Categories/{{category_id}}",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Product_Categories",
+                "{{category_id}}"
+              ]
+            },
+            "description": "Obtiene la información y atributos detallados de una categoría por su ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Nueva Categoría Padre",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"AOS_Product_Categories\",\n    \"attributes\": {\n      \"name\": \"Herramientas Manuales\",\n      \"is_parent\": 1,\n      \"description\": \"Categoría principal para llaves, martillos y desarmadores\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module"
+              ]
+            },
+            "description": "Crea una nueva categoría raíz (padre)."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Nueva Subcategoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"AOS_Product_Categories\",\n    \"attributes\": {\n      \"name\": \"Juegos de Llaves y Dados\",\n      \"is_parent\": 0,\n      \"parent_category_id\": \"{{parent_category_id}}\",\n      \"description\": \"Subcategoría para sets de llaves mixtas y dados de impacto\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module"
+              ]
+            },
+            "description": "Crea una subcategoría asociada a una categoría padre."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Productos ERP (AOS_Products)",
+      "item": [
+        {
+          "name": "Listar Todos los Productos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Products",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Products"
+              ]
+            },
+            "description": "Consulta el catálogo completo de productos en el ERP."
+          },
+          "response": []
+        },
+        {
+          "name": "Filtrar Productos por ID de Categoría",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Products?filter[aos_product_category_id][eq]={{category_id}}",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Products"
+              ],
+              "query": [
+                {
+                  "key": "filter[aos_product_category_id][eq]",
+                  "value": "{{category_id}}"
+                }
+              ]
+            },
+            "description": "Filtra todos los productos pertenecientes a una categoría o subcategoría específica."
+          },
+          "response": []
+        },
+        {
+          "name": "Filtrar Productos por Nombre (Búsqueda)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Products?filter[name][like]=%25{{search_term}}%25",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Products"
+              ],
+              "query": [
+                {
+                  "key": "filter[name][like]",
+                  "value": "%25{{search_term}}%25"
+                }
+              ]
+            },
+            "description": "Realiza una búsqueda parcial por coincidencia de nombre en el catálogo de productos."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Productos con Paginación",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Products?page[size]=10&page[number]=1",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Products"
+              ],
+              "query": [
+                {
+                  "key": "page[size]",
+                  "value": "10"
+                },
+                {
+                  "key": "page[number]",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Paginación estándar de productos definiendo tamaño de página y número de página."
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Detalle de un Producto",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/AOS_Products/{{product_id}}",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "AOS_Products",
+                "{{product_id}}"
+              ]
+            },
+            "description": "Obtiene la ficha técnica completa de un producto por su ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Nuevo Producto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"AOS_Products\",\n    \"attributes\": {\n      \"name\": \"Esmeril Angular 710W Professional\",\n      \"part_number\": \"ESM-710W-002\",\n      \"cost\": 60.00,\n      \"price\": 85.00,\n      \"currency_id\": \"-99\",\n      \"aos_product_category_id\": \"{{category_id}}\",\n      \"description\": \"Esmeril angular de 710W para corte de metal y concreto\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module"
+              ]
+            },
+            "description": "Crea un nuevo producto en SuiteCRM."
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Producto (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"AOS_Products\",\n    \"id\": \"{{product_id}}\",\n    \"attributes\": {\n      \"price\": 145.00,\n      \"description\": \"Precio de oferta especial actualizado en ERP.\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module"
+              ]
+            },
+            "description": "Actualiza atributos de un producto (precio, costo, descripción) vía PATCH."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Clientes ERP (Accounts & Contacts)",
+      "item": [
+        {
+          "name": "Listar Clientes Empresas (Accounts)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/Accounts",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "Accounts"
+              ]
+            },
+            "description": "Consulta la lista de clientes corporativos (Cuentas/Empresas)."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Cliente Empresa por Nombre",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/Accounts?filter[name][like]=%25{{search_term}}%25",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "Accounts"
+              ],
+              "query": [
+                {
+                  "key": "filter[name][like]",
+                  "value": "%25{{search_term}}%25"
+                }
+              ]
+            },
+            "description": "Busca empresas por nombre parcial."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear Cliente Empresa (Account)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"Accounts\",\n    \"attributes\": {\n      \"name\": \"Ferretería e Industrias Beta Ltda.\",\n      \"phone_office\": \"+57 601 555 9988\",\n      \"website\": \"www.industriasbeta.com\",\n      \"billing_address_city\": \"Medellín\",\n      \"billing_address_country\": \"Colombia\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module"
+              ]
+            },
+            "description": "Crea una nueva cuenta o empresa cliente."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Clientes Personas (Contacts)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/Contacts",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "Contacts"
+              ]
+            },
+            "description": "Consulta la lista de contactos o clientes individuales."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Cliente Persona por Correo (Email)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{suitecrm_url}}/V8/module/Contacts?filter[email1][eq]={{username}}",
+              "host": [
+                "{{suitecrm_url}}"
+              ],
+              "path": [
+                "V8",
+                "module",
+                "Contacts"
+              ],
+              "query": [
+                {
+                  "key": "filter[email1][eq]",
+                  "value": "{{username}}"
+                }
+              ]
+            },
+            "description": "Busca un contacto cliente por su correo electrónico."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{suitecrm_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "suitecrm_url",
+      "value": "http://localhost:8095/legacy/Api"
+    },
+    {
+      "key": "client_id",
+      "value": "6826a248-4f90-4ce5-8921-23b857b7bbb0"
+    },
+    {
+      "key": "client_secret",
+      "value": "123456"
+    },
+    {
+      "key": "username",
+      "value": "admin"
+    },
+    {
+      "key": "password",
+      "value": "123456"
+    },
+    {
+      "key": "suitecrm_token",
+      "secret": true
+    },
+    {
+      "key": "parent_category_id",
+      "value": "007e2c4b-43b1-4b75-b6f6-25295d0200ab"
+    },
+    {
+      "key": "category_id",
+      "value": "edfcfb8e-18d3-4139-b91c-f62ca736e87f"
+    },
+    {
+      "key": "product_id",
+      "value": "7c50bd45-427f-4825-a34a-066fccc0bec3"
+    },
+    {
+      "key": "account_id",
+      "value": "86c3762e-7dca-42bd-b18f-294f68762a76"
+    },
+    {
+      "key": "search_term",
+      "value": "Rotomartillo"
+    }
+  ]
+}
