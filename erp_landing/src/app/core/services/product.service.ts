@@ -15,33 +15,34 @@ export class ProductService {
   selectedCategoryId = signal<string>('');
 
   dealProduct = signal<Product>({
-    id: '99',
-    title: 'Rotomartillo 20V Cordless Heavy Duty',
-    vendor: 'Toolgard Industrial',
-    price: 150.00,
-    originalPrice: 199.00,
+    id: 'prod-tech-1',
+    title: 'Laptop Lenovo ThinkPad X1 Carbon Gen 11 Intel i7 32GB 1TB SSD',
+    vendor: 'LAP-TP-X1',
+    price: 1850.00,
+    originalPrice: 2190.00,
     rating: 5,
-    reviewsCount: 38,
-    image: '/cdn/shop/files/7_100x100.svg',
-    description: 'Rotomartillo 20V inalámbrico con maletín y 2 baterías de litio'
+    reviewsCount: 42,
+    image: '/cdn/shop/files/1_100x100.svg',
+    badge: 'OFERTA ERP',
+    description: 'Ultrabook corporativo con pantalla 14 IPS 4K y chasis de fibra de carbono'
   });
 
   blogs = signal<any[]>([
     {
       id: 1,
-      title: 'Cómo elegir la mejor herramienta eléctrica para tu taller ERP',
-      date: '10 de Agosto, 2026',
-      author: 'Equipo Técnico',
-      image: '/cdn/shop/files/1_100x100.svg',
-      excerpt: 'Descubre los parámetros clave para evaluar rendimiento, torque y durabilidad en proyectos industriales.'
+      title: 'Cómo estructurar la arquitectura de servidores para tu sistema ERP',
+      date: '12 de Agosto, 2026',
+      author: 'Ingeniería TeamTecnologia',
+      image: '/cdn/shop/files/7_100x100.svg',
+      excerpt: 'Guía de selección de servidores rack 2U, virtualización con Proxmox/VMware y alta disponibilidad.'
     },
     {
       id: 2,
-      title: 'Mantenimiento preventivo para esmeriles y rotomartillos',
-      date: '08 de Agosto, 2026',
-      author: 'Ingeniería ERP',
+      title: 'Seguridad perimetral y optimización de switches PoE+ Gigabit',
+      date: '10 de Agosto, 2026',
+      author: 'Especialista en Redes',
       image: '/cdn/shop/files/3_100x100.svg',
-      excerpt: 'Guía de limpieza y reemplazo de carbones para prolongar la vida útil de tus equipos.'
+      excerpt: 'Implementación de VLANs, firewalls Fortinet y balanceo de carga para empresas en crecimiento.'
     }
   ]);
 
@@ -64,11 +65,11 @@ export class ProductService {
           const mapped: Product[] = res.products.map((p) => ({
             id: p.id,
             title: p.title,
-            vendor: p.part_number ? `SKU: ${p.part_number}` : 'ERP Toolgard',
+            vendor: p.part_number ? `SKU: ${p.part_number}` : 'TeamTecnologia ERP',
             price: p.price,
             originalPrice: p.cost ? p.price * 1.2 : undefined,
             rating: p.rating || 5,
-            reviewsCount: p.reviews_count || 12,
+            reviewsCount: p.reviews_count || 18,
             image: p.image || '/cdn/shop/files/1_100x100.svg',
             badge: p.part_number ? p.part_number : undefined,
             description: p.description || ''
@@ -80,31 +81,31 @@ export class ProductService {
         this.loading.set(false);
       },
       error: (err) => {
-        console.warn('Backend SuiteCRM products offline or failed, using fallback:', err);
+        console.warn('Backend SuiteCRM products offline or failed, using technology fallbacks:', err);
         this.products.set([
           {
-            id: '1',
-            title: 'Rotomartillo 20V Cordless Industrial',
-            vendor: 'TAL-20V-001',
-            price: 150.00,
-            originalPrice: 180.00,
+            id: 'prod-tech-1',
+            title: 'Laptop Lenovo ThinkPad X1 Carbon Gen 11 Intel i7 32GB',
+            vendor: 'LAP-TP-X1',
+            price: 1850.00,
+            originalPrice: 2190.00,
             rating: 5,
-            reviewsCount: 24,
-            image: '/cdn/shop/files/7_100x100.svg',
-            badge: 'TAL-20V',
-            description: 'Rotomartillo inalámbrico 20V'
+            reviewsCount: 42,
+            image: '/cdn/shop/files/1_100x100.svg',
+            badge: 'LAP-TP-X1',
+            description: 'Ultrabook corporativo de 14 pulgadas 4K'
           },
           {
-            id: '2',
-            title: 'Esmeril Angular 710W Professional',
-            vendor: 'ESM-710W-002',
-            price: 85.00,
-            originalPrice: 105.00,
+            id: 'prod-tech-3',
+            title: 'Servidor Dell PowerEdge R750 2U Xeon Silver 64GB',
+            vendor: 'SER-DELL-R750',
+            price: 3400.00,
+            originalPrice: 3890.00,
             rating: 5,
-            reviewsCount: 19,
-            image: '/cdn/shop/files/3_100x100.svg',
-            badge: 'ESM-710W',
-            description: 'Esmeril angular 710W'
+            reviewsCount: 29,
+            image: '/cdn/shop/files/7_100x100.svg',
+            badge: 'SER-R750',
+            description: 'Servidor en rack 2U para SuiteCRM y base de datos'
           }
         ]);
         this.loading.set(false);

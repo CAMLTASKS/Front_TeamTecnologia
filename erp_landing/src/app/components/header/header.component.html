@@ -1,4 +1,4 @@
-<!-- Top Dark Navy Header Bar -->
+<!-- Top Deep Blue Header Bar -->
 <div class="header-dark-bar">
   <div class="header-dark-inner">
     
@@ -8,17 +8,18 @@
         <i class="fa fa-bars"></i>
       </button>
 
-      <!-- Toolgard Logo -->
+      <!-- TeamTecnologia Logo & Brand Title -->
       <a href="/" class="brand-logo-link">
-        <img src="/cdn/shop/files/logo_200x.png" alt="Toolgard" class="brand-logo-img">
+        <img src="/assets/logo.png" alt="TeamTecnologia" class="brand-logo-img" (error)="$any($event.target).style.display='none'">
+        <span class="brand-logo-text">Team<span class="brand-red-text">Tecnologia</span></span>
       </a>
     </div>
 
     <!-- Desktop Search Bar (Triggers Interactive Search Modal) -->
     <div class="header-search-container desktop-only-search" (click)="openSearchModal()">
-      <input type="text" placeholder="Search tools, equipment, brands..." class="header-search-input" readonly>
+      <input type="text" placeholder="Buscar computadores, servidores, licencias ERP..." class="header-search-input" readonly>
       <button type="button" class="header-search-btn">
-        <i class="fa fa-search" style="margin-right: 6px;"></i> SEARCH
+        <i class="fa fa-search" style="margin-right: 6px;"></i> BUSCAR
       </button>
     </div>
 
@@ -26,40 +27,40 @@
     <div class="header-icons-row">
       
       <!-- Mobile Search Trigger Icon Button -->
-      <button class="mobile-search-trigger-btn" (click)="openSearchModal()" title="Search">
+      <button class="mobile-search-trigger-btn" (click)="openSearchModal()" title="Buscar">
         <i class="fa fa-search"></i>
       </button>
 
-      <!-- Need Help -->
+      <!-- Soporte ERP -->
       <div class="desktop-only-info" style="display: flex; flex-direction: column; line-height: 1.3;">
-        <span style="font-size: 11px; color: #94a3b8;">Necesita ayuda?</span>
-        <span style="font-weight: 700; color: #ffffff; font-size: 13px;">(+91) 0123-456-789</span>
+        <span style="font-size: 11px; color: #94a3b8;">Línea de Atención ERP</span>
+        <span style="font-weight: 700; color: #ffffff; font-size: 13px;">(+57) 601 555-8899</span>
       </div>
 
-      <!-- My Account -->
+      <!-- Mi Cuenta -->
       <div class="desktop-only-info" style="display: flex; flex-direction: column; line-height: 1.3; cursor: pointer;">
-        <span style="font-size: 11px; color: #94a3b8;">My Account</span>
-        <span style="font-weight: 600; color: #ffffff; font-size: 13px;">Log in / Register</span>
+        <span style="font-size: 11px; color: #94a3b8;">Portal Clientes</span>
+        <span style="font-weight: 600; color: #ffffff; font-size: 13px;">Iniciar Sesión</span>
       </div>
 
-      <!-- Compare Icon Bubble -->
-      <a href="javascript:void(0)" title="Compare" class="icon-bubble desktop-only-icon">
+      <!-- Comparar -->
+      <a href="javascript:void(0)" title="Comparar" class="icon-bubble desktop-only-icon">
         <div class="icon-circle">
           <i class="fa fa-sliders"></i>
         </div>
         <span class="icon-badge">0</span>
       </a>
 
-      <!-- Wishlist Icon Bubble -->
-      <a href="javascript:void(0)" title="Wishlist" class="icon-bubble desktop-only-icon">
+      <!-- Deseos -->
+      <a href="javascript:void(0)" title="Favoritos" class="icon-bubble desktop-only-icon">
         <div class="icon-circle">
           <i class="fa fa-heart-o"></i>
         </div>
         <span class="icon-badge">0</span>
       </a>
 
-      <!-- Cart Icon Bubble -->
-      <a href="javascript:void(0)" (click)="cartService.toggleCart()" title="Cart" class="icon-bubble">
+      <!-- Carrito ERP -->
+      <a href="javascript:void(0)" (click)="cartService.toggleCart()" title="Carrito" class="icon-bubble">
         <div class="icon-circle">
           <i class="fa fa-shopping-bag"></i>
         </div>
@@ -71,7 +72,7 @@
   </div>
 </div>
 
-<!-- Interactive Top Search Modal Overlay (Desktop & Mobile) -->
+<!-- Interactive Top Search Modal Overlay -->
 <div class="search-modal-backdrop" [class.active]="showSearchModal()" (click)="closeSearchModal()"></div>
 <div class="search-modal-panel" [class.open]="showSearchModal()">
   <div class="search-modal-inner">
@@ -81,7 +82,7 @@
         <input type="text" 
                [value]="searchQuery()" 
                (input)="searchQuery.set($any($event.target).value)" 
-               placeholder="Search tools, equipment, brands..." 
+               placeholder="Buscar servidores, laptops, switches, licencias..." 
                class="modal-search-input"
                #searchInput>
         <button *ngIf="searchQuery()" (click)="clearSearch()" class="clear-btn">&times;</button>
@@ -91,7 +92,7 @@
 
     <!-- Quick Suggestions -->
     <div class="search-modal-body">
-      <div class="quick-title">Popular Searches</div>
+      <div class="quick-title">Búsquedas Frecuentes TeamTecnologia</div>
       <div class="quick-tags">
         <span *ngFor="let tag of quickTags" (click)="selectTag(tag)" class="tag-chip">
           <i class="fa fa-fire"></i> {{ tag }}
@@ -108,8 +109,8 @@
     <!-- Browse All Category Dropdown -->
     <div style="position: relative;">
       <button (click)="toggleCategory()" class="browse-cat-btn">
-        <i class="fa fa-bars" style="color: var(--color-primary, #e9611e); font-size: 15px;"></i>
-        <span>Browse All Category</span>
+        <i class="fa fa-bars" style="color: var(--color-primary, #d90429); font-size: 15px;"></i>
+        <span>Catálogo de Tecnología</span>
         <i class="fa fa-chevron-down" style="font-size: 10px; color: #64748b;"></i>
       </button>
 
@@ -117,7 +118,7 @@
         <ul>
           <ng-container *ngFor="let cat of categoryService.categories()">
             <li class="parent-cat-header">
-              <i class="fa fa-folder-open" style="color: #e9611e; margin-right: 6px;"></i>
+              <i class="fa fa-folder-open" style="color: var(--color-primary, #d90429); margin-right: 6px;"></i>
               <strong>{{ cat.name }}</strong>
             </li>
             <li *ngFor="let sub of cat.subcategories" class="sub-cat-item">
@@ -130,18 +131,18 @@
 
     <!-- Inline Navigation Links -->
     <nav class="desktop-nav-links">
-      <a href="javascript:void(0)" class="active">Home</a>
-      <a href="javascript:void(0)">Catalog</a>
-      <a href="javascript:void(0)">Tools</a>
-      <a href="javascript:void(0)">About Us</a>
-      <a href="javascript:void(0)">Blog</a>
-      <a href="javascript:void(0)">Contact</a>
+      <a href="javascript:void(0)" class="active">Inicio</a>
+      <a href="javascript:void(0)">Catálogo ERP</a>
+      <a href="javascript:void(0)">Servidores & Cloud</a>
+      <a href="javascript:void(0)">Redes</a>
+      <a href="javascript:void(0)">Nosotros</a>
+      <a href="javascript:void(0)">Contacto</a>
     </nav>
 
     <!-- Currency & Language Dropdowns -->
     <div class="desktop-currency-lang">
-      <span>USD $ <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
-      <span>English <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
+      <span>COP $ <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
+      <span>Español <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
     </div>
 
   </div>

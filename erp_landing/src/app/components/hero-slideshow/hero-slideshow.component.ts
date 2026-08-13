@@ -14,16 +14,34 @@ export class HeroSlideshowComponent implements OnDestroy {
 
   slides = [
     {
-      title: 'Accessories Catalog Power Tools',
-      subtitle: 'Premium Heavy Duty Collection',
-      description: 'Engineered for maximum torque, precision, and all-day endurance on professional construction sites.',
-      image: '/cdn/shop/files/main-banner-1_1600x.jpg'
+      title: 'Infraestructura & Servidores Cloud ERP',
+      subtitle: 'TeamTecnologia Enterprise Hardware',
+      description: 'Potencia empresarial con servidores Dell PowerEdge, almacenamiento NAS Synology y conectividad Cisco.',
+      image: '/assets/banner.jpg'
     },
     {
-      title: 'Multifunction New Cordless Tools',
-      subtitle: 'Next-Gen 20V Brushless Motors',
-      description: 'Cordless mobility with corded power performance. Lightweight ergonomics built for heavy industrial usage.',
-      image: '/cdn/shop/files/main-banner-2_1600x.jpg'
+      title: 'Laptops Corporativas & Workstations 4K',
+      subtitle: 'Procesamiento de Alto Rendimiento',
+      description: 'Laptops Lenovo ThinkPad, ASUS ROG e Intel i9 de 14ª generación preparados para ingeniería y desarrollo.',
+      image: '/assets/banner2.jpg'
+    },
+    {
+      title: 'Redes, Networking & Firewalls Fortinet',
+      subtitle: 'Seguridad Perimetral & Conectividad Gigabit',
+      description: 'Switches administrables PoE+, routers de alto flujo y appliances UTM para la red de tu compañía.',
+      image: '/assets/banner3.jpg'
+    },
+    {
+      title: 'Componentes & Tarjetas Gráficas NVIDIA RTX',
+      subtitle: 'Cálculo Avanzado & Inteligencia Artificial',
+      description: 'Procesadores Intel i9/Ryzen, GPUs RTX 4090 y almacenamiento SSD NVMe Samsung PRO de máxima velocidad.',
+      image: '/assets/banner4.jpg'
+    },
+    {
+      title: 'Seguridad IP, CCTV & Cámaras NVR 4K',
+      subtitle: 'Videovigilancia Inteligente ERP',
+      description: 'Sistemas de videovigilancia Hikvision con analítica de IA y grabación continua 4K.',
+      image: '/assets/banner5.jpg'
     }
   ];
 

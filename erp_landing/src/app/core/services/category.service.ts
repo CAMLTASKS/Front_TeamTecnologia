@@ -23,21 +23,17 @@ export interface Category {
 export class CategoryService {
   private http = inject(HttpClient);
 
-  // Backend PHP Proxy Entrypoint (No client credentials in Angular!)
   private apiUrl = 'http://localhost:8095/legacy/api_proxy.php?action=categories';
 
   categories = signal<Category[]>([]);
   loading = signal<boolean>(false);
 
-  // Default fallback icons mapping
   private iconMap: { [key: string]: string } = {
-    'Herramientas Eléctricas': '/cdn/shop/files/1_100x100.svg',
-    'Herramientas Manuales': '/cdn/shop/files/2_100x100.svg',
-    'Taladros y Rotomartillos': '/cdn/shop/files/7_100x100.svg',
-    'Esmeriles y Pulidoras': '/cdn/shop/files/3_100x100.svg',
-    'Sierras Circulares y Caladoras': '/cdn/shop/files/4_100x100.svg',
-    'Decker Tool': '/cdn/shop/files/5_100x100.svg',
-    'Hammer Tool': '/cdn/shop/files/6_100x100.svg'
+    'Computadores & Laptops': '/cdn/shop/files/1_100x100.svg',
+    'Servidores & Cloud ERP': '/cdn/shop/files/7_100x100.svg',
+    'Redes & Networking': '/cdn/shop/files/3_100x100.svg',
+    'Componentes & Hardware': '/cdn/shop/files/4_100x100.svg',
+    'Seguridad & CCTV': '/cdn/shop/files/6_100x100.svg'
   };
 
   constructor() {
@@ -58,28 +54,36 @@ export class CategoryService {
         this.loading.set(false);
       },
       error: (err) => {
-        console.warn('Backend SuiteCRM categories offline, using fallback:', err);
-        // Fallback default categories
+        console.warn('Backend SuiteCRM categories offline, using technology fallbacks:', err);
         this.categories.set([
           {
-            id: '1',
-            name: 'Herramientas Eléctricas',
+            id: 'cat-tech-1',
+            name: 'Computadores & Laptops',
             is_parent: 1,
             icon: '/cdn/shop/files/1_100x100.svg',
             subcategories: [
-              { id: '11', name: 'Taladros y Rotomartillos', parent_id: '1' },
-              { id: '12', name: 'Esmeriles y Pulidoras', parent_id: '1' },
-              { id: '13', name: 'Sierras Circulares', parent_id: '1' }
+              { id: 'sub-tech-1-1', name: 'Laptops Corporativos & Gamer', parent_id: 'cat-tech-1' },
+              { id: 'sub-tech-1-2', name: 'Workstations & All-in-One', parent_id: 'cat-tech-1' }
             ]
           },
           {
-            id: '2',
-            name: 'Herramientas Manuales',
+            id: 'cat-tech-2',
+            name: 'Servidores & Cloud ERP',
             is_parent: 1,
-            icon: '/cdn/shop/files/2_100x100.svg',
+            icon: '/cdn/shop/files/7_100x100.svg',
             subcategories: [
-              { id: '21', name: 'Llaves y Dados', parent_id: '2' },
-              { id: '22', name: 'Martillos y Mazos', parent_id: '2' }
+              { id: 'sub-tech-2-1', name: 'Servidores Rack & Tower 2U', parent_id: 'cat-tech-2' },
+              { id: 'sub-tech-2-2', name: 'Almacenamiento SAN / NAS', parent_id: 'cat-tech-2' }
+            ]
+          },
+          {
+            id: 'cat-tech-3',
+            name: 'Redes & Networking',
+            is_parent: 1,
+            icon: '/cdn/shop/files/3_100x100.svg',
+            subcategories: [
+              { id: 'sub-tech-3-1', name: 'Switches & Routers Empresariales', parent_id: 'cat-tech-3' },
+              { id: 'sub-tech-3-2', name: 'Firewalls & Seguridad de Red', parent_id: 'cat-tech-3' }
             ]
           }
         ]);

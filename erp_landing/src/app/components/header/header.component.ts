@@ -20,7 +20,14 @@ export class HeaderComponent {
   showSearchModal = signal<boolean>(false);
   searchQuery = signal<string>('');
 
-  quickTags = ['Angle Grinder', 'Drill Machine', 'Cordless Driver', 'Power Saw', 'Tile Blade'];
+  quickTags = [
+    'Laptops Lenovo ThinkPad',
+    'Servidores Dell PowerEdge',
+    'Switches Cisco Catalyst',
+    'Firewall Fortinet FortiGate',
+    'NVIDIA RTX 4090',
+    'Disco SSD NVMe 2TB'
+  ];
 
   toggleCategory() {
     this.showCategory.update(v => !v);
