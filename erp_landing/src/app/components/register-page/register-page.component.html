@@ -1,0 +1,205 @@
+<div class="register-layout">
+  <!-- Header Banner -->
+  <header class="banner">
+    <div class="banner-content">
+      <div class="logo">
+        <span class="logo-team">Team</span><span class="logo-tec">Tecnologia</span>
+      </div>
+      <h1 class="page-title">Crear Cuenta</h1>
+      <p class="page-subtitle">Únete a nuestra plataforma y gestiona tus pedidos</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="form-container">
+      
+      <!-- Success State -->
+      <div class="success-card slide-in" *ngIf="success()">
+        <div class="success-icon-wrapper">
+          <i class="fa fa-check-circle success-icon"></i>
+        </div>
+        <h2 class="success-title">¡Cuenta creada con éxito!</h2>
+        <p class="success-message">Bienvenido a TeamTecnologia. Tu cuenta ha sido configurada correctamente.</p>
+        <button class="btn-primary mt-4" routerLink="/login">Ir a Iniciar Sesión</button>
+      </div>
+
+      <!-- Registration Form -->
+      <div class="form-wrapper" *ngIf="!success()">
+        
+        <!-- Step Indicator -->
+        <div class="stepper">
+          <div class="step" [ngClass]="{'active': step() === 1, 'completed': step() > 1}">
+            <div class="step-circle"><i *ngIf="step() > 1" class="fa fa-check"></i><span *ngIf="step() === 1">1</span></div>
+            <span class="step-label">Datos Personales</span>
+          </div>
+          <div class="step-line" [ngClass]="{'active': step() > 1}"></div>
+          <div class="step" [ngClass]="{'active': step() === 2, 'completed': step() > 2}">
+            <div class="step-circle"><i *ngIf="step() > 2" class="fa fa-check"></i><span *ngIf="step() <= 2">2</span></div>
+            <span class="step-label">Datos de Cuenta</span>
+          </div>
+          <div class="step-line" [ngClass]="{'active': step() > 2}"></div>
+          <div class="step" [ngClass]="{'active': step() === 3}">
+            <div class="step-circle">3</div>
+            <span class="step-label">Confirmación</span>
+          </div>
+        </div>
+
+        <div *ngIf="error()" class="alert error-alert slide-in">
+          <i class="fa fa-exclamation-circle"></i> {{ error() }}
+        </div>
+
+        <!-- STEP 1: Datos Personales -->
+        <div class="step-content slide-in" *ngIf="step() === 1">
+          <h3 class="step-title">Cuéntanos sobre ti</h3>
+          
+          <div class="client-type-options">
+            <label class="type-card" [ngClass]="{'selected': formData.clientType === 'Persona_Natural'}">
+              <input type="radio" name="clientType" [(ngModel)]="formData.clientType" value="Persona_Natural" class="hidden-radio">
+              <i class="fa fa-user"></i>
+              <span>Persona Natural</span>
+            </label>
+            <label class="type-card" [ngClass]="{'selected': formData.clientType === 'Empresa_B2B'}">
+              <input type="radio" name="clientType" [(ngModel)]="formData.clientType" value="Empresa_B2B" class="hidden-radio">
+              <i class="fa fa-building"></i>
+              <span>Empresa B2B</span>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Nombres *</label>
+              <input type="text" [(ngModel)]="formData.firstName" placeholder="Tus nombres">
+            </div>
+            <div class="input-group">
+              <label>Apellidos *</label>
+              <input type="text" [(ngModel)]="formData.lastName" placeholder="Tus apellidos">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Tipo de Documento</label>
+              <select [(ngModel)]="formData.docType">
+                <option value="CC">Cédula de Ciudadanía</option>
+                <option value="CE">Cédula de Extranjería</option>
+                <option value="NIT" *ngIf="formData.clientType === 'Empresa_B2B'">NIT</option>
+                <option value="Pasaporte">Pasaporte</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Número de Documento</label>
+              <input type="text" [(ngModel)]="formData.docNumber" placeholder="Número">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Teléfono *</label>
+              <input type="tel" [(ngModel)]="formData.phone" placeholder="Celular o fijo">
+            </div>
+            <div class="input-group">
+              <label>Ciudad *</label>
+              <input type="text" [(ngModel)]="formData.city" placeholder="Tu ciudad">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-primary" (click)="nextStep()">Siguiente Paso <i class="fa fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Datos de Cuenta -->
+        <div class="step-content slide-in" *ngIf="step() === 2">
+          <h3 class="step-title">Configura tu acceso</h3>
+
+          <div class="input-group">
+            <label>Correo Electrónico *</label>
+            <div class="input-wrapper">
+              <i class="fa fa-envelope input-icon"></i>
+              <input type="email" [(ngModel)]="formData.email" placeholder="tucorreo@ejemplo.com">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Contraseña *</label>
+            <div class="input-wrapper">
+              <i class="fa fa-lock input-icon"></i>
+              <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="formData.password" placeholder="Mínimo 6 caracteres">
+              <i class="fa toggle-password" [ngClass]="showPassword() ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"></i>
+            </div>
+            <div class="password-strength-bar" *ngIf="formData.password">
+              <div class="strength-fill" [ngClass]="getPasswordStrength()"></div>
+            </div>
+            <small class="strength-text" [ngClass]="getPasswordStrength()" *ngIf="formData.password">
+              {{ getPasswordStrength() === 'weak' ? 'Débil' : (getPasswordStrength() === 'medium' ? 'Media' : 'Fuerte') }}
+            </small>
+          </div>
+
+          <div class="input-group">
+            <label>Confirmar Contraseña *</label>
+            <div class="input-wrapper">
+              <i class="fa fa-lock input-icon"></i>
+              <input [type]="showConfirmPassword() ? 'text' : 'password'" [(ngModel)]="formData.confirmPassword" placeholder="Repite tu contraseña">
+              <i class="fa toggle-password" [ngClass]="showConfirmPassword() ? 'fa-eye-slash' : 'fa-eye'" (click)="toggleConfirmPassword()"></i>
+            </div>
+          </div>
+
+          <div class="form-actions space-between">
+            <button class="btn-secondary" (click)="goToStep(1)">Atrás</button>
+            <button class="btn-primary" (click)="nextStep()">Siguiente Paso <i class="fa fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Confirmación -->
+        <div class="step-content slide-in" *ngIf="step() === 3">
+          <h3 class="step-title">Revisa tu información</h3>
+          
+          <div class="summary-card">
+            <div class="summary-row">
+              <span class="summary-label">Nombre Completo:</span>
+              <span class="summary-value">{{ formData.firstName }} {{ formData.lastName }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Documento:</span>
+              <span class="summary-value">{{ formData.docType }} {{ formData.docNumber || 'No especificado' }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Ciudad:</span>
+              <span class="summary-value">{{ formData.city }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Correo:</span>
+              <span class="summary-value">{{ formData.email }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Tipo de Cliente:</span>
+              <span class="summary-value">{{ formData.clientType === 'Persona_Natural' ? 'Persona Natural' : 'Empresa B2B' }}</span>
+            </div>
+          </div>
+
+          <div class="terms-group">
+            <label class="checkbox-container">
+              <input type="checkbox" [(ngModel)]="formData.acceptTerms">
+              <span class="checkmark"></span>
+              Acepto los <a href="#" class="terms-link">Términos y Condiciones</a> y la Política de Privacidad.
+            </label>
+          </div>
+
+          <div class="form-actions space-between">
+            <button class="btn-secondary" (click)="goToStep(2)" [disabled]="loading()">Atrás</button>
+            <button class="btn-submit-large" (click)="submitRegister()" [disabled]="loading()">
+              <span *ngIf="!loading()">CREAR MI CUENTA</span>
+              <i *ngIf="loading()" class="fa fa-spinner fa-spin"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="login-prompt">
+          <span>¿Ya tienes cuenta?</span>
+          <a routerLink="/login" class="login-link">Inicia sesión aquí</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>

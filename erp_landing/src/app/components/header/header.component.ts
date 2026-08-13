@@ -1,9 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { MobileNavService } from '../../core/services/mobile-nav.service';
 import { CategoryService } from '../../core/services/category.service';
+import { AuthService } from '../../core/services/auth.service';
+import { WishlistService } from '../../core/services/wishlist.service';
 
 @Component({
   styleUrl: './header.component.css',
@@ -16,9 +18,12 @@ export class HeaderComponent {
   cartService = inject(CartService);
   mobileNavService = inject(MobileNavService);
   categoryService = inject(CategoryService);
+  authService = inject(AuthService);
+  wishlistService = inject(WishlistService);
   
   showCategory = signal<boolean>(false);
   showSearchModal = signal<boolean>(false);
+  showUserDropdown = signal<boolean>(false);
   searchQuery = signal<string>('');
 
   quickTags = [
@@ -32,6 +37,7 @@ export class HeaderComponent {
 
   toggleCategory() {
     this.showCategory.update(v => !v);
+    this.showUserDropdown.set(false);
   }
 
   openSearchModal() {
@@ -48,5 +54,15 @@ export class HeaderComponent {
 
   selectTag(tag: string) {
     this.searchQuery.set(tag);
+  }
+
+  toggleUserDropdown() {
+    this.showUserDropdown.update(v => !v);
+    this.showCategory.set(false);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.showUserDropdown.set(false);
   }
 }

@@ -32,31 +32,65 @@
       </button>
 
       <!-- Soporte ERP -->
-      <div class="desktop-only-info" style="display: flex; flex-direction: column; line-height: 1.3;">
-        <span style="font-size: 11px; color: #94a3b8;">Línea de Atención ERP</span>
-        <span style="font-weight: 700; color: #ffffff; font-size: 13px;">(+57) 601 555-8899</span>
+      <div class="desktop-only-info">
+        <span class="header-info-label">Línea de Atención ERP</span>
+        <span class="header-info-value">(+57) 601 555-8899</span>
       </div>
 
-      <!-- Mi Cuenta -->
-      <div class="desktop-only-info" style="display: flex; flex-direction: column; line-height: 1.3; cursor: pointer;">
-        <span style="font-size: 11px; color: #94a3b8;">Portal Clientes</span>
-        <span style="font-weight: 600; color: #ffffff; font-size: 13px;">Iniciar Sesión</span>
-      </div>
-
-      <!-- Comparar -->
-      <a href="javascript:void(0)" title="Comparar" class="icon-bubble desktop-only-icon">
-        <div class="icon-circle">
-          <i class="fa fa-sliders"></i>
+      <!-- USER ACCOUNT: Logged Out -->
+      <ng-container *ngIf="!authService.isLoggedIn()">
+        <div class="user-account-group desktop-only-info">
+          <a routerLink="/login" class="header-auth-link">
+            <i class="fa fa-user-circle-o"></i>
+            <div>
+              <span class="header-info-label">Portal Clientes</span>
+              <span class="header-info-value">Iniciar Sesión</span>
+            </div>
+          </a>
+          <a routerLink="/registro" class="header-register-badge">Registrarse</a>
         </div>
-        <span class="icon-badge">0</span>
-      </a>
+      </ng-container>
 
-      <!-- Deseos -->
-      <a href="javascript:void(0)" title="Favoritos" class="icon-bubble desktop-only-icon">
+      <!-- USER ACCOUNT: Logged In -->
+      <ng-container *ngIf="authService.isLoggedIn()">
+        <div class="user-account-dropdown-wrap" (click)="toggleUserDropdown()" style="position: relative; cursor: pointer;">
+          <div class="user-avatar-badge">
+            {{ authService.getInitials() }}
+          </div>
+          <div class="desktop-only-info">
+            <span class="header-info-label">Hola, {{ (authService.user()?.name || '').split(' ')[0] }}</span>
+            <span class="header-info-value">Mi Cuenta <i class="fa fa-chevron-down" style="font-size:9px;"></i></span>
+          </div>
+
+          <!-- Dropdown Menu -->
+          <div *ngIf="showUserDropdown()" class="user-dropdown-menu" (click)="$event.stopPropagation()">
+            <a routerLink="/mi-cuenta" class="dropdown-item" (click)="showUserDropdown.set(false)">
+              <i class="fa fa-tachometer"></i> Dashboard
+            </a>
+            <a routerLink="/mi-cuenta" class="dropdown-item" (click)="showUserDropdown.set(false)">
+              <i class="fa fa-shopping-bag"></i> Mis Pedidos
+            </a>
+            <a routerLink="/mi-cuenta" class="dropdown-item" (click)="showUserDropdown.set(false)">
+              <i class="fa fa-heart-o"></i> Favoritos
+            </a>
+            <a routerLink="/mi-cuenta" class="dropdown-item" (click)="showUserDropdown.set(false)">
+              <i class="fa fa-shield"></i> Garantías
+            </a>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item danger" (click)="logout()">
+              <i class="fa fa-sign-out"></i> Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Favoritos / Wishlist -->
+      <a routerLink="/mi-cuenta" title="Favoritos" class="icon-bubble desktop-only-icon">
         <div class="icon-circle">
           <i class="fa fa-heart-o"></i>
         </div>
-        <span class="icon-badge">0</span>
+        <span class="icon-badge" *ngIf="wishlistService.totalCount() > 0">{{ wishlistService.totalCount() }}</span>
+        <span class="icon-badge" *ngIf="wishlistService.totalCount() === 0">0</span>
       </a>
 
       <!-- Carrito ERP -->
@@ -121,7 +155,7 @@
               <i class="fa fa-folder-open" style="color: var(--color-primary, #d90429); margin-right: 6px;"></i>
               <strong>{{ cat.name }}</strong>
             </li>
-            <li *ngFor="let sub of cat.subcategories" class="sub-cat-item" routerLink="/catalogo">
+            <li *ngFor="let sub of cat.subcategories" class="sub-cat-item" routerLink="/catalogo" (click)="showCategory.set(false)">
               <span style="color: #94a3b8; margin-right: 6px;">↳</span> {{ sub.name }}
             </li>
           </ng-container>
@@ -132,16 +166,16 @@
     <!-- Inline Navigation Links with RouterLink -->
     <nav class="desktop-nav-links">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
-      <a routerLink="/catalogo" routerLinkActive="active">Catálogo ERP</a>
+      <a routerLink="/catalogo" routerLinkActive="active">Catálogo</a>
       <a routerLink="/nosotros" routerLinkActive="active">Nosotros</a>
-      <a routerLink="/contacto" routerLinkActive="active">Contacto (Casos)</a>
-      <a routerLink="/blog" routerLinkActive="active">Blog (Base Conocimiento)</a>
+      <a routerLink="/contacto" routerLinkActive="active">Contacto</a>
+      <a routerLink="/blog" routerLinkActive="active">Blog</a>
     </nav>
 
-    <!-- Currency & Language Dropdowns -->
+    <!-- Currency & Language -->
     <div class="desktop-currency-lang">
       <span>COP $ <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
-      <span>Español <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
+      <span>ES <i class="fa fa-chevron-down" style="font-size: 9px; margin-left: 3px;"></i></span>
     </div>
 
   </div>

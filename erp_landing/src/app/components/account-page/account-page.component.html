@@ -1,0 +1,423 @@
+<div class="account-layout">
+  <!-- Sidebar for Desktop -->
+  <aside class="sidebar desktop-only">
+    <div class="user-profile">
+      <div class="avatar">{{ user.avatar }}</div>
+      <div class="user-info">
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
+    <nav class="sidebar-menu">
+      <a [class.active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
+        <i class="fa fa-tachometer"></i> Dashboard
+      </a>
+      <a [class.active]="activeTab() === 'pedidos'" (click)="activeTab.set('pedidos')">
+        <i class="fa fa-shopping-bag"></i> Pedidos
+      </a>
+      <a [class.active]="activeTab() === 'favoritos'" (click)="activeTab.set('favoritos')">
+        <i class="fa fa-heart"></i> Favoritos
+      </a>
+      <a [class.active]="activeTab() === 'garantias'" (click)="activeTab.set('garantias')">
+        <i class="fa fa-shield"></i> Garantías
+      </a>
+      <a [class.active]="activeTab() === 'perfil'" (click)="activeTab.set('perfil')">
+        <i class="fa fa-user"></i> Mi Perfil
+      </a>
+      <a class="logout-link" (click)="logout()">
+        <i class="fa fa-sign-out"></i> Cerrar Sesión
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Mobile Top Card -->
+  <div class="mobile-only mobile-header">
+    <div class="user-profile">
+      <div class="avatar">{{ user.avatar }}</div>
+      <div class="user-info">
+        <h3>{{ user.name }}</h3>
+        <p>Miembro desde {{ user.memberSince }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <main class="content-area">
+    
+    <!-- DASHBOARD TAB -->
+    <div class="tab-content" *ngIf="activeTab() === 'dashboard'">
+      <div class="welcome-banner">
+        <h2>Hola, {{ user.name.split(' ')[0] }} 👋</h2>
+        <p>Miembro desde {{ user.memberSince }}</p>
+      </div>
+
+      <div class="quick-stats">
+        <div class="stat-card">
+          <i class="fa fa-shopping-bag"></i>
+          <div>
+            <h4>Total pedidos</h4>
+            <span>{{ mockOrders.length }}</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-check-circle"></i>
+          <div>
+            <h4>Pedidos entregados</h4>
+            <span>1</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-heart"></i>
+          <div>
+            <h4>Items en favoritos</h4>
+            <span>{{ mockWishlist.length }}</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fa fa-shield"></i>
+          <div>
+            <h4>Garantías activas</h4>
+            <span>{{ mockRMA.length }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recent-orders-mini">
+        <div class="section-header">
+          <h3>Órdenes Recientes</h3>
+          <button class="btn-text" (click)="activeTab.set('pedidos')">Ver todos mis pedidos</button>
+        </div>
+        
+        <div class="mini-order-list">
+          <div class="mini-order-card" *ngFor="let order of mockOrders.slice(0, 2)">
+            <div class="order-header">
+              <span class="order-num">{{ order.orderNumber }}</span>
+              <span class="badge {{ getStatusClass(order.status) }}">{{ getStatusLabel(order.status) }}</span>
+            </div>
+            <div class="order-details">
+              <span>{{ order.date }}</span>
+              <span>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PEDIDOS TAB -->
+    <div class="tab-content" *ngIf="activeTab() === 'pedidos'">
+      
+      <!-- List View -->
+      <div *ngIf="!selectedOrder()">
+        <h2>Mis Pedidos</h2>
+        <div class="order-list">
+          <div class="order-card" *ngFor="let order of mockOrders">
+            <div class="order-header">
+              <div>
+                <h4>{{ order.orderNumber }}</h4>
+                <p class="date">{{ order.date }}</p>
+              </div>
+              <span class="badge {{ getStatusClass(order.status) }}">{{ getStatusLabel(order.status) }}</span>
+            </div>
+            <div class="product-thumbs">
+              <div class="thumb" *ngFor="let prod of order.products.slice(0, 3)">
+                <div class="thumb-img-wrapper">
+                  <i class="fa fa-box"></i> <!-- Placeholder for image -->
+                </div>
+              </div>
+              <div class="thumb more" *ngIf="order.products.length > 3">
+                +{{ order.products.length - 3 }}
+              </div>
+            </div>
+            <div class="order-footer">
+              <div class="totals">
+                <span>{{ order.items }} items</span>
+                <strong>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</strong>
+              </div>
+              <div class="actions">
+                <button class="btn btn-navy" (click)="openOrder(order)">Ver detalle</button>
+                <button class="btn btn-crimson" *ngIf="order.status === 'Despachado'">Rastrear Envío</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail View -->
+      <div *ngIf="selectedOrder() as order">
+        <button class="btn-text back-btn" (click)="closeOrder()"><i class="fa fa-arrow-left"></i> Volver a Pedidos</button>
+        
+        <div class="order-detail-header">
+          <div>
+            <h2>Pedido {{ order.orderNumber }}</h2>
+            <p>{{ order.date }}</p>
+          </div>
+          <span class="badge {{ getStatusClass(order.status) }}">{{ getStatusLabel(order.status) }}</span>
+        </div>
+
+        <div class="progress-tracker">
+          <div class="step completed">
+            <div class="circle"><i class="fa fa-check"></i></div>
+            <span>Pago</span>
+          </div>
+          <div class="line completed"></div>
+          <div class="step completed">
+            <div class="circle"><i class="fa fa-box"></i></div>
+            <span>Preparación</span>
+          </div>
+          <div class="line" [class.completed]="order.status === 'Despachado' || order.status === 'Entregado'"></div>
+          <div class="step" [class.completed]="order.status === 'Despachado' || order.status === 'Entregado'" [class.active]="order.status === 'Despachado'">
+            <div class="circle"><i class="fa fa-truck"></i></div>
+            <span>Despachado</span>
+          </div>
+          <div class="line" [class.completed]="order.status === 'Entregado'"></div>
+          <div class="step" [class.completed]="order.status === 'Entregado'" [class.active]="order.status === 'Entregado'">
+            <div class="circle"><i class="fa fa-home"></i></div>
+            <span>Entregado</span>
+          </div>
+        </div>
+
+        <div class="products-table-wrapper">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cant.</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of order.products">
+                <td class="product-col">
+                  <div class="product-cell">
+                    <div class="img-ph"><i class="fa fa-image"></i></div>
+                    <span>{{ item.name }}</span>
+                  </div>
+                </td>
+                <td>{{ item.qty }}</td>
+                <td>{{ item.price | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                <td>{{ (item.price * item.qty) | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="order-summary-grid">
+          <div class="info-card">
+            <h4>Envío</h4>
+            <p><strong>Transportadora:</strong> {{ order.carrier || 'N/A' }}</p>
+            <p><strong>Guía:</strong> <a href="#" *ngIf="order.trackingCode">{{ order.trackingCode }}</a><span *ngIf="!order.trackingCode">N/A</span></p>
+            <p><strong>Dirección:</strong> {{ user.city }}, Colombia</p>
+          </div>
+          
+          <div class="info-card">
+            <h4>Pago</h4>
+            <p><strong>Método:</strong> Tarjeta de Crédito</p>
+            <p><strong>Referencia:</strong> TX-992182012</p>
+          </div>
+
+          <div class="totals-card">
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+            </div>
+            <div class="total-row">
+              <span>Envío</span>
+              <span>Gratis</span>
+            </div>
+            <div class="total-row grand-total">
+              <span>Total</span>
+              <span>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-actions">
+          <button class="btn btn-outline-navy"><i class="fa fa-file-pdf-o"></i> Descargar Factura PDF</button>
+          <button class="btn btn-outline-crimson" (click)="activeTab.set('garantias')"><i class="fa fa-shield"></i> Solicitar Garantía</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAVORITOS TAB -->
+    <div class="tab-content" *ngIf="activeTab() === 'favoritos'">
+      <h2>Mis Favoritos</h2>
+      
+      <div class="wishlist-grid" *ngIf="mockWishlist.length > 0">
+        <div class="wishlist-card" *ngFor="let item of mockWishlist">
+          <button class="btn-remove" (click)="removeFromWishlist(item.id)"><i class="fa fa-trash"></i></button>
+          <div class="img-wrapper">
+            <i class="fa fa-image placeholder-icon"></i>
+            <span class="discount-badge" *ngIf="item.originalPrice > item.price">
+              -{{ ((item.originalPrice - item.price) / item.originalPrice * 100) | number:'1.0-0' }}%
+            </span>
+          </div>
+          <div class="card-body">
+            <span class="stock-badge">{{ item.stock }}</span>
+            <h4 class="product-name">{{ item.name }}</h4>
+            <div class="prices">
+              <span class="current-price">{{ item.price | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+              <span class="original-price" *ngIf="item.originalPrice > item.price">{{ item.originalPrice | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+            </div>
+            <button class="btn btn-crimson full-width">Agregar al Carrito</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="empty-state" *ngIf="mockWishlist.length === 0">
+        <i class="fa fa-heart-o"></i>
+        <h3>Tu lista de deseos está vacía</h3>
+        <p>Explora nuestro catálogo y añade los productos que más te gusten.</p>
+        <button class="btn btn-navy" routerLink="/catalogo">Ir al catálogo</button>
+      </div>
+    </div>
+
+    <!-- GARANTÍAS TAB -->
+    <div class="tab-content" *ngIf="activeTab() === 'garantias'">
+      <div class="section-header">
+        <h2>Mis Garantías y Devoluciones (RMA)</h2>
+        <button class="btn btn-crimson" (click)="toggleRmaForm()">Nueva Solicitud RMA</button>
+      </div>
+
+      <div class="rma-form-container card" *ngIf="isRmaFormVisible()">
+        <h3>Solicitar Garantía</h3>
+        <form class="rma-form">
+          <div class="form-group">
+            <label>Número de Pedido</label>
+            <select class="form-control">
+              <option value="">Seleccione un pedido</option>
+              <option *ngFor="let o of mockOrders" [value]="o.orderNumber">{{ o.orderNumber }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Producto</label>
+            <input type="text" class="form-control" placeholder="Nombre del producto">
+          </div>
+          <div class="form-group">
+            <label>Número de Serie (Opcional)</label>
+            <input type="text" class="form-control" placeholder="Ej. LGT20241103">
+          </div>
+          <div class="form-group">
+            <label>Motivo de la solicitud</label>
+            <select class="form-control">
+              <option>Falla De Fabrica</option>
+              <option>Daño En Transporte</option>
+              <option>No Enciende</option>
+              <option>Incompatible</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label>Descripción detallada del problema</label>
+            <textarea class="form-control" rows="4"></textarea>
+          </div>
+          <div class="form-actions full-width">
+            <button type="button" class="btn btn-outline-navy" (click)="toggleRmaForm()">Cancelar</button>
+            <button type="submit" class="btn btn-crimson">Enviar Solicitud</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="rma-list">
+        <div class="rma-card" *ngFor="let rma of mockRMA">
+          <div class="rma-header">
+            <h4>{{ rma.rmaNumber }}</h4>
+            <span class="badge badge-warning">{{ rma.status }}</span>
+          </div>
+          <div class="rma-body">
+            <p><strong>Producto:</strong> {{ rma.product }}</p>
+            <p><strong>Fecha:</strong> {{ rma.date }}</p>
+            <p><strong>Motivo:</strong> {{ rma.reason }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERFIL TAB -->
+    <div class="tab-content" *ngIf="activeTab() === 'perfil'">
+      <h2>Mi Perfil</h2>
+      
+      <div class="profile-grid">
+        <div class="card profile-card">
+          <div class="card-header">
+            <h3>Datos Personales</h3>
+            <button class="btn-icon"><i class="fa fa-pencil"></i></button>
+          </div>
+          <div class="profile-details">
+            <div class="detail-item">
+              <label>Nombre Completo</label>
+              <p>{{ user.name }}</p>
+            </div>
+            <div class="detail-item">
+              <label>Documento</label>
+              <p>{{ user.docType }} {{ user.docNumber }}</p>
+            </div>
+            <div class="detail-item">
+              <label>Teléfono</label>
+              <p>{{ user.phone }}</p>
+            </div>
+            <div class="detail-item">
+              <label>Ciudad</label>
+              <p>{{ user.city }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card profile-card">
+          <div class="card-header">
+            <h3>Datos de Cuenta</h3>
+          </div>
+          <div class="profile-details">
+            <div class="detail-item">
+              <label>Correo Electrónico</label>
+              <p>{{ user.email }}</p>
+            </div>
+            <hr>
+            <h4>Cambiar Contraseña</h4>
+            <form class="password-form">
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Contraseña Actual">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Nueva Contraseña">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Confirmar Contraseña">
+              </div>
+              <button class="btn btn-navy mt-2">Actualizar Contraseña</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="danger-zone card mt-4">
+        <h3>Zona de Peligro</h3>
+        <p>Cerrar sesión en este dispositivo.</p>
+        <button class="btn btn-outline-danger" (click)="logout()"><i class="fa fa-sign-out"></i> Cerrar Sesión</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Tab Bar -->
+  <nav class="mobile-tab-bar mobile-only">
+    <a [class.active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
+      <i class="fa fa-tachometer"></i>
+      <span>Inicio</span>
+    </a>
+    <a [class.active]="activeTab() === 'pedidos'" (click)="activeTab.set('pedidos')">
+      <i class="fa fa-shopping-bag"></i>
+      <span>Pedidos</span>
+    </a>
+    <a [class.active]="activeTab() === 'favoritos'" (click)="activeTab.set('favoritos')">
+      <i class="fa fa-heart"></i>
+      <span>Favoritos</span>
+    </a>
+    <a [class.active]="activeTab() === 'garantias'" (click)="activeTab.set('garantias')">
+      <i class="fa fa-shield"></i>
+      <span>RMA</span>
+    </a>
+    <a [class.active]="activeTab() === 'perfil'" (click)="activeTab.set('perfil')">
+      <i class="fa fa-user"></i>
+      <span>Perfil</span>
+    </a>
+  </nav>
+</div>

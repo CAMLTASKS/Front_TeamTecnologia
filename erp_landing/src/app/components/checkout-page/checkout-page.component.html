@@ -1,0 +1,317 @@
+<div class="checkout-wrapper">
+  
+  <ng-container *ngIf="orderPlaced(); else checkoutProcess">
+    <!-- Success Screen -->
+    <div class="success-screen">
+      <div class="success-icon-container">
+        <i class="fa fa-check-circle success-icon"></i>
+      </div>
+      <h2>¡Pedido Confirmado!</h2>
+      <p class="order-number">{{ orderNumber }}</p>
+      <p class="success-message">
+        Tu pedido ha sido registrado en nuestro sistema SuiteCRM ERP. Recibirás un correo de confirmación en <strong>{{ shippingData.email || 'tu correo' }}</strong> con los detalles de tu envío.
+      </p>
+      <p class="delivery-estimate">
+        <i class="fa fa-truck"></i> Entrega estimada: 3-5 días hábiles
+      </p>
+      <div class="success-actions">
+        <a routerLink="/mi-cuenta" class="btn btn-outline">Ver mis pedidos</a>
+        <a routerLink="/catalogo" class="btn btn-primary">Seguir comprando</a>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #checkoutProcess>
+    
+    <!-- Top Header & Breadcrumbs -->
+    <header class="checkout-header">
+      <a routerLink="/" class="logo-link">
+        <span class="logo-text">TeamTecnologia</span>
+      </a>
+      
+      <div class="step-indicator">
+        <div class="step" [class.active]="step() === 1" [class.completed]="step() > 1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Carrito</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" [class.active]="step() === 2" [class.completed]="step() > 2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Envío & Datos</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" [class.active]="step() === 3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Pago</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="checkout-layout">
+      
+      <!-- Left Column (Form Area) -->
+      <div class="checkout-main">
+        
+        <!-- STEP 1: Carrito -->
+        <div class="step-content" *ngIf="step() === 1">
+          <h2 class="step-title">Carrito de Compras ({{ totalItems }})</h2>
+          
+          <div *ngIf="cartItems.length === 0" class="empty-cart">
+            <i class="fa fa-shopping-cart empty-icon"></i>
+            <p>Tu carrito está vacío.</p>
+            <a routerLink="/catalogo" class="btn btn-primary">Ir al catálogo</a>
+          </div>
+          
+          <div *ngIf="cartItems.length > 0">
+            <div class="cart-items">
+              <div class="cart-item" *ngFor="let item of cartItems">
+                <div class="item-img-container">
+                  <img [src]="item.image" [alt]="item.name" class="item-img" />
+                </div>
+                <div class="item-details">
+                  <span class="brand-tag">{{ item.brand }}</span>
+                  <h3 class="item-name">{{ item.name }}</h3>
+                  <div class="item-price">{{ formatCOP(item.price) }}</div>
+                </div>
+                <div class="item-actions">
+                  <div class="qty-controls">
+                    <button type="button" (click)="updateQty(item, -1)"><i class="fa fa-minus"></i></button>
+                    <span class="qty-value">{{ item.qty }}</span>
+                    <button type="button" (click)="updateQty(item, 1)"><i class="fa fa-plus"></i></button>
+                  </div>
+                  <button type="button" class="btn-remove" (click)="removeItem(item.id)">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="coupon-section">
+              <div class="input-group">
+                <input type="text" [(ngModel)]="couponCode" placeholder="Código de descuento" />
+                <button type="button" class="btn btn-outline" (click)="applyCoupon()">Aplicar</button>
+              </div>
+              <p *ngIf="couponApplied()" class="success-text"><i class="fa fa-check"></i> Cupón TEAM10 aplicado con éxito</p>
+            </div>
+            
+            <div class="step-actions right">
+              <button class="btn btn-primary btn-large" (click)="nextStep()">Continuar a Envío <i class="fa fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Datos de Envío -->
+        <div class="step-content" *ngIf="step() === 2">
+          <h2 class="step-title">Datos de Envío</h2>
+          
+          <div class="client-type-selector">
+            <label class="radio-card" [class.selected]="shippingData.clientType === 'Persona_Natural'">
+              <input type="radio" [(ngModel)]="shippingData.clientType" value="Persona_Natural">
+              <div class="card-content">
+                <i class="fa fa-user"></i>
+                <span>Persona Natural</span>
+              </div>
+            </label>
+            <label class="radio-card" [class.selected]="shippingData.clientType === 'Empresa'">
+              <input type="radio" [(ngModel)]="shippingData.clientType" value="Empresa">
+              <div class="card-content">
+                <i class="fa fa-building"></i>
+                <span>Empresa (B2B)</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group full-width" *ngIf="shippingData.clientType === 'Empresa'">
+              <label>Razón Social *</label>
+              <input type="text" [(ngModel)]="shippingData.companyName" placeholder="Nombre de la empresa" />
+            </div>
+            
+            <div class="form-group">
+              <label>Nombre *</label>
+              <input type="text" [(ngModel)]="shippingData.firstName" />
+            </div>
+            <div class="form-group">
+              <label>Apellido *</label>
+              <input type="text" [(ngModel)]="shippingData.lastName" />
+            </div>
+            
+            <div class="form-group doc-group">
+              <label>Documento *</label>
+              <div class="doc-inputs">
+                <select [(ngModel)]="shippingData.docType">
+                  <option value="CC">CC</option>
+                  <option value="CE">CE</option>
+                  <option value="NIT">NIT</option>
+                </select>
+                <input type="text" [(ngModel)]="shippingData.docNumber" placeholder="Número" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>Correo Electrónico *</label>
+              <input type="email" [(ngModel)]="shippingData.email" placeholder="ejemplo@correo.com" />
+            </div>
+            
+            <div class="form-group">
+              <label>Teléfono *</label>
+              <input type="tel" [(ngModel)]="shippingData.phone" placeholder="Celular" />
+            </div>
+            <div class="form-group">
+              <label>Ciudad *</label>
+              <input type="text" [(ngModel)]="shippingData.city" placeholder="Ej. Bogotá" />
+            </div>
+            
+            <div class="form-group">
+              <label>Dirección *</label>
+              <input type="text" [(ngModel)]="shippingData.address" placeholder="Calle/Carrera" />
+            </div>
+            <div class="form-group">
+              <label>Detalle (Opcional)</label>
+              <input type="text" [(ngModel)]="shippingData.addressDetail" placeholder="Apto, Torre, Oficina" />
+            </div>
+          </div>
+          
+          <div class="step-actions between">
+            <button class="btn btn-outline" (click)="prevStep()"><i class="fa fa-arrow-left"></i> Volver</button>
+            <button class="btn btn-primary btn-large" (click)="nextStep()">Continuar a Pago <i class="fa fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Método de Pago -->
+        <div class="step-content" *ngIf="step() === 3">
+          <h2 class="step-title">Método de Pago</h2>
+          
+          <div class="payment-methods">
+            <label class="payment-card" [class.selected]="paymentData.method === 'card'">
+              <input type="radio" [(ngModel)]="paymentData.method" value="card">
+              <div class="card-content">
+                <i class="fa fa-credit-card"></i>
+                <span>Tarjeta Crédito/Débito</span>
+              </div>
+            </label>
+            <label class="payment-card" [class.selected]="paymentData.method === 'pse'">
+              <input type="radio" [(ngModel)]="paymentData.method" value="pse">
+              <div class="card-content">
+                <i class="fa fa-university"></i>
+                <span>PSE</span>
+              </div>
+            </label>
+            <label class="payment-card" [class.selected]="paymentData.method === 'nequi'">
+              <input type="radio" [(ngModel)]="paymentData.method" value="nequi">
+              <div class="card-content">
+                <i class="fa fa-mobile-phone"></i>
+                <span>Nequi</span>
+              </div>
+            </label>
+            <label class="payment-card" [class.selected]="paymentData.method === 'bold'">
+              <input type="radio" [(ngModel)]="paymentData.method" value="bold">
+              <div class="card-content">
+                <div class="bold-dot"></div>
+                <span>Bold</span>
+              </div>
+            </label>
+            <label class="payment-card" [class.selected]="paymentData.method === 'wompi'">
+              <input type="radio" [(ngModel)]="paymentData.method" value="wompi">
+              <div class="card-content">
+                <i class="fa fa-globe"></i>
+                <span>Wompi</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="payment-form" *ngIf="paymentData.method === 'card'">
+            <div class="form-group full-width">
+              <label>Número de Tarjeta</label>
+              <input type="text" [(ngModel)]="paymentData.cardNumber" placeholder="0000 0000 0000 0000" class="card-input" />
+            </div>
+            <div class="form-group full-width">
+              <label>Nombre en la Tarjeta</label>
+              <input type="text" [(ngModel)]="paymentData.cardName" placeholder="Como aparece en la tarjeta" class="card-input" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Vencimiento (MM/AA)</label>
+                <input type="text" [(ngModel)]="paymentData.expiry" placeholder="MM/AA" class="card-input" />
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="text" [(ngModel)]="paymentData.cvv" placeholder="123" class="card-input" />
+              </div>
+            </div>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" [(ngModel)]="paymentData.saveCard" />
+                Guardar tarjeta para futuras compras
+              </label>
+            </div>
+          </div>
+          
+          <div class="payment-redirect-msg" *ngIf="paymentData.method !== 'card'">
+            <div class="secure-icon">
+              <i class="fa fa-lock"></i>
+            </div>
+            <p>Serás redirigido a <strong>{{ paymentData.method | uppercase }}</strong> para completar tu pago de forma segura.</p>
+          </div>
+          
+          <div class="step-actions between">
+            <button class="btn btn-outline" (click)="prevStep()"><i class="fa fa-arrow-left"></i> Volver</button>
+            <button class="btn btn-primary btn-large btn-pay" (click)="placeOrder()" [disabled]="loading()">
+              <span *ngIf="!loading()">CONFIRMAR Y PAGAR {{ formatCOP(total) }}</span>
+              <span *ngIf="loading()"><i class="fa fa-spinner fa-spin"></i> Procesando...</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column (Order Summary) -->
+      <aside class="checkout-summary" [class.mobile-hidden]="step() < 3 && false"> <!-- Tweak if needed for mobile -->
+        <div class="summary-card">
+          <h3>Resumen del Pedido</h3>
+          
+          <div class="summary-items">
+            <div class="mini-item" *ngFor="let item of cartItems">
+              <span class="mini-qty">{{ item.qty }}x</span>
+              <span class="mini-name">{{ item.name }}</span>
+              <span class="mini-price">{{ formatCOP(item.price * item.qty) }}</span>
+            </div>
+          </div>
+          
+          <hr class="divider" />
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ formatCOP(subtotal) }}</span>
+          </div>
+          <div class="summary-row">
+            <span>Envío</span>
+            <span [class.free-text]="shipping === 0">{{ shipping === 0 ? 'GRATIS' : formatCOP(shipping) }}</span>
+          </div>
+          <div class="summary-row discount" *ngIf="couponApplied()">
+            <span>Descuento (TEAM10)</span>
+            <span>-{{ formatCOP(discount) }}</span>
+          </div>
+          <div class="summary-row">
+            <span>IVA (19%)</span>
+            <span>{{ formatCOP(tax) }}</span>
+          </div>
+          
+          <hr class="divider" />
+          
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span>{{ formatCOP(total) }}</span>
+          </div>
+          
+          <div class="security-badges">
+            <div class="badge"><i class="fa fa-shield"></i> Pago Seguro</div>
+            <div class="badge"><i class="fa fa-lock"></i> Compra Protegida</div>
+            <div class="badge"><i class="fa fa-certificate"></i> Garantía</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </ng-template>
+</div>

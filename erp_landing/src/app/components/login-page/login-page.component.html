@@ -1,0 +1,90 @@
+<div class="login-container">
+  <!-- Left Side: Brand Section (Desktop Only) -->
+  <div class="brand-section">
+    <div class="brand-content">
+      <div class="logo">
+        <span class="logo-team">Team</span><span class="logo-tec">Tecnologia</span>
+      </div>
+      <p class="tagline">Tu socio tecnológico de confianza</p>
+      
+      <div class="features-list">
+        <div class="feature-item">
+          <i class="fa fa-shopping-bag"></i>
+          <span>Catálogo Premium</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa fa-boxes"></i>
+          <span>Pedidos ERP</span>
+        </div>
+        <div class="feature-item">
+          <i class="fa fa-headset"></i>
+          <span>Soporte 24/7</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Decorative elements -->
+    <div class="decorations">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+    </div>
+  </div>
+
+  <!-- Right Side: Form Section -->
+  <div class="form-section">
+    <div class="form-card fade-in">
+      <h2 class="title">Iniciar Sesión</h2>
+      <p class="subtitle">Accede a tu portal de cliente</p>
+
+      <!-- Alert Banners -->
+      <div *ngIf="error()" class="alert error-alert">
+        <i class="fa fa-exclamation-circle"></i> {{ error() }}
+      </div>
+      <div *ngIf="success()" class="alert success-alert">
+        <i class="fa fa-check-circle"></i> {{ success() }}
+      </div>
+
+      <form (ngSubmit)="submitLogin()" #loginForm="ngForm">
+        <div class="input-group">
+          <label for="email">Correo Electrónico</label>
+          <div class="input-wrapper">
+            <i class="fa fa-envelope input-icon"></i>
+            <input type="email" id="email" name="email" [(ngModel)]="formData.email" placeholder="tucorreo@ejemplo.com" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <div class="input-wrapper">
+            <i class="fa fa-lock input-icon"></i>
+            <input [type]="showPassword() ? 'text' : 'password'" id="password" name="password" [(ngModel)]="formData.password" placeholder="Tu contraseña" required>
+            <i class="fa toggle-password" [ngClass]="showPassword() ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePassword()"></i>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="loading()">
+          <span *ngIf="!loading()">INGRESAR</span>
+          <i *ngIf="loading()" class="fa fa-spinner fa-spin"></i>
+        </button>
+      </form>
+
+      <div class="divider">
+        <span>o continúa con</span>
+      </div>
+
+      <button class="btn-google" type="button">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="google-icon">
+        Ingresar con Google
+      </button>
+
+      <div class="register-prompt">
+        <span>¿No tienes cuenta?</span>
+        <a routerLink="/registro" class="register-link">Regístrate aquí</a>
+      </div>
+    </div>
+  </div>
+</div>
