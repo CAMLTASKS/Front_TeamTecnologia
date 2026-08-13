@@ -1,0 +1,214 @@
+<div id="catalog-section" class="catalog-page-container">
+  <div class="catalog-page-inner">
+    
+    <!-- LEFT SIDEBAR FILTERS (Matches reference screenshot 1) -->
+    <aside class="catalog-sidebar">
+      
+      <div class="sidebar-header">
+        <h3 class="sidebar-main-title">Filter By</h3>
+        <button *ngIf="selectedCategoryFilter() || selectedBrands().length > 0 || maxPrice() < 5000" 
+                (click)="selectedCategoryFilter.set(''); selectedBrands.set([]); maxPrice.set(5000)" 
+                class="clear-all-btn">
+          Limpiar Todo
+        </button>
+      </div>
+
+      <!-- Filter Section: Availability -->
+      <div class="filter-group">
+        <h4 class="filter-title">Availability</h4>
+        <label class="filter-checkbox-label">
+          <input type="checkbox" [checked]="inStockOnly()" (change)="inStockOnly.set(!inStockOnly())">
+          <span>In Stock (8)</span>
+        </label>
+        <label class="filter-checkbox-label">
+          <input type="checkbox" [checked]="outOfStockOnly()" (change)="outOfStockOnly.set(!outOfStockOnly())">
+          <span>Out Of Stock (2)</span>
+        </label>
+      </div>
+
+      <hr class="filter-divider">
+
+      <!-- Filter Section: Price -->
+      <div class="filter-group">
+        <h4 class="filter-title">Price</h4>
+        <div class="price-range-wrapper">
+          <input type="range" min="100" max="5000" step="50" [value]="maxPrice()" (input)="maxPrice.set(+$any($event.target).value)" class="price-slider">
+          <div class="price-display-row">
+            <span>$0</span>
+            <span class="current-price-badge">Hasta ${{ maxPrice() | number:'1.0-0' }} USD</span>
+            <span>$5,000</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="filter-divider">
+
+      <!-- Filter Section: Categories -->
+      <div class="filter-group">
+        <h4 class="filter-title">Categorías ERP</h4>
+        <div class="filter-categories-list">
+          <div *ngFor="let cat of categoryService.categories()" class="cat-filter-item">
+            <div class="cat-filter-parent" 
+                 [class.active]="selectedCategoryFilter() === cat.id"
+                 (click)="selectCategory(cat.id)">
+              <i class="fa fa-folder" style="color: var(--color-primary, #d90429); margin-right: 6px;"></i>
+              <span>{{ cat.name }}</span>
+            </div>
+            <div *ngIf="cat.subcategories.length > 0" class="subcat-filter-list">
+              <div *ngFor="let sub of cat.subcategories" 
+                   class="subcat-filter-item"
+                   [class.active]="selectedCategoryFilter() === sub.id"
+                   (click)="selectCategory(sub.id)">
+                <span>• {{ sub.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="filter-divider">
+
+      <!-- Filter Section: Brands / Fabricantes -->
+      <div class="filter-group">
+        <h4 class="filter-title">Marcas / Fabricantes</h4>
+        <div class="brands-checkbox-list">
+          <label *ngFor="let brand of availableBrands" class="filter-checkbox-label">
+            <input type="checkbox" [checked]="selectedBrands().includes(brand)" (change)="toggleBrand(brand)">
+            <span>{{ brand }}</span>
+          </label>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT MAIN CATALOG BODY (Matches reference screenshot 1) -->
+    <main class="catalog-main-content">
+      
+      <!-- Top Control Bar (Sort, Count, View Switcher) -->
+      <div class="catalog-toolbar">
+        
+        <!-- Category Title & Sort Dropdown (Left) -->
+        <div class="toolbar-left">
+          <div class="sort-dropdown-wrap">
+            <select [value]="sortBy()" (change)="sortBy.set($any($event.target).value)" class="sort-select">
+              <option value="best-selling">Best selling</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="newest">Newest Products</option>
+              <option value="title">Alphabetical (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Count & View Switcher (Right) -->
+        <div class="toolbar-right">
+          <span class="product-count-text">{{ filteredProducts().length }} Products</span>
+
+          <div class="view-mode-switcher">
+            <!-- 4 Columns Grid -->
+            <button (click)="setGridMode('grid-4')" 
+                    class="switcher-btn" 
+                    [class.active]="gridMode() === 'grid-4'" 
+                    title="4 Columnas">
+              <span class="grid-icon grid-4-icon">||||</span>
+            </button>
+
+            <!-- 3 Columns Grid -->
+            <button (click)="setGridMode('grid-3')" 
+                    class="switcher-btn" 
+                    [class.active]="gridMode() === 'grid-3'" 
+                    title="3 Columnas">
+              <span class="grid-icon grid-3-icon">|||</span>
+            </button>
+
+            <!-- 2 Columns Grid -->
+            <button (click)="setGridMode('grid-2')" 
+                    class="switcher-btn" 
+                    [class.active]="gridMode() === 'grid-2'" 
+                    title="2 Columnas">
+              <span class="grid-icon grid-2-icon">||</span>
+            </button>
+
+            <!-- List View -->
+            <button (click)="setGridMode('list')" 
+                    class="switcher-btn" 
+                    [class.active]="gridMode() === 'list'" 
+                    title="Vista Lista">
+              <span class="grid-icon list-icon">=</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PRODUCT CARDS CONTAINER (Matching screenshot cards: light background, sale badge, image, SKU, price) -->
+      <div class="products-grid-container" [ngClass]="gridMode()">
+        
+        <div *ngFor="let product of filteredProducts()" 
+             class="catalog-product-card"
+             (click)="openQuickView(product)">
+          
+          <!-- Discount / Sale Badge -->
+          <div *ngIf="product.originalPrice" class="sale-badge">
+            -15%
+          </div>
+
+          <!-- Product Image Container -->
+          <div class="card-image-box">
+            <img [src]="product.image" [alt]="product.title" class="product-card-img" (error)="$any($event.target).src='/cdn/shop/files/1_100x100.svg'">
+            
+            <!-- Quick View Overlay Button -->
+            <div class="card-hover-overlay">
+              <button type="button" class="btn-quick-view" (click)="openQuickView(product)">
+                <i class="fa fa-eye"></i> VISTA RÁPIDA
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Content Box -->
+          <div class="card-info-box">
+            <span class="product-vendor-code">{{ product.vendor }}</span>
+            
+            <h3 class="product-card-title" [title]="product.title">
+              {{ product.title }}
+            </h3>
+
+            <!-- Price & Actions Row -->
+            <div class="product-card-price-row">
+              <div class="price-wrap">
+                <span class="current-price">${{ product.price | number:'1.2-2' }}</span>
+                <span *ngIf="product.originalPrice" class="old-price">${{ product.originalPrice | number:'1.2-2' }}</span>
+              </div>
+
+              <!-- Add to Cart Button -->
+              <button type="button" class="btn-add-cart" (click)="addToCart(product, $event)" title="Añadir al Carrito">
+                <i class="fa fa-shopping-cart"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Empty State when no products match filters -->
+      <div *ngIf="filteredProducts().length === 0" class="catalog-empty-state">
+        <i class="fa fa-search" style="font-size: 48px; color: #94a3b8; margin-bottom: 16px;"></i>
+        <h3>No se encontraron productos de tecnología</h3>
+        <p>Intenta ajustar los filtros de precio, categorías o marcas para ver más resultados.</p>
+        <button (click)="selectedCategoryFilter.set(''); selectedBrands.set([]); maxPrice.set(5000)" class="btn-reset-filters">
+          Restablecer Filtros
+        </button>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<!-- FULL PRODUCT DETAIL MODAL -->
+<app-quick-view-modal 
+  *ngIf="selectedQuickViewProduct()" 
+  [product]="selectedQuickViewProduct()" 
+  (close)="closeQuickView()">
+</app-quick-view-modal>

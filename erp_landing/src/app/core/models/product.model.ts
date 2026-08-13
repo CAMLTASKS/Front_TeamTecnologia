@@ -6,6 +6,7 @@ export interface Product {
   vendor: string;
   type?: string;
   sku?: string;
+  category_id?: string;
   image: string;
   rating: number;
   reviewsCount?: number;

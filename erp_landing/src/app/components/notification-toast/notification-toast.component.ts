@@ -2,35 +2,62 @@ import { Component, signal, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
+  styleUrl: './notification-toast.component.css',
   selector: 'app-notification-toast',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './notification-toast.component.html',
-  styleUrl: './notification-toast.component.css'
 })
 export class NotificationToastComponent implements OnDestroy {
   visible = signal<boolean>(true);
-  
+  currentNotification = signal({
+    title: 'Laptop Lenovo ThinkPad X1 Carbon',
+    location: 'Bogotá, CO',
+    timeAgo: 'Hace 12 minutos',
+    image: '/cdn/shop/files/1_100x100.svg'
+  });
+
+  private intervalId: any;
+
   notifications = [
-    { title: 'Shrink T-Handle 28 Piece', location: 'Australia', timeAgo: '22 Minutes Ago', image: '/cdn/shop/files/sub-banner-1.jpg' },
-    { title: 'Stripper With Cutting Tool', location: 'London', timeAgo: '33 Minutes Ago', image: '/cdn/shop/files/sub-banner-2.jpg' },
-    { title: '20-Volt Impact Driver', location: 'New York', timeAgo: '5 Minutes Ago', image: '/cdn/shop/files/sub-banner-1.jpg' }
+    {
+      title: 'Laptop Lenovo ThinkPad X1 Carbon Gen 11',
+      location: 'Bogotá, CO',
+      timeAgo: 'Hace 12 minutos',
+      image: '/cdn/shop/files/1_100x100.svg'
+    },
+    {
+      title: 'Servidor Dell PowerEdge R750 2U Xeon',
+      location: 'Medellín, CO',
+      timeAgo: 'Hace 24 minutos',
+      image: '/cdn/shop/files/7_100x100.svg'
+    },
+    {
+      title: 'Switch Cisco Catalyst 9300 48P PoE+',
+      location: 'Cali, CO',
+      timeAgo: 'Hace 38 minutos',
+      image: '/cdn/shop/files/3_100x100.svg'
+    },
+    {
+      title: 'Tarjeta Gráfica NVIDIA RTX 4090 24GB',
+      location: 'Barranquilla, CO',
+      timeAgo: 'Hace 45 minutos',
+      image: '/cdn/shop/files/4_100x100.svg'
+    }
   ];
 
-  currentNotification = signal(this.notifications[0]);
-  private timer: any;
-  private index = 0;
-
   constructor() {
-    this.timer = setInterval(() => {
-      this.index = (this.index + 1) % this.notifications.length;
-      this.currentNotification.set(this.notifications[this.index]);
-    }, 8000);
+    let index = 0;
+    this.intervalId = setInterval(() => {
+      index = (index + 1) % this.notifications.length;
+      this.currentNotification.set(this.notifications[index]);
+      this.visible.set(true);
+    }, 12000);
   }
 
   ngOnDestroy() {
-    if (this.timer) {
-      clearInterval(this.timer);
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
 }

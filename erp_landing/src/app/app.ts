@@ -4,7 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { CategorySliderComponent } from './components/category-slider/category-slider.component';
 import { HeroSlideshowComponent } from './components/hero-slideshow/hero-slideshow.component';
 import { SubBannersComponent } from './components/sub-banners/sub-banners.component';
-import { ProductTabsComponent } from './components/product-tabs/product-tabs.component';
+import { CatalogViewComponent } from './components/catalog-view/catalog-view.component';
 import { DealCollectionComponent } from './components/deal-collection/deal-collection.component';
 import { FeaturesBarComponent } from './components/features-bar/features-bar.component';
 import { LatestBlogComponent } from './components/latest-blog/latest-blog.component';
@@ -26,7 +26,7 @@ import { MobileDrawerComponent } from './components/mobile-drawer/mobile-drawer.
     CategorySliderComponent,
     HeroSlideshowComponent,
     SubBannersComponent,
-    ProductTabsComponent,
+    CatalogViewComponent,
     DealCollectionComponent,
     FeaturesBarComponent,
     LatestBlogComponent,
@@ -43,5 +43,5 @@ import { MobileDrawerComponent } from './components/mobile-drawer/mobile-drawer.
   styleUrl: './app.css'
 })
 export class App {
-  title = 'Toolgard ERP Landing';
+  title = 'TeamTecnologia ERP Landing';
 }

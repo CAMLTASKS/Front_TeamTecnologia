@@ -1,31 +1,33 @@
-<div class="slideshow-wrapper" style="position: relative; overflow: hidden; background: #0a192f; height: 520px;">
-      
+<div class="slideshow-wrapper">
+  
   <!-- Slide Items -->
   <div *ngFor="let slide of slides; let i = index" 
-       [style.opacity]="currentSlide() === i ? '1' : '0'"
-       [style.visibility]="currentSlide() === i ? 'visible' : 'hidden'"
-       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.8s ease-in-out;">
+       class="slide-item"
+       [class.active-slide]="currentSlide() === i">
     
-    <img [src]="slide.image" [alt]="slide.title" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65);">
+    <img [src]="slide.image" [alt]="slide.title" class="slide-bg-image">
 
-    <!-- Slide Overlay Content -->
-    <div class="page-width" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; max-width: 1400px; padding: 0 30px; color: #fff;">
-      <div style="max-width: 680px; animation: fadeInUp 0.8s ease-out;">
-        <span style="background: var(--color-primary, #d90429); color: #fff; padding: 6px 16px; font-size: 12px; font-weight: 800; text-transform: uppercase; border-radius: 4px; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(217, 4, 41, 0.4);">
-          {{ slide.subtitle }}
+    <!-- Slide Content Glass Card -->
+    <div class="slide-overlay-container">
+      <div class="slide-glass-card">
+        <span class="slide-badge">
+          <i class="fa fa-bolt" style="margin-right: 6px;"></i> {{ slide.subtitle }}
         </span>
-        <h2 style="font-size: 42px; font-weight: 800; margin: 16px 0; line-height: 1.15; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-family: 'Outfit', sans-serif;">
+
+        <h2 class="slide-main-title">
           {{ slide.title }}
         </h2>
-        <p style="font-size: 16px; margin-bottom: 25px; color: #f1f5f9; line-height: 1.5; font-weight: 400;">
+
+        <p class="slide-description">
           {{ slide.description }}
         </p>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-          <a href="javascript:void(0)" style="background: var(--color-primary, #d90429); color: #fff; text-decoration: none; padding: 14px 32px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 13px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(217, 4, 41, 0.4);">
-            Ver Catálogo Tecnológico <i class="fa fa-arrow-right" style="margin-left: 8px;"></i>
+
+        <div class="slide-actions-row">
+          <a href="#catalog-section" class="btn-primary-action">
+            EXPLORAR CATÁLOGO <i class="fa fa-arrow-right" style="margin-left: 8px;"></i>
           </a>
-          <a href="javascript:void(0)" style="background: rgba(15, 43, 92, 0.7); backdrop-filter: blur(8px); border: 2px solid rgba(255, 255, 255, 0.4); color: #fff; text-decoration: none; padding: 14px 32px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 13px; transition: all 0.3s ease;">
-            Servicios ERP
+          <a href="javascript:void(0)" class="btn-secondary-action">
+            HASTA 50% DESCUENTO
           </a>
         </div>
       </div>
@@ -33,21 +35,22 @@
 
   </div>
 
-  <!-- Controls Prev & Next -->
-  <button (click)="prevSlide()" style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); background: rgba(15, 43, 92, 0.7); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10;">
+  <!-- Previous Button -->
+  <button (click)="prevSlide()" class="carousel-control-btn prev-btn" title="Anterior">
     <i class="fa fa-angle-left"></i>
   </button>
 
-  <button (click)="nextSlide()" style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background: rgba(15, 43, 92, 0.7); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10;">
+  <!-- Next Button -->
+  <button (click)="nextSlide()" class="carousel-control-btn next-btn" title="Siguiente">
     <i class="fa fa-angle-right"></i>
   </button>
 
   <!-- Indicator Dots -->
-  <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10;">
+  <div class="carousel-indicators-bar">
     <span *ngFor="let s of slides; let i = index" 
           (click)="setSlide(i)"
-          [style.background]="currentSlide() === i ? 'var(--color-primary, #d90429)' : 'rgba(255,255,255,0.4)'"
-          style="width: 12px; height: 12px; border-radius: 50%; cursor: pointer; transition: background 0.3s ease;">
+          class="indicator-dot"
+          [class.active-dot]="currentSlide() === i">
     </span>
   </div>
 
