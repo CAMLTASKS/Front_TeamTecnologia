@@ -101,3 +101,34 @@
   align-items: center;
   box-shadow: 0 2px 6px rgba(233, 97, 30, 0.5);
 }
+
+/* CART BUBBLE */
+.dock-cart-bubble {
+  position: relative; display: inline-flex;
+}
+.dock-badge {
+  position: absolute; top: -6px; right: -8px;
+  background: #d90429; color: #fff;
+  font-size: 9px; font-weight: 800;
+  border-radius: 50%; min-width: 16px; height: 16px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(15,23,42,0.9);
+}
+.dock-badge-sm {
+  position: absolute; top: -5px; right: -8px;
+  background: #d90429; color: #fff;
+  font-size: 8px; font-weight: 800;
+  border-radius: 50%; min-width: 14px; height: 14px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid rgba(15,23,42,0.9);
+}
+
+/* DOCK AVATAR */
+.dock-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: linear-gradient(135deg, #d90429, #ff4d6d);
+  color: #fff; font-size: 10px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.dock-item.active .dock-avatar { box-shadow: 0 0 0 2px #d90429; }

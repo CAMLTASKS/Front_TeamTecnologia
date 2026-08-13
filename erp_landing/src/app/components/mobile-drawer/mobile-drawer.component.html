@@ -1,7 +1,7 @@
 <!-- Backdrop -->
 <div class="mobile-drawer-backdrop" 
      [class.active]="mobileNavService.isDrawerOpen()" 
-     (click)="mobileNavService.closeDrawer()">
+     (click)="close()">
 </div>
 
 <!-- Drawer Panel -->
@@ -9,63 +9,94 @@
   
   <!-- Header -->
   <div class="drawer-header">
-    <img src="/cdn/shop/files/logo_200x.png" alt="Toolgard" class="drawer-logo">
-    <button class="drawer-close-btn" (click)="mobileNavService.closeDrawer()">&times;</button>
+    <span class="drawer-brand">Team<span class="drawer-brand-red">Tecnologia</span></span>
+    <button class="drawer-close-btn" (click)="close()">&times;</button>
   </div>
 
-  <!-- Search Bar -->
-  <div class="drawer-search">
-    <input type="text" placeholder="Search Product Here..." class="drawer-search-input">
-    <button class="drawer-search-btn">
-      <i class="fa fa-search"></i>
-    </button>
+  <!-- User Card: Auth Aware -->
+  <div class="drawer-user-card" *ngIf="!authService.isLoggedIn()">
+    <div class="drawer-user-avatar guest-avatar">
+      <i class="fa fa-user-o"></i>
+    </div>
+    <div class="drawer-user-info">
+      <div class="drawer-user-name">Portal de Clientes</div>
+      <div class="drawer-user-email">Accede o crea tu cuenta</div>
+    </div>
+    <div class="drawer-user-actions">
+      <a routerLink="/login" class="btn-drawer-login" (click)="close()">Ingresar</a>
+      <a routerLink="/registro" class="btn-drawer-register" (click)="close()">Registrarse</a>
+    </div>
+  </div>
+
+  <div class="drawer-user-card logged-in" *ngIf="authService.isLoggedIn()">
+    <div class="drawer-user-avatar">{{ authService.getInitials() }}</div>
+    <div class="drawer-user-info">
+      <div class="drawer-user-name">{{ authService.user()?.name }}</div>
+      <div class="drawer-user-email">{{ authService.user()?.email }}</div>
+    </div>
+    <a routerLink="/mi-cuenta" class="btn-drawer-account" (click)="close()">
+      <i class="fa fa-user"></i>
+    </a>
   </div>
 
   <!-- Content Body -->
   <div class="drawer-body">
-    
-    <!-- User Account Card -->
-    <div class="drawer-user-card">
-      <i class="fa fa-user-circle"></i>
-      <div>
-        <div class="user-title">My Account</div>
-        <div class="user-sub">Log in / Register</div>
-      </div>
+
+    <!-- Search Bar -->
+    <div class="drawer-search">
+      <i class="fa fa-search drawer-search-icon"></i>
+      <input type="text" placeholder="Buscar productos..." class="drawer-search-input">
     </div>
 
-    <!-- Category Header -->
+    <!-- Logged In Quick Links -->
+    <div *ngIf="authService.isLoggedIn()" class="drawer-quick-links">
+      <a routerLink="/mi-cuenta" (click)="close()" class="quick-link-item">
+        <i class="fa fa-shopping-bag"></i> Mis Pedidos
+      </a>
+      <a routerLink="/mi-cuenta" (click)="close()" class="quick-link-item">
+        <i class="fa fa-heart-o"></i> Favoritos
+      </a>
+      <a routerLink="/mi-cuenta" (click)="close()" class="quick-link-item">
+        <i class="fa fa-shield"></i> Garantías
+      </a>
+    </div>
+
+    <!-- Category Section -->
     <div class="section-title">
-      <i class="fa fa-th-large"></i> Tool Categories
+      <i class="fa fa-th-large"></i> Categorías
     </div>
 
-    <!-- Category List -->
     <div class="drawer-cat-list">
-      <div *ngFor="let cat of categories" class="drawer-cat-item" (click)="mobileNavService.closeDrawer()">
+      <div *ngFor="let cat of categories" class="drawer-cat-item" (click)="close()" routerLink="/catalogo">
         <img [src]="cat.icon" [alt]="cat.name" class="cat-icon">
         <span>{{ cat.name }}</span>
         <i class="fa fa-angle-right arrow"></i>
       </div>
     </div>
 
-    <!-- Navigation Header -->
+    <!-- Navigation -->
     <div class="section-title">
-      <i class="fa fa-compass"></i> Navigation
+      <i class="fa fa-compass"></i> Navegación
     </div>
 
     <ul class="drawer-menu-list">
-      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Home</a></li>
-      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Catalog</a></li>
-      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Tools</a></li>
-      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">About Us</a></li>
-      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Blog</a></li>
-      <li (click)="mobileNavService.closeDrawer()"><a href="javascript:void(0)">Contact</a></li>
+      <li (click)="close()"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+      <li (click)="close()"><a routerLink="/catalogo"><i class="fa fa-shopping-bag"></i> Catálogo</a></li>
+      <li (click)="close()"><a routerLink="/nosotros"><i class="fa fa-info-circle"></i> Nosotros</a></li>
+      <li (click)="close()"><a routerLink="/blog"><i class="fa fa-book"></i> Blog</a></li>
+      <li (click)="close()"><a routerLink="/contacto"><i class="fa fa-envelope"></i> Contacto</a></li>
     </ul>
 
-    <!-- Currency & Language -->
+    <!-- Footer options -->
     <div class="drawer-footer-options">
-      <div><strong>Currency:</strong> USD ($)</div>
-      <div><strong>Language:</strong> English</div>
+      <div>🇨🇴 <strong>Colombia</strong> — COP $</div>
+      <div>📞 (+57) 601 555-8899</div>
     </div>
+
+    <!-- Logout if logged in -->
+    <button *ngIf="authService.isLoggedIn()" class="btn-drawer-logout" (click)="logout()">
+      <i class="fa fa-sign-out"></i> Cerrar Sesión
+    </button>
 
   </div>
 

@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-register-page',
@@ -11,14 +12,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './register-page.component.css'
 })
 export class RegisterPageComponent {
-  step = signal(1); // 1: datos personales, 2: datos de cuenta, 3: confirmacion
+  router = inject(Router);
+  authService = inject(AuthService);
+  
+  step = signal(1);
   loading = signal(false);
-  error = signal('');
   success = signal(false);
+  error = signal('');
   showPassword = signal(false);
-  showConfirmPassword = signal(false);
 
   formData = {
+    clientType: 'Persona Natural',
     firstName: '',
     lastName: '',
     docType: 'CC',
@@ -28,48 +32,65 @@ export class RegisterPageComponent {
     email: '',
     password: '',
     confirmPassword: '',
-    clientType: 'Persona_Natural',
-    acceptTerms: false
+    terms: false
   };
 
-  goToStep(n: number) { this.step.set(n); this.error.set(''); }
-
-  validateStep1(): boolean {
-    if (!this.formData.firstName || !this.formData.lastName || !this.formData.phone || !this.formData.city) {
-      this.error.set('Completa todos los campos requeridos (*)');
-      return false;
+  nextStep() {
+    this.error.set('');
+    if (this.step() === 1) {
+      if (!this.formData.firstName || !this.formData.lastName || !this.formData.docNumber || !this.formData.phone || !this.formData.city) {
+        this.error.set('Por favor completa todos los campos obligatorios.');
+        return;
+      }
+      this.step.set(2);
+    } else if (this.step() === 2) {
+      if (!this.formData.email || !this.formData.password) {
+        this.error.set('Completa el email y la contraseña.');
+        return;
+      }
+      if (this.formData.password !== this.formData.confirmPassword) {
+        this.error.set('Las contraseñas no coinciden.');
+        return;
+      }
+      this.step.set(3);
     }
-    return true;
   }
 
-  nextStep() {
-    if (this.step() === 1 && !this.validateStep1()) return;
-    if (this.step() === 2) {
-      if (!this.formData.email || !this.formData.password) { this.error.set('Completa email y contraseña'); return; }
-      if (this.formData.password !== this.formData.confirmPassword) { this.error.set('Las contraseñas no coinciden'); return; }
+  prevStep() {
+    if (this.step() > 1) {
+      this.step.update(s => s - 1);
+      this.error.set('');
     }
-    this.error.set('');
-    this.step.update(s => s + 1);
   }
 
   submitRegister() {
-    if (!this.formData.acceptTerms) { this.error.set('Debes aceptar los términos y condiciones'); return; }
+    if (!this.formData.terms) {
+      this.error.set('Debes aceptar los términos y condiciones.');
+      return;
+    }
     this.loading.set(true);
+    this.error.set('');
+    
     setTimeout(() => {
-      localStorage.setItem('tt_user', JSON.stringify({ name: this.formData.firstName, email: this.formData.email }));
-      this.success.set(true);
       this.loading.set(false);
+      this.success.set(true);
+      this.authService.login({
+        name: this.formData.firstName + ' ' + this.formData.lastName,
+        email: this.formData.email,
+        phone: this.formData.phone,
+        city: this.formData.city,
+        docType: this.formData.docType,
+        docNumber: this.formData.docNumber,
+        clientType: this.formData.clientType
+      });
     }, 1500);
   }
-  
-  togglePassword() { this.showPassword.update(v => !v); }
-  toggleConfirmPassword() { this.showConfirmPassword.update(v => !v); }
 
-  getPasswordStrength(): string {
-    const pw = this.formData.password;
-    if (!pw) return 'none';
-    if (pw.length < 6) return 'weak';
-    if (pw.length >= 8 && /[A-Z]/.test(pw) && /[0-9]/.test(pw)) return 'strong';
-    return 'medium';
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  togglePassword() {
+    this.showPassword.update(v => !v);
   }
 }

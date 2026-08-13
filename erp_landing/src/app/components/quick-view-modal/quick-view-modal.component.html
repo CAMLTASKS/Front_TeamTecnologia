@@ -1,86 +1,89 @@
-<div class="modal-overlay" [class.active]="isOpen" (click)="closeModal()">
-  
-  <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="activeProduct as prod">
-    <button class="modal-close" (click)="closeModal()">&times;</button>
+<div class="quick-view-backdrop" *ngIf="isOpen" (click)="closeModal()">
+  <div class="quick-view-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closeModal()"><i class="fa fa-times"></i></button>
     
-    <div class="modal-grid-body">
-      
-      <!-- Product Image Gallery Box -->
-      <div class="product-image-container">
-        <span *ngIf="prod.originalPrice" class="detail-sale-badge">-15% DESCUENTO</span>
-        <img [src]="prod.image" [alt]="prod.title" class="detail-main-img" (error)="$any($event.target).src='/cdn/shop/files/1_100x100.svg'">
-      </div>
-
-      <!-- Product Detail Information -->
-      <div class="product-details-container">
+    <ng-container *ngIf="activeProduct as prod">
+      <div class="qv-grid">
+        <!-- LEFT: Image Gallery -->
+        <div class="qv-left">
+          <div class="qv-main-img">
+            <img [src]="prod.image" [alt]="prod.title" *ngIf="prod.image; else placeholder">
+            <ng-template #placeholder><i class="fa fa-image placeholder-icon"></i></ng-template>
+            <!-- Badge -->
+            <span class="qv-img-badge" *ngIf="prod.badge">{{ prod.badge }}</span>
+          </div>
+          <div class="qv-thumbs">
+            <div class="thumb active"><img [src]="prod.image || ''" [alt]="prod.title" *ngIf="prod.image"></div>
+            <div class="thumb"><img [src]="prod.image || ''" [alt]="prod.title" *ngIf="prod.image"></div>
+            <div class="thumb"><img [src]="prod.image || ''" [alt]="prod.title" *ngIf="prod.image"></div>
+          </div>
+          <div class="qv-badges">
+            <span class="badge category" *ngIf="prod.type">{{ prod.type }}</span>
+            <span class="badge brand">{{ prod.vendor || 'TeamTecnologia' }}</span>
+          </div>
+        </div>
         
-        <span class="detail-vendor-tag">
-          <i class="fa fa-microchip" style="margin-right: 5px;"></i> {{ prod.vendor || 'TeamTecnologia ERP' }}
-        </span>
-
-        <h2 class="detail-title">
-          {{ prod.title }}
-        </h2>
-
-        <!-- Rating & Stock Status -->
-        <div class="detail-meta-row">
-          <div class="detail-rating">
-            <i class="fa fa-star" style="color: #f59e0b;"></i>
-            <i class="fa fa-star" style="color: #f59e0b;"></i>
-            <i class="fa fa-star" style="color: #f59e0b;"></i>
-            <i class="fa fa-star" style="color: #f59e0b;"></i>
-            <i class="fa fa-star" style="color: #f59e0b;"></i>
-            <span class="rating-text">(5.0 • 42 Reseñas Verificadas)</span>
+        <!-- RIGHT: Product Details -->
+        <div class="qv-right">
+          <div class="breadcrumb">{{ prod.vendor || 'Marca' }} <span *ngIf="prod.type">&gt; {{ prod.type }}</span></div>
+          <h2 class="product-title">{{ prod.title }}</h2>
+          
+          <!-- SKU -->
+          <p class="qv-sku" *ngIf="prod.sku">SKU: {{ prod.sku }}</p>
+          
+          <div class="rating-row">
+            <div class="stars">
+              <ng-container *ngFor="let s of [1,2,3,4,5]">
+                <i class="fa" [ngClass]="s <= prod.rating ? 'fa-star' : (s - prod.rating <= 0.5 ? 'fa-star-half-o' : 'fa-star-o')"></i>
+              </ng-container>
+            </div>
+            <span class="review-count">({{ prod.reviewsCount || 0 }} reseñas)</span>
           </div>
-          <span class="stock-status-badge">
-            <i class="fa fa-check-circle"></i> En Stock (Entrega Inmediata)
-          </span>
+          
+          <div class="price-section">
+            <div class="price">{{ prod.price | currency:'COP':'symbol-narrow':'1.0-0' }}</div>
+            <ng-container *ngIf="prod.originalPrice && prod.originalPrice > prod.price">
+              <div class="original-price">{{ prod.originalPrice | currency:'COP':'symbol-narrow':'1.0-0' }}</div>
+              <div class="discount-badge">-{{ ((prod.originalPrice - prod.price) / prod.originalPrice * 100) | number:'1.0-0' }}%</div>
+            </ng-container>
+          </div>
+          
+          <div class="stock-status">
+            <span class="dot in-stock"></span> En Stock &mdash; listo para envío
+          </div>
+          
+          <div class="qv-divider"></div>
+          
+          <p class="product-desc">{{ prod.description || 'Producto de alta tecnología diseñado para ofrecer el mejor rendimiento y durabilidad. Ideal para profesionales y entusiastas de la tecnología.' }}</p>
+          
+          <div class="qty-selector">
+            <label>Cantidad</label>
+            <div class="qty-ctrl">
+              <button (click)="decreaseQty()">−</button>
+              <span>{{ qty() }}</span>
+              <button (click)="increaseQty()">+</button>
+            </div>
+          </div>
+          
+          <div class="actions-row">
+            <button class="btn-add-cart" (click)="addToCart(prod)" [class.success]="addedToCart()">
+              <ng-container *ngIf="!addedToCart(); else addedMsg">
+                <i class="fa fa-shopping-bag"></i> AGREGAR AL CARRITO
+              </ng-container>
+              <ng-template #addedMsg><i class="fa fa-check"></i> ¡AGREGADO AL CARRITO!</ng-template>
+            </button>
+            <button class="btn-heart" (click)="toggleWishlist()" [class.active]="inWishlist()">
+              <i class="fa" [ngClass]="inWishlist() ? 'fa-heart' : 'fa-heart-o'"></i>
+            </button>
+          </div>
+          
+          <div class="footer-badges">
+            <div class="f-badge"><i class="fa fa-shield"></i> Garantía 12 meses</div>
+            <div class="f-badge"><i class="fa fa-truck"></i> Envío gratis +$500k</div>
+            <div class="f-badge"><i class="fa fa-credit-card"></i> Cuotas sin interés</div>
+          </div>
         </div>
-
-        <!-- Price Display -->
-        <div class="detail-price-box">
-          <span class="detail-current-price">${{ prod.price | number:'1.2-2' }} <small>USD</small></span>
-          <span *ngIf="prod.originalPrice" class="detail-old-price">${{ prod.originalPrice | number:'1.2-2' }}</span>
-        </div>
-
-        <!-- Description Text -->
-        <p class="detail-description">
-          {{ prod.description || 'Equipo e infraestructura de alta especificación para sistemas corporativos ERP, servidores y procesamiento de datos con garantía de fábrica TeamTecnologia.' }}
-        </p>
-
-        <!-- ERP Spec Table -->
-        <div class="detail-spec-table">
-          <div class="spec-row">
-            <span class="spec-label">Código / Part Number:</span>
-            <span class="spec-value">{{ prod.vendor }}</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Garantía Corporativa:</span>
-            <span class="spec-value">36 Meses On-Site TeamTecnologia</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Envío y Despacho:</span>
-            <span class="spec-value">Nacional Asegurado 24h</span>
-          </div>
-        </div>
-
-        <!-- Quantity & Add to Cart Controls -->
-        <div class="detail-actions-box">
-          <div class="qty-control-wrap">
-            <button (click)="decreaseQty()" class="qty-btn">-</button>
-            <span class="qty-value">{{ quantity() }}</span>
-            <button (click)="increaseQty()" class="qty-btn">+</button>
-          </div>
-
-          <button (click)="addToCart(prod)" class="btn-add-to-cart-large">
-            <i class="fa fa-shopping-cart" style="margin-right: 8px;"></i> AÑADIR AL CARRITO
-          </button>
-        </div>
-
       </div>
-
-    </div>
-
+    </ng-container>
   </div>
-
 </div>

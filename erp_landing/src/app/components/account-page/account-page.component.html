@@ -1,423 +1,446 @@
-<div class="account-layout">
-  <!-- Sidebar for Desktop -->
-  <aside class="sidebar desktop-only">
-    <div class="user-profile">
-      <div class="avatar">{{ user.avatar }}</div>
-      <div class="user-info">
-        <h3>{{ user.name }}</h3>
-        <p>{{ user.email }}</p>
-      </div>
+<!-- Page Hero Banner -->
+<div class="account-hero">
+  <div class="account-hero-inner">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a routerLink="/">Inicio</a>
+      <i class="fa fa-chevron-right"></i>
+      <span>Mi Cuenta</span>
     </div>
-    <nav class="sidebar-menu">
-      <a [class.active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
-        <i class="fa fa-tachometer"></i> Dashboard
-      </a>
-      <a [class.active]="activeTab() === 'pedidos'" (click)="activeTab.set('pedidos')">
-        <i class="fa fa-shopping-bag"></i> Pedidos
-      </a>
-      <a [class.active]="activeTab() === 'favoritos'" (click)="activeTab.set('favoritos')">
-        <i class="fa fa-heart"></i> Favoritos
-      </a>
-      <a [class.active]="activeTab() === 'garantias'" (click)="activeTab.set('garantias')">
-        <i class="fa fa-shield"></i> Garantías
-      </a>
-      <a [class.active]="activeTab() === 'perfil'" (click)="activeTab.set('perfil')">
-        <i class="fa fa-user"></i> Mi Perfil
-      </a>
-      <a class="logout-link" (click)="logout()">
-        <i class="fa fa-sign-out"></i> Cerrar Sesión
-      </a>
-    </nav>
-  </aside>
-
-  <!-- Mobile Top Card -->
-  <div class="mobile-only mobile-header">
-    <div class="user-profile">
-      <div class="avatar">{{ user.avatar }}</div>
-      <div class="user-info">
-        <h3>{{ user.name }}</h3>
-        <p>Miembro desde {{ user.memberSince }}</p>
+    <!-- User Profile Banner -->
+    <div class="profile-banner">
+      <div class="avatar-large">{{ getInitials() }}</div>
+      <div class="profile-info">
+        <h1>{{ user.name }}</h1>
+        <p>{{ user.email }} · Miembro desde {{ user.memberSince }}</p>
+        <div class="profile-badges">
+          <span class="badge-member"><i class="fa fa-star"></i> Cliente Premium</span>
+          <span class="badge-member"><i class="fa fa-shield"></i> Cuenta Verificada</span>
+        </div>
       </div>
+      <button class="btn-logout" (click)="logout()"><i class="fa fa-sign-out"></i> Salir</button>
     </div>
   </div>
+</div>
 
-  <!-- Content Area -->
-  <main class="content-area">
+<div class="account-tabs-nav">
+  <div class="tabs-inner">
+    <button [class.tab-active]="activeTab()==='overview'" (click)="activeTab.set('overview')">
+      <i class="fa fa-th-large"></i> <span>Resumen</span>
+    </button>
+    <button [class.tab-active]="activeTab()==='pedidos'" (click)="activeTab.set('pedidos'); closeOrder()">
+      <i class="fa fa-shopping-bag"></i> <span>Mis Pedidos</span>
+      <em class="tab-count">{{mockOrders.length}}</em>
+    </button>
+    <button [class.tab-active]="activeTab()==='favoritos'" (click)="activeTab.set('favoritos')">
+      <i class="fa fa-heart-o"></i> <span>Favoritos</span>
+      <em class="tab-count">{{ mockWishlist.length }}</em>
+    </button>
+    <button [class.tab-active]="activeTab()==='garantias'" (click)="activeTab.set('garantias')">
+      <i class="fa fa-shield"></i> <span>Garantías</span>
+    </button>
+    <button [class.tab-active]="activeTab()==='perfil'" (click)="activeTab.set('perfil')">
+      <i class="fa fa-user"></i> <span>Mi Perfil</span>
+    </button>
+  </div>
+</div>
+
+<div class="account-content">
+  <div class="content-inner">
     
-    <!-- DASHBOARD TAB -->
-    <div class="tab-content" *ngIf="activeTab() === 'dashboard'">
-      <div class="welcome-banner">
-        <h2>Hola, {{ user.name.split(' ')[0] }} 👋</h2>
-        <p>Miembro desde {{ user.memberSince }}</p>
-      </div>
-
-      <div class="quick-stats">
+    <!-- OVERVIEW TAB -->
+    <ng-container *ngIf="activeTab()==='overview'">
+      <div class="stats-grid">
         <div class="stat-card">
-          <i class="fa fa-shopping-bag"></i>
+          <div class="stat-icon blue"><i class="fa fa-shopping-bag"></i></div>
           <div>
-            <h4>Total pedidos</h4>
-            <span>{{ mockOrders.length }}</span>
+            <div class="stat-number">{{mockOrders.length}}</div>
+            <div class="stat-label">Pedidos Totales</div>
           </div>
         </div>
         <div class="stat-card">
-          <i class="fa fa-check-circle"></i>
+          <div class="stat-icon green"><i class="fa fa-check-circle"></i></div>
           <div>
-            <h4>Pedidos entregados</h4>
-            <span>1</span>
+            <div class="stat-number">1</div>
+            <div class="stat-label">Entregados</div>
           </div>
         </div>
         <div class="stat-card">
-          <i class="fa fa-heart"></i>
+          <div class="stat-icon red"><i class="fa fa-heart"></i></div>
           <div>
-            <h4>Items en favoritos</h4>
-            <span>{{ mockWishlist.length }}</span>
+            <div class="stat-number">{{mockWishlist.length}}</div>
+            <div class="stat-label">Favoritos</div>
           </div>
         </div>
         <div class="stat-card">
-          <i class="fa fa-shield"></i>
+          <div class="stat-icon purple"><i class="fa fa-shield"></i></div>
           <div>
-            <h4>Garantías activas</h4>
-            <span>{{ mockRMA.length }}</span>
+            <div class="stat-number">1</div>
+            <div class="stat-label">Garantías</div>
           </div>
         </div>
       </div>
 
-      <div class="recent-orders-mini">
-        <div class="section-header">
-          <h3>Órdenes Recientes</h3>
-          <button class="btn-text" (click)="activeTab.set('pedidos')">Ver todos mis pedidos</button>
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2>Mis últimos pedidos</h2>
+          <button class="btn-link" (click)="activeTab.set('pedidos'); closeOrder()">Ver todos &rarr;</button>
         </div>
-        
-        <div class="mini-order-list">
-          <div class="mini-order-card" *ngFor="let order of mockOrders.slice(0, 2)">
-            <div class="order-header">
-              <span class="order-num">{{ order.orderNumber }}</span>
-              <span class="badge {{ getStatusClass(order.status) }}">{{ getStatusLabel(order.status) }}</span>
+        <div class="section-card-body">
+          <div class="order-card" [ngClass]="getStatusClass(order.status)" *ngFor="let order of mockOrders.slice(0,2)">
+            <div class="order-top">
+              <span class="order-number">{{order.orderNumber}}</span>
+              <span class="status-badge" [ngClass]="getStatusClass(order.status)"><i class="fa" [ngClass]="getStatusIcon(order.status)"></i> {{getStatusLabel(order.status)}}</span>
             </div>
-            <div class="order-details">
-              <span>{{ order.date }}</span>
-              <span>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+            <div class="order-date">{{order.date}}</div>
+            <div class="order-products-preview">
+              <span class="product-chip" *ngFor="let prod of order.products">{{prod.name}}</span>
+            </div>
+            <div class="order-bottom">
+              <div class="order-meta">{{order.items}} productos &middot; {{order.total | currency:'COP':'symbol-narrow':'1.0-0'}}</div>
+              <div class="order-actions">
+                <button class="btn-outline-navy" (click)="activeTab.set('pedidos'); openOrder(order)">Ver Detalle</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2>Acciones Rápidas</h2>
+        </div>
+        <div class="section-card-body" style="padding: 0 24px 24px;">
+          <div class="quick-actions">
+            <a routerLink="/catalogo" class="action-card">
+              <div class="action-card-icon"><i class="fa fa-shopping-bag"></i></div>
+              <div class="action-card-label">Explorar catálogo &rarr;</div>
+            </a>
+            <a routerLink="/carrito" class="action-card">
+              <div class="action-card-icon"><i class="fa fa-shopping-cart"></i></div>
+              <div class="action-card-label">Ir al carrito &rarr;</div>
+            </a>
+            <a (click)="activeTab.set('favoritos')" class="action-card">
+              <div class="action-card-icon"><i class="fa fa-heart"></i></div>
+              <div class="action-card-label">Ver favoritos &rarr;</div>
+            </a>
+            <a (click)="activeTab.set('garantias'); showRmaForm.set(true)" class="action-card">
+              <div class="action-card-icon"><i class="fa fa-file-text-o"></i></div>
+              <div class="action-card-label">Nueva garantía &rarr;</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
 
     <!-- PEDIDOS TAB -->
-    <div class="tab-content" *ngIf="activeTab() === 'pedidos'">
+    <ng-container *ngIf="activeTab()==='pedidos'">
       
       <!-- List View -->
-      <div *ngIf="!selectedOrder()">
-        <h2>Mis Pedidos</h2>
-        <div class="order-list">
-          <div class="order-card" *ngFor="let order of mockOrders">
-            <div class="order-header">
-              <div>
-                <h4>{{ order.orderNumber }}</h4>
-                <p class="date">{{ order.date }}</p>
-              </div>
-              <span class="badge {{ getStatusClass(order.status) }}">{{ getStatusLabel(order.status) }}</span>
-            </div>
-            <div class="product-thumbs">
-              <div class="thumb" *ngFor="let prod of order.products.slice(0, 3)">
-                <div class="thumb-img-wrapper">
-                  <i class="fa fa-box"></i> <!-- Placeholder for image -->
-                </div>
-              </div>
-              <div class="thumb more" *ngIf="order.products.length > 3">
-                +{{ order.products.length - 3 }}
-              </div>
-            </div>
-            <div class="order-footer">
-              <div class="totals">
-                <span>{{ order.items }} items</span>
-                <strong>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</strong>
-              </div>
-              <div class="actions">
-                <button class="btn btn-navy" (click)="openOrder(order)">Ver detalle</button>
-                <button class="btn btn-crimson" *ngIf="order.status === 'Despachado'">Rastrear Envío</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Detail View -->
-      <div *ngIf="selectedOrder() as order">
-        <button class="btn-text back-btn" (click)="closeOrder()"><i class="fa fa-arrow-left"></i> Volver a Pedidos</button>
-        
-        <div class="order-detail-header">
-          <div>
-            <h2>Pedido {{ order.orderNumber }}</h2>
-            <p>{{ order.date }}</p>
-          </div>
-          <span class="badge {{ getStatusClass(order.status) }}">{{ getStatusLabel(order.status) }}</span>
-        </div>
-
-        <div class="progress-tracker">
-          <div class="step completed">
-            <div class="circle"><i class="fa fa-check"></i></div>
-            <span>Pago</span>
-          </div>
-          <div class="line completed"></div>
-          <div class="step completed">
-            <div class="circle"><i class="fa fa-box"></i></div>
-            <span>Preparación</span>
-          </div>
-          <div class="line" [class.completed]="order.status === 'Despachado' || order.status === 'Entregado'"></div>
-          <div class="step" [class.completed]="order.status === 'Despachado' || order.status === 'Entregado'" [class.active]="order.status === 'Despachado'">
-            <div class="circle"><i class="fa fa-truck"></i></div>
-            <span>Despachado</span>
-          </div>
-          <div class="line" [class.completed]="order.status === 'Entregado'"></div>
-          <div class="step" [class.completed]="order.status === 'Entregado'" [class.active]="order.status === 'Entregado'">
-            <div class="circle"><i class="fa fa-home"></i></div>
-            <span>Entregado</span>
-          </div>
-        </div>
-
-        <div class="products-table-wrapper">
-          <table class="products-table">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cant.</th>
-                <th>Precio</th>
-                <th>Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of order.products">
-                <td class="product-col">
-                  <div class="product-cell">
-                    <div class="img-ph"><i class="fa fa-image"></i></div>
-                    <span>{{ item.name }}</span>
-                  </div>
-                </td>
-                <td>{{ item.qty }}</td>
-                <td>{{ item.price | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
-                <td>{{ (item.price * item.qty) | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="order-summary-grid">
-          <div class="info-card">
-            <h4>Envío</h4>
-            <p><strong>Transportadora:</strong> {{ order.carrier || 'N/A' }}</p>
-            <p><strong>Guía:</strong> <a href="#" *ngIf="order.trackingCode">{{ order.trackingCode }}</a><span *ngIf="!order.trackingCode">N/A</span></p>
-            <p><strong>Dirección:</strong> {{ user.city }}, Colombia</p>
+      <ng-container *ngIf="!selectedOrder()">
+        <div class="section-card" style="background: transparent; box-shadow: none;">
+          <div class="section-card-header" style="border: none; padding: 0 0 16px;">
+            <h2 style="font-size: 20px;">Mis Pedidos ({{mockOrders.length}})</h2>
           </div>
           
-          <div class="info-card">
-            <h4>Pago</h4>
-            <p><strong>Método:</strong> Tarjeta de Crédito</p>
-            <p><strong>Referencia:</strong> TX-992182012</p>
-          </div>
-
-          <div class="totals-card">
-            <div class="total-row">
-              <span>Subtotal</span>
-              <span>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
-            </div>
-            <div class="total-row">
-              <span>Envío</span>
-              <span>Gratis</span>
-            </div>
-            <div class="total-row grand-total">
-              <span>Total</span>
-              <span>{{ order.total | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+          <div class="section-card" style="margin-bottom: 0;">
+            <div class="order-card" [ngClass]="getStatusClass(order.status)" *ngFor="let order of mockOrders">
+              <div class="order-top">
+                <span class="order-number">{{order.orderNumber}}</span>
+                <span class="status-badge" [ngClass]="getStatusClass(order.status)"><i class="fa" [ngClass]="getStatusIcon(order.status)"></i> {{getStatusLabel(order.status)}}</span>
+              </div>
+              <div class="order-date">{{order.date}}</div>
+              <div class="order-products-preview">
+                <span class="product-chip" *ngFor="let prod of order.products">{{prod.name}}</span>
+              </div>
+              <div class="order-bottom">
+                <div class="order-meta">{{order.items}} productos &middot; {{order.total | currency:'COP':'symbol-narrow':'1.0-0'}}</div>
+                <div class="order-actions">
+                  <button class="btn-outline-navy" (click)="openOrder(order)">Ver Detalle</button>
+                  <button *ngIf="order.status === 'Despachado'" class="btn-sm-crimson">Rastrear</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </ng-container>
 
-        <div class="order-actions">
-          <button class="btn btn-outline-navy"><i class="fa fa-file-pdf-o"></i> Descargar Factura PDF</button>
-          <button class="btn btn-outline-crimson" (click)="activeTab.set('garantias')"><i class="fa fa-shield"></i> Solicitar Garantía</button>
+      <!-- Detail View -->
+      <ng-container *ngIf="selectedOrder()">
+        <button class="btn-back" (click)="closeOrder()"><i class="fa fa-arrow-left"></i> Volver a pedidos</button>
+        
+        <div class="order-detail-grid">
+          <div class="order-left">
+            <div class="section-card">
+              <div class="section-card-header">
+                <h2>Pedido {{selectedOrder()!.orderNumber}}</h2>
+                <span class="status-badge" [ngClass]="getStatusClass(selectedOrder()!.status)"><i class="fa" [ngClass]="getStatusIcon(selectedOrder()!.status)"></i> {{getStatusLabel(selectedOrder()!.status)}}</span>
+              </div>
+              
+              <div class="progress-tracker">
+                <ng-container *ngFor="let step of [{n:1,icon:'fa-credit-card',label:'Pago Conf.'},{n:2,icon:'fa-cog',label:'Preparando'},{n:3,icon:'fa-truck',label:'Despachado'},{n:4,icon:'fa-road',label:'En Camino'},{n:5,icon:'fa-home',label:'Entregado'}]; let i = index">
+                  <div class="progress-step" [class.completed]="getOrderProgress(selectedOrder()!.status) > step.n" [class.active]="getOrderProgress(selectedOrder()!.status) === step.n">
+                    <div class="step-circle"><i class="fa" [ngClass]="getOrderProgress(selectedOrder()!.status) > step.n ? 'fa-check' : step.icon"></i></div>
+                    <span class="step-label">{{step.label}}</span>
+                  </div>
+                  <div *ngIf="i < 4" class="step-line" [class.done]="getOrderProgress(selectedOrder()!.status) > step.n"></div>
+                </ng-container>
+              </div>
+
+              <div class="section-card-body" style="padding: 24px; border-top: 1px solid #f1f5f9;">
+                <div class="info-chip">
+                  <span class="info-chip-label">Fecha:</span>
+                  <span class="info-chip-value">{{selectedOrder()!.date}}</span>
+                </div>
+                <div class="info-chip" *ngIf="selectedOrder()!.carrier">
+                  <span class="info-chip-label">Transportadora:</span>
+                  <span class="info-chip-value">{{selectedOrder()!.carrier}}</span>
+                </div>
+                <div class="info-chip" *ngIf="selectedOrder()!.trackingCode">
+                  <span class="info-chip-label">Guía de envío:</span>
+                  <span class="info-chip-value" style="color: #d90429; text-decoration: underline; cursor: pointer;">{{selectedOrder()!.trackingCode}}</span>
+                </div>
+                <div class="info-chip" *ngIf="selectedOrder()!.paymentMethod">
+                  <span class="info-chip-label">Método de pago:</span>
+                  <span class="info-chip-value">{{selectedOrder()!.paymentMethod}}</span>
+                </div>
+                <div class="info-chip" *ngIf="selectedOrder()!.paymentRef">
+                  <span class="info-chip-label">Referencia de pago:</span>
+                  <span class="info-chip-value">{{selectedOrder()!.paymentRef}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-card-header">
+                <h2>Productos ({{selectedOrder()!.items}})</h2>
+              </div>
+              <div class="section-card-body" style="padding: 16px 24px;">
+                <div class="product-row" *ngFor="let prod of selectedOrder()!.products">
+                  <div class="product-row-name">{{prod.name}}</div>
+                  <div class="product-row-qty">x{{prod.qty}}</div>
+                  <div class="product-row-price">{{prod.price | currency:'COP':'symbol-narrow':'1.0-0'}}</div>
+                  <div class="product-row-total">{{prod.price * prod.qty | currency:'COP':'symbol-narrow':'1.0-0'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-right">
+            <div class="section-card">
+              <div class="section-card-header">
+                <h2>Resumen de compra</h2>
+              </div>
+              <div class="section-card-body" style="padding: 24px;">
+                <div class="totals-row">
+                  <span>Subtotal</span>
+                  <span>{{ (selectedOrder()!.total / 1.19) | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+                <div class="totals-row">
+                  <span>IVA 19%</span>
+                  <span>{{ (selectedOrder()!.total - (selectedOrder()!.total / 1.19)) | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+                <div class="totals-row">
+                  <span>Envío</span>
+                  <span style="color: #16a34a; font-weight: 700;">Gratis</span>
+                </div>
+                <div class="totals-row grand">
+                  <span>Total</span>
+                  <span>{{selectedOrder()!.total | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
+                </div>
+                
+                <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
+                  <button class="btn-outline-navy" style="width: 100%;"><i class="fa fa-download"></i> Descargar Factura</button>
+                  <button class="btn-outline-crimson" style="width: 100%;"><i class="fa fa-shield"></i> Solicitar Garantía</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </ng-container>
+    </ng-container>
 
     <!-- FAVORITOS TAB -->
-    <div class="tab-content" *ngIf="activeTab() === 'favoritos'">
-      <h2>Mis Favoritos</h2>
+    <ng-container *ngIf="activeTab()==='favoritos'">
+      <h2 style="font-size: 20px; color: #0f2b5c; margin-bottom: 24px;">Mis Favoritos</h2>
       
       <div class="wishlist-grid" *ngIf="mockWishlist.length > 0">
         <div class="wishlist-card" *ngFor="let item of mockWishlist">
-          <button class="btn-remove" (click)="removeFromWishlist(item.id)"><i class="fa fa-trash"></i></button>
-          <div class="img-wrapper">
-            <i class="fa fa-image placeholder-icon"></i>
-            <span class="discount-badge" *ngIf="item.originalPrice > item.price">
-              -{{ ((item.originalPrice - item.price) / item.originalPrice * 100) | number:'1.0-0' }}%
-            </span>
+          <div class="wishlist-img">
+            <i class="fa fa-laptop"></i>
+            <span class="brand-chip">{{item.brand}}</span>
+            <span class="discount-chip" *ngIf="item.originalPrice > item.price">-{{ ((item.originalPrice - item.price) / item.originalPrice * 100) | number:'1.0-0' }}%</span>
+            <button class="btn-remove-wish" (click)="removeFromWishlist(item.id)"><i class="fa fa-times"></i></button>
           </div>
-          <div class="card-body">
-            <span class="stock-badge">{{ item.stock }}</span>
-            <h4 class="product-name">{{ item.name }}</h4>
-            <div class="prices">
-              <span class="current-price">{{ item.price | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
-              <span class="original-price" *ngIf="item.originalPrice > item.price">{{ item.originalPrice | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+          <div class="wishlist-body">
+            <div style="font-size: 11px; color: #64748b; font-weight: 700;">
+              <span class="stock-dot" [ngClass]="item.stock === 'Disponible' ? 'stock-ok' : 'stock-low'"></span> {{item.stock}}
             </div>
-            <button class="btn btn-crimson full-width">Agregar al Carrito</button>
+            <div class="wish-name">{{item.name}}</div>
+            <div>
+              <span class="wish-price">{{item.price | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
+              <span class="wish-original" *ngIf="item.originalPrice > item.price">{{item.originalPrice | currency:'COP':'symbol-narrow':'1.0-0'}}</span>
+            </div>
+            <button class="btn-full-crimson">AGREGAR AL CARRITO</button>
           </div>
         </div>
       </div>
       
       <div class="empty-state" *ngIf="mockWishlist.length === 0">
         <i class="fa fa-heart-o"></i>
-        <h3>Tu lista de deseos está vacía</h3>
-        <p>Explora nuestro catálogo y añade los productos que más te gusten.</p>
-        <button class="btn btn-navy" routerLink="/catalogo">Ir al catálogo</button>
+        <h3>No tienes productos en favoritos</h3>
+        <p>Explora nuestro catálogo y agrega los productos que más te gusten.</p>
+        <button class="btn-sm-crimson" style="margin-top: 16px; padding: 10px 20px;" routerLink="/catalogo">Ver catálogo</button>
       </div>
-    </div>
+    </ng-container>
 
     <!-- GARANTÍAS TAB -->
-    <div class="tab-content" *ngIf="activeTab() === 'garantias'">
-      <div class="section-header">
-        <h2>Mis Garantías y Devoluciones (RMA)</h2>
-        <button class="btn btn-crimson" (click)="toggleRmaForm()">Nueva Solicitud RMA</button>
+    <ng-container *ngIf="activeTab()==='garantias'">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h2 style="font-size: 20px; color: #0f2b5c; margin: 0;">Mis Garantías</h2>
+        <button class="btn-sm-crimson" (click)="showRmaForm.set(!showRmaForm())">+ Nueva Solicitud</button>
       </div>
 
-      <div class="rma-form-container card" *ngIf="isRmaFormVisible()">
-        <h3>Solicitar Garantía</h3>
-        <form class="rma-form">
-          <div class="form-group">
-            <label>Número de Pedido</label>
-            <select class="form-control">
-              <option value="">Seleccione un pedido</option>
-              <option *ngFor="let o of mockOrders" [value]="o.orderNumber">{{ o.orderNumber }}</option>
+      <div class="section-card" *ngIf="showRmaForm()" style="margin-bottom: 24px; border: 2px solid #d90429;">
+        <div class="section-card-header">
+          <h2>Nueva Solicitud de Garantía</h2>
+        </div>
+        <div class="section-card-body" style="padding: 24px;">
+          <div class="form-field">
+            <label>Seleccionar Pedido</label>
+            <select class="form-input">
+              <option *ngFor="let order of mockOrders" [value]="order.id">{{order.orderNumber}} - {{order.date}}</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Producto</label>
-            <input type="text" class="form-control" placeholder="Nombre del producto">
+          <div class="form-field">
+            <label>Producto a solicitar garantía</label>
+            <input type="text" class="form-input" placeholder="Nombre del producto">
           </div>
-          <div class="form-group">
+          <div class="form-field">
             <label>Número de Serie (Opcional)</label>
-            <input type="text" class="form-control" placeholder="Ej. LGT20241103">
+            <input type="text" class="form-input" placeholder="S/N">
           </div>
-          <div class="form-group">
+          <div class="form-field">
             <label>Motivo de la solicitud</label>
-            <select class="form-control">
-              <option>Falla De Fabrica</option>
-              <option>Daño En Transporte</option>
-              <option>No Enciende</option>
-              <option>Incompatible</option>
+            <select class="form-input">
+              <option>Falla de Fábrica</option>
+              <option>Producto Incompleto</option>
+              <option>Llegó Roto / Dañado</option>
             </select>
           </div>
-          <div class="form-group full-width">
+          <div class="form-field">
             <label>Descripción detallada del problema</label>
-            <textarea class="form-control" rows="4"></textarea>
+            <textarea class="form-textarea" placeholder="Describe el problema en detalle..."></textarea>
           </div>
-          <div class="form-actions full-width">
-            <button type="button" class="btn btn-outline-navy" (click)="toggleRmaForm()">Cancelar</button>
-            <button type="submit" class="btn btn-crimson">Enviar Solicitud</button>
+          <div style="border: 2px dashed #cbd5e1; padding: 24px; text-align: center; border-radius: 8px; margin-bottom: 16px; cursor: pointer; color: #64748b;">
+            <i class="fa fa-cloud-upload" style="font-size: 24px; margin-bottom: 8px;"></i>
+            <div style="font-size: 13px; font-weight: 600;">Adjuntar imágenes o videos (Opcional)</div>
           </div>
-        </form>
-      </div>
-
-      <div class="rma-list">
-        <div class="rma-card" *ngFor="let rma of mockRMA">
-          <div class="rma-header">
-            <h4>{{ rma.rmaNumber }}</h4>
-            <span class="badge badge-warning">{{ rma.status }}</span>
-          </div>
-          <div class="rma-body">
-            <p><strong>Producto:</strong> {{ rma.product }}</p>
-            <p><strong>Fecha:</strong> {{ rma.date }}</p>
-            <p><strong>Motivo:</strong> {{ rma.reason }}</p>
+          <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button class="btn-outline-navy" (click)="showRmaForm.set(false)">Cancelar</button>
+            <button class="btn-sm-crimson" style="padding: 9px 18px;" (click)="showRmaForm.set(false)">Enviar Solicitud</button>
           </div>
         </div>
       </div>
-    </div>
+
+      <div *ngFor="let rma of mockRMA" class="rma-card">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <span style="font-weight: 800; color: #0f2b5c;">{{rma.rmaNumber}}</span>
+          <span class="status-badge" style="background: #fef3c7; color: #d97706;">{{rma.status}}</span>
+        </div>
+        <div style="font-size: 14px; font-weight: 700; color: #0f2b5c; margin-bottom: 4px;">{{rma.product}}</div>
+        <div style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Serial: {{rma.serial}} &middot; Motivo: {{rma.reason}}</div>
+        <div style="font-size: 11px; color: #94a3b8; font-weight: 600;">Fecha de solicitud: {{rma.date}}</div>
+      </div>
+    </ng-container>
 
     <!-- PERFIL TAB -->
-    <div class="tab-content" *ngIf="activeTab() === 'perfil'">
-      <h2>Mi Perfil</h2>
-      
+    <ng-container *ngIf="activeTab()==='perfil'">
       <div class="profile-grid">
-        <div class="card profile-card">
-          <div class="card-header">
-            <h3>Datos Personales</h3>
-            <button class="btn-icon"><i class="fa fa-pencil"></i></button>
+        <div class="section-card">
+          <div class="section-card-header">
+            <h2>Datos Personales</h2>
+            <button class="btn-link"><i class="fa fa-pencil"></i> Editar</button>
           </div>
-          <div class="profile-details">
-            <div class="detail-item">
-              <label>Nombre Completo</label>
-              <p>{{ user.name }}</p>
+          <div class="profile-avatar-section">
+            <div class="avatar-xl">{{getInitials()}}</div>
+          </div>
+          <div class="section-card-body" style="padding: 16px 24px 24px;">
+            <div class="data-row">
+              <div class="data-icon"><i class="fa fa-user"></i></div>
+              <div>
+                <div class="data-label">Nombre Completo</div>
+                <div class="data-value">{{user.name}}</div>
+              </div>
             </div>
-            <div class="detail-item">
-              <label>Documento</label>
-              <p>{{ user.docType }} {{ user.docNumber }}</p>
+            <div class="data-row">
+              <div class="data-icon"><i class="fa fa-id-card"></i></div>
+              <div>
+                <div class="data-label">Documento</div>
+                <div class="data-value">{{user.docType}} {{user.docNumber}}</div>
+              </div>
             </div>
-            <div class="detail-item">
-              <label>Teléfono</label>
-              <p>{{ user.phone }}</p>
+            <div class="data-row">
+              <div class="data-icon"><i class="fa fa-phone"></i></div>
+              <div>
+                <div class="data-label">Teléfono</div>
+                <div class="data-value">{{user.phone}}</div>
+              </div>
             </div>
-            <div class="detail-item">
-              <label>Ciudad</label>
-              <p>{{ user.city }}</p>
+            <div class="data-row">
+              <div class="data-icon"><i class="fa fa-map-marker"></i></div>
+              <div>
+                <div class="data-label">Ciudad</div>
+                <div class="data-value">{{user.city}}</div>
+              </div>
+            </div>
+            <div class="data-row">
+              <div class="data-icon"><i class="fa fa-tag"></i></div>
+              <div>
+                <div class="data-label">Tipo de Cliente</div>
+                <div class="data-value">{{user.clientType}}</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="card profile-card">
-          <div class="card-header">
-            <h3>Datos de Cuenta</h3>
-          </div>
-          <div class="profile-details">
-            <div class="detail-item">
-              <label>Correo Electrónico</label>
-              <p>{{ user.email }}</p>
+        <div>
+          <div class="section-card">
+            <div class="section-card-header">
+              <h2>Seguridad y Acceso</h2>
             </div>
-            <hr>
-            <h4>Cambiar Contraseña</h4>
-            <form class="password-form">
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Contraseña Actual">
+            <div class="section-card-body" style="padding: 24px;">
+              <div class="form-field">
+                <label>Correo Electrónico (No modificable)</label>
+                <input type="email" class="form-input" [value]="user.email" disabled style="background: #f1f5f9; color: #64748b;">
               </div>
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Nueva Contraseña">
+              
+              <h3 style="font-size: 14px; font-weight: 700; color: #0f2b5c; margin: 24px 0 16px;">Cambiar Contraseña</h3>
+              <div class="form-field">
+                <label>Contraseña Actual</label>
+                <input type="password" class="form-input">
               </div>
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Confirmar Contraseña">
+              <div class="form-field">
+                <label>Nueva Contraseña</label>
+                <input type="password" class="form-input">
               </div>
-              <button class="btn btn-navy mt-2">Actualizar Contraseña</button>
-            </form>
+              <div class="form-field">
+                <label>Confirmar Nueva Contraseña</label>
+                <input type="password" class="form-input">
+              </div>
+              
+              <button class="btn-sm-navy" style="padding: 10px 20px;">Actualizar Contraseña</button>
+            </div>
+          </div>
+          
+          <div class="danger-zone">
+            <h3>Zona de Peligro</h3>
+            <p>Cierra la sesión de forma segura en este dispositivo.</p>
+            <button class="btn-outline-crimson" (click)="logout()">Cerrar Sesión</button>
           </div>
         </div>
       </div>
+    </ng-container>
 
-      <div class="danger-zone card mt-4">
-        <h3>Zona de Peligro</h3>
-        <p>Cerrar sesión en este dispositivo.</p>
-        <button class="btn btn-outline-danger" (click)="logout()"><i class="fa fa-sign-out"></i> Cerrar Sesión</button>
-      </div>
-    </div>
-  </main>
-
-  <!-- Mobile Bottom Tab Bar -->
-  <nav class="mobile-tab-bar mobile-only">
-    <a [class.active]="activeTab() === 'dashboard'" (click)="activeTab.set('dashboard')">
-      <i class="fa fa-tachometer"></i>
-      <span>Inicio</span>
-    </a>
-    <a [class.active]="activeTab() === 'pedidos'" (click)="activeTab.set('pedidos')">
-      <i class="fa fa-shopping-bag"></i>
-      <span>Pedidos</span>
-    </a>
-    <a [class.active]="activeTab() === 'favoritos'" (click)="activeTab.set('favoritos')">
-      <i class="fa fa-heart"></i>
-      <span>Favoritos</span>
-    </a>
-    <a [class.active]="activeTab() === 'garantias'" (click)="activeTab.set('garantias')">
-      <i class="fa fa-shield"></i>
-      <span>RMA</span>
-    </a>
-    <a [class.active]="activeTab() === 'perfil'" (click)="activeTab.set('perfil')">
-      <i class="fa fa-user"></i>
-      <span>Perfil</span>
-    </a>
-  </nav>
+  </div>
 </div>

@@ -1,11 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
-// Mock user service - replace with real auth later
 const MOCK_USERS = [
-  { email: 'demo@teamtecnologia.com', password: '123456', name: 'Carlos Maldonado' }
+  { email: 'demo@teamtecnologia.com', password: '123456', name: 'Carlos Maldonado', phone: '(+57) 300 123 4567', city: 'Bogotá D.C.', docType: 'CC', docNumber: '1.234.567.890', clientType: 'Persona Natural' }
 ];
 
 @Component({
@@ -16,31 +16,22 @@ const MOCK_USERS = [
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
+  router = inject(Router);
+  authService = inject(AuthService);
   formData = { email: '', password: '' };
   loading = signal(false);
   error = signal('');
-  success = signal('');
   showPassword = signal(false);
 
   submitLogin() {
-    if (!this.formData.email || !this.formData.password) {
-      this.error.set('Por favor completa todos los campos.');
-      return;
-    }
-    this.loading.set(true);
-    this.error.set('');
-    // Mock auth
+    if (!this.formData.email || !this.formData.password) { this.error.set('Completa todos los campos.'); return; }
+    this.loading.set(true); this.error.set('');
     setTimeout(() => {
       const user = MOCK_USERS.find(u => u.email === this.formData.email && u.password === this.formData.password);
-      if (user) {
-        this.success.set(`¡Bienvenido de vuelta, ${user.name}! Redirigiendo a tu cuenta...`);
-        localStorage.setItem('tt_user', JSON.stringify(user));
-      } else {
-        this.error.set('Correo o contraseña incorrectos. Prueba con demo@teamtecnologia.com / 123456');
-      }
+      if (user) { this.authService.login(user); this.router.navigate(['/mi-cuenta']); }
+      else { this.error.set('Credenciales incorrectas. Prueba: demo@teamtecnologia.com / 123456'); }
       this.loading.set(false);
-    }, 1200);
+    }, 1000);
   }
-
   togglePassword() { this.showPassword.update(v => !v); }
 }
