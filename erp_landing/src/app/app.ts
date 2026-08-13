@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs/operators';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -14,6 +16,7 @@ import { MobileDrawerComponent } from './components/mobile-drawer/mobile-drawer.
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     RouterOutlet,
     LoadingOverlayComponent,
     HeaderComponent,
@@ -30,4 +33,15 @@ import { MobileDrawerComponent } from './components/mobile-drawer/mobile-drawer.
 })
 export class App {
   title = 'TeamTecnologia ERP Landing';
+  router = inject(Router);
+  isAuthRoute = false;
+
+  constructor() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      const url = event.urlAfterRedirects.split('?')[0];
+      this.isAuthRoute = url === '/login' || url === '/registro';
+    });
+  }
 }

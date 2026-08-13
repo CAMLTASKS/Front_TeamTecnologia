@@ -1,192 +1,243 @@
-<div class="page-container">
-  <div class="top-header">
-    <a routerLink="/" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
-    <div class="logo">
-      <span class="logo-navy">Team</span><span class="logo-red">Tecnologia</span>
+<div class="login-container">
+  
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="grid-overlay"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+    
+    <div class="left-content">
+      <div class="logo">
+        <span class="logo-white">Team</span><span class="logo-red">Tecnologia</span>
+      </div>
+      <div class="accent-line"></div>
+      <p class="tagline">Tu portal de tecnología premium</p>
+      
+      <div class="features">
+        <div class="feature-row">
+          <div class="icon-circle"><i class="fa fa-shopping-bag"></i></div>
+          <span>Catálogo exclusivo de accesorios tech</span>
+        </div>
+        <div class="feature-row">
+          <div class="icon-circle"><i class="fa fa-truck"></i></div>
+          <span>Seguimiento de pedidos en tiempo real</span>
+        </div>
+        <div class="feature-row">
+          <div class="icon-circle"><i class="fa fa-shield"></i></div>
+          <span>Garantías y soporte técnico ERP</span>
+        </div>
+      </div>
+      
+      <div class="trust-badges">
+        <span class="badge"><i class="fa fa-lock"></i> SSL Seguro</span>
+        <span class="badge"><i class="fa fa-credit-card"></i> Pago Cifrado</span>
+        <span class="badge"><i class="fa fa-headphones"></i> Soporte 24/7</span>
+      </div>
     </div>
   </div>
 
-  <div class="card-container" *ngIf="!success()">
-    <div class="title-section">
-      <h1>Crear mi Cuenta</h1>
-      <p>Únete a nuestro portal de tecnología premium</p>
-    </div>
-
-    <div class="step-indicator">
-      <div class="step" [class.active]="step() === 1" [class.completed]="step() > 1">
-        <div class="circle">
-          <i class="fa fa-check" *ngIf="step() > 1"></i>
-          <span *ngIf="step() <= 1">1</span>
-        </div>
-        <span class="step-label">Datos Personales</span>
-      </div>
-      <div class="line" [class.completed]="step() > 1"></div>
-      <div class="step" [class.active]="step() === 2" [class.completed]="step() > 2">
-        <div class="circle">
-          <i class="fa fa-check" *ngIf="step() > 2"></i>
-          <span *ngIf="step() <= 2">2</span>
-        </div>
-        <span class="step-label">Acceso</span>
-      </div>
-      <div class="line" [class.completed]="step() > 2"></div>
-      <div class="step" [class.active]="step() === 3">
-        <div class="circle">3</div>
-        <span class="step-label">Confirmación</span>
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="mobile-header">
+      <div class="logo">
+        <span class="logo-white">Team</span><span class="logo-red">Tecnologia</span>
       </div>
     </div>
 
-    <div class="error-alert" *ngIf="error()">
-      <i class="fa fa-exclamation-circle"></i> {{ error() }}
-    </div>
-
-    <!-- STEP 1 -->
-    <div class="step-content" *ngIf="step() === 1">
-      <h2 class="section-header">1/3 — Datos Personales</h2>
+    <div class="form-card" *ngIf="!success()">
+      <a routerLink="/" class="back-link"><i class="fa fa-arrow-left"></i> Volver al inicio</a>
       
-      <div class="client-type-grid">
-        <label class="client-card" [class.selected]="formData.clientType === 'Persona Natural'">
-          <input type="radio" name="clientType" value="Persona Natural" [(ngModel)]="formData.clientType">
-          <i class="fa fa-user"></i> Persona Natural
+      <div class="title-section">
+        <h1 class="title">Crear mi Cuenta</h1>
+        <p class="subtitle">Únete a nuestro portal premium</p>
+      </div>
+
+      <div class="step-indicator">
+        <div class="step" [class.active]="step() === 1" [class.completed]="step() > 1">
+          <div class="circle">
+            <i class="fa fa-check" *ngIf="step() > 1"></i>
+            <span *ngIf="step() <= 1">1</span>
+          </div>
+          <span class="step-label">Datos</span>
+        </div>
+        <div class="line" [class.completed]="step() > 1"></div>
+        <div class="step" [class.active]="step() === 2" [class.completed]="step() > 2">
+          <div class="circle">
+            <i class="fa fa-check" *ngIf="step() > 2"></i>
+            <span *ngIf="step() <= 2">2</span>
+          </div>
+          <span class="step-label">Acceso</span>
+        </div>
+        <div class="line" [class.completed]="step() > 2"></div>
+        <div class="step" [class.active]="step() === 3">
+          <div class="circle">3</div>
+          <span class="step-label">Confirmación</span>
+        </div>
+      </div>
+
+      <div class="error-alert" *ngIf="error()">
+        <i class="fa fa-exclamation-circle"></i> {{ error() }}
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step-content" *ngIf="step() === 1">
+        
+        <div class="client-type-grid">
+          <label class="client-card" [class.selected]="formData.clientType === 'Persona Natural'">
+            <input type="radio" name="clientType" value="Persona Natural" [(ngModel)]="formData.clientType">
+            <i class="fa fa-user"></i> Persona Natural
+          </label>
+          <label class="client-card" [class.selected]="formData.clientType === 'Empresa'">
+            <input type="radio" name="clientType" value="Empresa" [(ngModel)]="formData.clientType">
+            <i class="fa fa-building"></i> Empresa / B2B
+          </label>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre*</label>
+            <div class="input-wrapper">
+              <i class="fa fa-user input-icon"></i>
+              <input type="text" [(ngModel)]="formData.firstName" placeholder="Tu nombre">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Apellido*</label>
+            <div class="input-wrapper">
+              <i class="fa fa-user input-icon"></i>
+              <input type="text" [(ngModel)]="formData.lastName" placeholder="Tu apellido">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group doc-group">
+          <label>Documento*</label>
+          <div class="doc-input-wrapper">
+            <select [(ngModel)]="formData.docType">
+              <option value="CC">CC</option>
+              <option value="NIT">NIT</option>
+              <option value="CE">CE</option>
+              <option value="PP">PP</option>
+            </select>
+            <input type="text" [(ngModel)]="formData.docNumber" placeholder="Número">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Teléfono*</label>
+            <div class="input-wrapper">
+              <i class="fa fa-phone input-icon"></i>
+              <input type="tel" [(ngModel)]="formData.phone" placeholder="Celular">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Ciudad*</label>
+            <div class="input-wrapper">
+              <i class="fa fa-map-marker input-icon"></i>
+              <input type="text" [(ngModel)]="formData.city" placeholder="Ciudad">
+            </div>
+          </div>
+        </div>
+
+        <button class="submit-btn" (click)="nextStep()">Continuar <i class="fa fa-arrow-right" style="margin-left:8px;"></i></button>
+        <div class="bottom-links">
+          ¿Ya tienes cuenta? <a routerLink="/login" class="signup-link">Inicia sesión</a>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-content" *ngIf="step() === 2">
+        <div class="form-group">
+          <label>Correo Electrónico*</label>
+          <div class="input-wrapper">
+            <i class="fa fa-envelope input-icon"></i>
+            <input type="email" [(ngModel)]="formData.email" placeholder="ejemplo@correo.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña*</label>
+          <div class="input-wrapper">
+            <i class="fa fa-lock input-icon"></i>
+            <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="formData.password" placeholder="••••••••">
+            <button type="button" class="toggle-btn" (click)="togglePassword()">
+              <i class="fa" [ngClass]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+          <div class="strength-bar">
+            <div class="seg red" [class.active]="formData.password.length > 0"></div>
+            <div class="seg orange" [class.active]="formData.password.length > 4"></div>
+            <div class="seg yellow" [class.active]="formData.password.length > 7"></div>
+            <div class="seg green" [class.active]="formData.password.length > 9"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirmar Contraseña*</label>
+          <div class="input-wrapper">
+            <i class="fa fa-lock input-icon"></i>
+            <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="formData.confirmPassword" placeholder="••••••••">
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn-secondary" (click)="prevStep()"><i class="fa fa-arrow-left"></i></button>
+          <button class="submit-btn" style="flex:1;" (click)="nextStep()">Continuar <i class="fa fa-arrow-right" style="margin-left:8px;"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-content" *ngIf="step() === 3">
+        <div class="summary-table">
+          <div class="summary-row">
+            <span class="label">Nombre:</span>
+            <span class="value">{{ formData.firstName }} {{ formData.lastName }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Documento:</span>
+            <span class="value">{{ formData.docType }} {{ formData.docNumber }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Ciudad:</span>
+            <span class="value">{{ formData.city }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Email:</span>
+            <span class="value">{{ formData.email }}</span>
+          </div>
+        </div>
+
+        <label class="terms-checkbox">
+          <input type="checkbox" [(ngModel)]="formData.terms">
+          <span>Acepto los Términos y Condiciones y la Política de Privacidad</span>
         </label>
-        <label class="client-card" [class.selected]="formData.clientType === 'Empresa'">
-          <input type="radio" name="clientType" value="Empresa" [(ngModel)]="formData.clientType">
-          <i class="fa fa-building"></i> Empresa / B2B
-        </label>
-      </div>
 
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Nombre*</label>
-          <input type="text" [(ngModel)]="formData.firstName" placeholder="Tu nombre">
-        </div>
-        <div class="form-group">
-          <label>Apellido*</label>
-          <input type="text" [(ngModel)]="formData.lastName" placeholder="Tu apellido">
-        </div>
-      </div>
-
-      <div class="form-group doc-group">
-        <label>Documento*</label>
-        <div class="doc-input-wrapper">
-          <select [(ngModel)]="formData.docType">
-            <option value="CC">CC</option>
-            <option value="NIT">NIT</option>
-            <option value="CE">CE</option>
-            <option value="PP">PP</option>
-          </select>
-          <input type="text" [(ngModel)]="formData.docNumber" placeholder="Número">
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Teléfono*</label>
-          <input type="tel" [(ngModel)]="formData.phone" placeholder="Celular">
-        </div>
-        <div class="form-group">
-          <label>Ciudad*</label>
-          <input type="text" [(ngModel)]="formData.city" placeholder="Ciudad">
-        </div>
-      </div>
-
-      <button class="btn-primary" (click)="nextStep()">Continuar <i class="fa fa-arrow-right"></i></button>
-    </div>
-
-    <!-- STEP 2 -->
-    <div class="step-content" *ngIf="step() === 2">
-      <h2 class="section-header">2/3 — Datos de Acceso</h2>
-
-      <div class="form-group">
-        <label>Correo Electrónico*</label>
-        <div class="input-with-icon">
-          <i class="fa fa-envelope"></i>
-          <input type="email" [(ngModel)]="formData.email" placeholder="ejemplo@correo.com">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Contraseña*</label>
-        <div class="input-with-icon">
-          <i class="fa fa-lock"></i>
-          <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="formData.password" placeholder="••••••••">
-          <button type="button" class="toggle-btn" (click)="togglePassword()">
-            <i class="fa" [ngClass]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"></i>
+        <div class="btn-group">
+          <button class="btn-secondary" (click)="prevStep()" [disabled]="loading()"><i class="fa fa-arrow-left"></i></button>
+          <button class="submit-btn" style="flex:1;" (click)="submitRegister()" [disabled]="loading()">
+            <span *ngIf="!loading()">CREAR MI CUENTA</span>
+            <i class="fa fa-spinner fa-spin" *ngIf="loading()"></i>
           </button>
         </div>
-        <div class="strength-bar">
-          <div class="seg red" [class.active]="formData.password.length > 0"></div>
-          <div class="seg orange" [class.active]="formData.password.length > 4"></div>
-          <div class="seg yellow" [class.active]="formData.password.length > 7"></div>
-          <div class="seg green" [class.active]="formData.password.length > 9"></div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Confirmar Contraseña*</label>
-        <div class="input-with-icon">
-          <i class="fa fa-lock"></i>
-          <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="formData.confirmPassword" placeholder="••••••••">
-        </div>
-      </div>
-
-      <div class="btn-group">
-        <button class="btn-secondary" (click)="prevStep()"><i class="fa fa-arrow-left"></i> Atrás</button>
-        <button class="btn-primary" (click)="nextStep()">Continuar <i class="fa fa-arrow-right"></i></button>
       </div>
     </div>
 
-    <!-- STEP 3 -->
-    <div class="step-content" *ngIf="step() === 3">
-      <h2 class="section-header">3/3 — Resumen y Confirmación</h2>
-
-      <div class="summary-table">
-        <div class="summary-row">
-          <span class="label">Nombre:</span>
-          <span class="value">{{ formData.firstName }} {{ formData.lastName }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="label">Documento:</span>
-          <span class="value">{{ formData.docType }} {{ formData.docNumber }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="label">Ciudad:</span>
-          <span class="value">{{ formData.city }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="label">Email:</span>
-          <span class="value">{{ formData.email }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="label">Contraseña:</span>
-          <span class="value">********</span>
-        </div>
+    <!-- SUCCESS -->
+    <div class="success-card form-card" *ngIf="success()">
+      <div class="success-checkmark">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
       </div>
-
-      <label class="terms-checkbox">
-        <input type="checkbox" [(ngModel)]="formData.terms">
-        <span>Acepto los Términos y Condiciones y la Política de Privacidad</span>
-      </label>
-
-      <div class="btn-group">
-        <button class="btn-secondary" (click)="prevStep()" [disabled]="loading()"><i class="fa fa-arrow-left"></i> Atrás</button>
-        <button class="btn-primary large" (click)="submitRegister()" [disabled]="loading()">
-          <span *ngIf="!loading()">CREAR MI CUENTA</span>
-          <i class="fa fa-spinner fa-spin" *ngIf="loading()"></i>
-        </button>
-      </div>
+      <h2 class="title" style="text-align: center;">¡Cuenta creada con éxito!</h2>
+      <p class="subtitle" style="text-align: center;">Ya puedes acceder a tu portal de cliente y disfrutar de nuestros beneficios.</p>
+      <button class="submit-btn" (click)="goToLogin()">Ir a Iniciar Sesión <i class="fa fa-arrow-right" style="margin-left:8px;"></i></button>
     </div>
-  </div>
-
-  <!-- SUCCESS -->
-  <div class="success-card" *ngIf="success()">
-    <div class="success-checkmark">
-      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-        <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-      </svg>
-    </div>
-    <h2>¡Cuenta creada con éxito!</h2>
-    <p>Ya puedes acceder a tu portal de cliente y disfrutar de nuestros beneficios.</p>
-    <button class="btn-primary" (click)="goToLogin()">Ir a Iniciar Sesión <i class="fa fa-arrow-right"></i></button>
   </div>
 </div>

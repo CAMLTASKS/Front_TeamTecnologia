@@ -1,22 +1,29 @@
 <!-- Preloader -->
 <app-loading-overlay></app-loading-overlay>
 
-<!-- Mobile Navigation Drawer -->
-<app-mobile-drawer></app-mobile-drawer>
+<ng-container *ngIf="!isAuthRoute">
+  <!-- Mobile Navigation Drawer -->
+  <app-mobile-drawer></app-mobile-drawer>
 
-<!-- Header & Top Navigation -->
-<app-header></app-header>
+  <!-- Header & Top Navigation -->
+  <app-header></app-header>
+</ng-container>
 
 <!-- Router Outlet Body -->
-<main class="main-content" id="MainContent" role="main">
+<main class="main-content" id="MainContent" role="main" [class.auth-layout]="isAuthRoute">
   <router-outlet></router-outlet>
 </main>
 
-<!-- Footer -->
-<app-footer></app-footer>
+<ng-container *ngIf="!isAuthRoute">
+  <!-- Footer -->
+  <app-footer></app-footer>
 
-<!-- Interactive Slide-over Cart -->
-<app-cart-drawer></app-cart-drawer>
+  <!-- Interactive Slide-over Cart -->
+  <app-cart-drawer></app-cart-drawer>
+
+  <!-- Mobile Navigation Dock -->
+  <app-mobile-nav-dock></app-mobile-nav-dock>
+</ng-container>
 
 <!-- Quick View Popup Modal -->
 <app-quick-view-modal></app-quick-view-modal>
@@ -26,6 +33,3 @@
 
 <!-- Bottom-Left Purchase Toast Notification -->
 <app-notification-toast></app-notification-toast>
-
-<!-- Mobile Navigation Dock -->
-<app-mobile-nav-dock></app-mobile-nav-dock>
