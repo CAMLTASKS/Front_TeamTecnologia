@@ -1,0 +1,121 @@
+<div class="contact-page-wrapper">
+  
+  <section class="contact-hero">
+    <div class="contact-hero-content">
+      <span class="contact-subtitle">MÓDULO DE CASOS • SUITECRM</span>
+      <h1 class="contact-title">Soporte Técnico & Registro de Casos ERP</h1>
+      <p class="contact-description">
+        Genera una solicitud directamente en nuestro sistema SuiteCRM. Cada formulario crea un Caso de Soporte (*Cases*) con número de ticket único y asignación prioritaria.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact-content-section">
+    <div class="contact-inner">
+      
+      <div class="contact-grid">
+        
+        <!-- Left: Form creating SuiteCRM Case -->
+        <div class="contact-form-card">
+          <h2 class="form-title">
+            <i class="fa fa-ticket" style="color: var(--color-primary, #d90429); margin-right: 8px;"></i>
+            Crear Caso de Soporte en SuiteCRM
+          </h2>
+
+          <div *ngIf="successMessage()" class="alert-box success-alert">
+            <i class="fa fa-check-circle" style="font-size: 20px;"></i>
+            <span>{{ successMessage() }}</span>
+          </div>
+
+          <div *ngIf="errorMessage()" class="alert-box error-alert">
+            <i class="fa fa-exclamation-triangle" style="font-size: 20px;"></i>
+            <span>{{ errorMessage() }}</span>
+          </div>
+
+          <form (ngSubmit)="submitCase()" class="case-form">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nombre Completo *</label>
+                <input type="text" [(ngModel)]="formData.name" name="name" placeholder="Ej. Carlos Maldonado" required class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" [(ngModel)]="formData.email" name="email" placeholder="ejemplo@empresa.com" required class="form-input">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Teléfono de Contacto</label>
+                <input type="text" [(ngModel)]="formData.phone" name="phone" placeholder="(+57) 300 123 4567" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label>Prioridad del Caso</label>
+                <select [(ngModel)]="formData.priority" name="priority" class="form-input">
+                  <option value="P1">P1 - Crítico / Urgente (Infraestructura)</option>
+                  <option value="P2">P2 - Alta (Falla General)</option>
+                  <option value="P3">P3 - Normal (Consultas de Accesorios)</option>
+                  <option value="P4">P4 - Baja (Requerimiento)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Asunto del Caso *</label>
+              <input type="text" [(ngModel)]="formData.subject" name="subject" placeholder="Ej. Garantía de Teclado Logitech MX Keys" required class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label>Descripción Detallada Requerimiento *</label>
+              <textarea [(ngModel)]="formData.description" name="description" rows="5" placeholder="Describe tu consulta, número de factura o requerimiento técnico..." required class="form-input"></textarea>
+            </div>
+
+            <button type="submit" [disabled]="loading()" class="btn-submit-case">
+              <span *ngIf="!loading()">
+                <i class="fa fa-paper-plane" style="margin-right: 8px;"></i> REGISTRAR CASO EN SUITECRM
+              </span>
+              <span *ngIf="loading()">
+                <i class="fa fa-spinner fa-spin" style="margin-right: 8px;"></i> Guardando en SuiteCRM...
+              </span>
+            </button>
+
+          </form>
+        </div>
+
+        <!-- Right: Contact & Support Info -->
+        <div class="contact-info-col">
+          
+          <div class="contact-info-card">
+            <h3><i class="fa fa-building" style="color: var(--color-primary, #d90429); margin-right: 8px;"></i> Sede Principal Colombia</h3>
+            <p>TeamTecnologia S.A.S.<br>Bogotá D.C., Colombia</p>
+          </div>
+
+          <div class="contact-info-card">
+            <h3><i class="fa fa-phone" style="color: var(--color-primary, #d90429); margin-right: 8px;"></i> Atención Telefónica ERP</h3>
+            <p>Línea Nacional: (+57) 601 555-8899<br>Soporte Técnico 24/7: (+57) 300 999-1122</p>
+          </div>
+
+          <div class="contact-info-card">
+            <h3><i class="fa fa-envelope" style="color: var(--color-primary, #d90429); margin-right: 8px;"></i> Correo Electrónico</h3>
+            <p>soporte&#64;teamtecnologia.com<br>ventas&#64;teamtecnologia.com</p>
+          </div>
+
+          <div class="contact-info-card whatsapp-card">
+            <h3><i class="fa fa-whatsapp" style="color: #25d366; font-size: 24px; margin-right: 8px;"></i> WhatsApp Empresarial</h3>
+            <p>Respuesta inmediata con un especialista de TeamTecnologia.</p>
+            <a href="https://wa.me/573009991122" target="_blank" class="btn-whatsapp">
+              ABRIR CHAT WHATSAPP
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</div>

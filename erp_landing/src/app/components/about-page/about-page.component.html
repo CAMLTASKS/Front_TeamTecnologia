@@ -1,0 +1,53 @@
+<div class="about-page-wrapper">
+  
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <span class="about-subtitle">NOSOTROS • TEAMTECNOLOGIA</span>
+      <h1 class="about-title">Innovación, Hardware & Soluciones ERP Integradas</h1>
+      <p class="about-description">
+        En TeamTecnologia somos especialistas en la provisión de accesorios tecnológicos de alta gama, computadores corporativos, movilidad e integración directa con sistemas de gestión SuiteCRM.
+      </p>
+    </div>
+  </section>
+
+  <!-- Company Overview Grid -->
+  <section class="about-content-section">
+    <div class="about-inner">
+      
+      <div class="about-grid">
+        
+        <div class="about-text-col">
+          <h2 class="section-heading">Nuestra Misión & Compromiso</h2>
+          <p>
+            Proveemos a empresas y profesionales las herramientas tecnológicas, accesorios y hardware necesario para potenciar sus operaciones diarias, garantizando calidad, soporte técnico especializado y entregas eficientes en toda Colombia.
+          </p>
+          
+          <h2 class="section-heading" style="margin-top: 30px;">Soluciones de Comercio ERP</h2>
+          <p>
+            Nuestra plataforma sincroniza inventarios, pedidos y solicitudes de soporte técnico directamente con la suite corporativa SuiteCRM, ofreciendo trazabilidad total desde la orden hasta la entrega al cliente final.
+          </p>
+        </div>
+
+        <div class="about-card-col">
+          <div class="info-highlight-card">
+            <i class="fa fa-shield" style="font-size: 36px; color: var(--color-primary, #d90429); margin-bottom: 16px;"></i>
+            <h3>Garantía Corporativa TeamTecnologia</h3>
+            <p>Todos nuestros accesorios y computadores cuentan con respaldo técnico directo, certificaciones internacionales y soporte posventa prioritario.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div *ngFor="let stat of companyStats" class="stat-card">
+          <div class="stat-number">{{ stat.number }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>

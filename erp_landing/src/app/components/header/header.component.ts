@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../core/services/cart.service';
 import { MobileNavService } from '../../core/services/mobile-nav.service';
 import { CategoryService } from '../../core/services/category.service';
@@ -8,7 +9,7 @@ import { CategoryService } from '../../core/services/category.service';
   styleUrl: './header.component.css',
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
@@ -21,12 +22,12 @@ export class HeaderComponent {
   searchQuery = signal<string>('');
 
   quickTags = [
+    'Teclados Mecánicos',
+    'Mouses Ergonómicos',
+    'Hubs USB-C 4K',
     'Laptops Lenovo ThinkPad',
-    'Servidores Dell PowerEdge',
-    'Switches Cisco Catalyst',
-    'Firewall Fortinet FortiGate',
-    'NVIDIA RTX 4090',
-    'Disco SSD NVMe 2TB'
+    'Samsung Galaxy S24',
+    'Cables HDMI 8K'
   ];
 
   toggleCategory() {

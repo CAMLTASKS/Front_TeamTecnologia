@@ -1,4 +1,4 @@
-<!-- Rotating Preloader -->
+<!-- Preloader -->
 <app-loading-overlay></app-loading-overlay>
 
 <!-- Mobile Navigation Drawer -->
@@ -7,33 +7,9 @@
 <!-- Header & Top Navigation -->
 <app-header></app-header>
 
-<!-- TOP PROMO BANNER CAROUSEL (First Section at Top) -->
-<app-hero-slideshow></app-hero-slideshow>
-
-<!-- Main Landing Content -->
+<!-- Router Outlet Body -->
 <main class="main-content" id="MainContent" role="main">
-  
-  <!-- Technology Category Icons Slider -->
-  <app-category-slider></app-category-slider>
-
-  <!-- FULL ERP TECHNOLOGY CATALOG VIEW (Left Sidebar Filters + Grid Switcher + Products) -->
-  <app-catalog-view></app-catalog-view>
-
-  <!-- Sub-Banners Promo Row -->
-  <app-sub-banners></app-sub-banners>
-
-  <!-- Deal of the Day Countdown -->
-  <app-deal-collection></app-deal-collection>
-
-  <!-- Service Features -->
-  <app-features-bar></app-features-bar>
-
-  <!-- Blog News -->
-  <app-latest-blog></app-latest-blog>
-
-  <!-- Brand Logos -->
-  <app-brand-slider></app-brand-slider>
-
+  <router-outlet></router-outlet>
 </main>
 
 <!-- Footer -->
@@ -48,7 +24,7 @@
 <!-- Bottom Cookie Consent -->
 <app-cookie-banner></app-cookie-banner>
 
-<!-- Bottom-Left Purchase Toast Notification (Matching reference screenshot 1) -->
+<!-- Bottom-Left Purchase Toast Notification -->
 <app-notification-toast></app-notification-toast>
 
 <!-- Mobile Navigation Dock -->

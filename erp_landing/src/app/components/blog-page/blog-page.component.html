@@ -1,0 +1,68 @@
+<div class="blog-page-wrapper">
+  
+  <section class="blog-hero">
+    <div class="blog-hero-content">
+      <span class="blog-subtitle">BASE DE CONOCIMIENTO • SUITECRM KB</span>
+      <h1 class="blog-title">Artículos Técnicos & Novedades en Tecnología</h1>
+      <p class="blog-description">
+        Explora nuestros artículos, guías de hardware y documentación técnica conectada directamente con el módulo de Base de Conocimiento de SuiteCRM.
+      </p>
+    </div>
+  </section>
+
+  <section class="blog-content-section">
+    <div class="blog-inner">
+      
+      <div class="articles-grid">
+        <article *ngFor="let article of articles()" class="blog-card" (click)="openArticle(article)">
+          
+          <div class="card-img-wrap">
+            <span class="category-badge">{{ article.category }}</span>
+            <img [src]="article.image" [alt]="article.title" class="article-img" (error)="$any($event.target).src='/cdn/shop/files/4_100x100.svg'">
+          </div>
+
+          <div class="card-body">
+            <div class="article-meta">
+              <span><i class="fa fa-user"></i> {{ article.author }}</span>
+              <span><i class="fa fa-calendar"></i> {{ article.date }}</span>
+              <span><i class="fa fa-eye"></i> {{ article.views }} Vistas</span>
+            </div>
+
+            <h2 class="article-title">{{ article.title }}</h2>
+
+            <p class="article-excerpt">{{ article.excerpt }}</p>
+
+            <button class="btn-read-more">
+              LEER ARTÍCULO COMPLETO <i class="fa fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- KB Article Reader Modal -->
+<div class="modal-overlay" *ngIf="selectedArticle()" (click)="closeArticle()">
+  <div class="modal-card" (click)="$event.stopPropagation()" *ngIf="selectedArticle() as art">
+    <button class="modal-close" (click)="closeArticle()">&times;</button>
+    <span class="modal-category">{{ art.category }}</span>
+    <h2 class="modal-title">{{ art.title }}</h2>
+    <div class="modal-meta">
+      <span>Por {{ art.author }} • {{ art.date }} • {{ art.views }} Lecturas</span>
+    </div>
+    <div class="modal-body-content">
+      <p><strong>Resumen del Artículo SuiteCRM KB:</strong></p>
+      <p>{{ art.excerpt }}</p>
+      <p>
+        Los accesorios de tecnología representan el componente fundamental para la eficiencia en estaciones de trabajo modernas. Al integrar estos elementos en SuiteCRM, las organizaciones obtienen métricas precisas sobre tasa de uso, rotación de activos y requerimientos de soporte posventa.
+      </p>
+      <div class="kb-note">
+        <i class="fa fa-info-circle"></i> Documento de Base de Conocimiento indexado en SuiteCRM V8.
+      </div>
+    </div>
+  </div>
+</div>
